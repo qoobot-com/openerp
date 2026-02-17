@@ -1,0 +1,953 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- 继承 Spring Boot Parent -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.6</version>
+        <relativePath/>
+    </parent>
+
+
+    <!-- 基本信息 -->
+    <groupId>com.qoobot</groupId>
+    <artifactId>qooerp</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>qooerp</name>
+    <description>qooerp</description>
+    <url>https://github.com/qoobot-com/qooerp</url>
+
+    <!-- 模块声明 -->
+    <modules>
+        <!-- 公共模块 -->
+        <module>qooerp-common</module>
+
+        <!-- P0 核心基础服务 -->
+        <module>qooerp-gateway/qooerp-gateway-service</module>
+        <module>qooerp-gateway/qooerp-gateway-start</module>
+        <module>qooerp-auth/qooerp-auth-service</module>
+        <module>qooerp-auth/qooerp-auth-start</module>
+        <module>qooerp-system/qooerp-system-service</module>
+        <module>qooerp-system/qooerp-system-start</module>
+        <module>qooerp-organization/qooerp-organization-service</module>
+        <module>qooerp-organization/qooerp-organization-start</module>
+        <module>qooerp-user/qooerp-user-service</module>
+        <module>qooerp-user/qooerp-user-start</module>
+        <module>qooerp-permission/qooerp-permission-service</module>
+        <module>qooerp-permission/qooerp-permission-start</module>
+
+        <!-- P1 核心业务服务 -->
+        <module>qooerp-hr/qooerp-hr-service</module>
+        <module>qooerp-hr/qooerp-hr-start</module>
+        <module>qooerp-finance/qooerp-finance-service</module>
+        <module>qooerp-finance/qooerp-finance-start</module>
+        <module>qooerp-scm/qooerp-scm-service</module>
+        <module>qooerp-scm/qooerp-scm-start</module>
+        <module>qooerp-sales/qooerp-sales-service</module>
+        <module>qooerp-sales/qooerp-sales-start</module>
+        <module>qooerp-inventory/qooerp-inventory-service</module>
+        <module>qooerp-inventory/qooerp-inventory-start</module>
+        <module>qooerp-purchase/qooerp-purchase-service</module>
+        <module>qooerp-purchase/qooerp-purchase-start</module>
+
+        <!-- P2 扩展业务服务 -->
+        <module>qooerp-production/qooerp-production-service</module>
+        <module>qooerp-production/qooerp-production-start</module>
+        <module>qooerp-project/qooerp-project-service</module>
+        <module>qooerp-project/qooerp-project-start</module>
+        <module>qooerp-crm/qooerp-crm-service</module>
+        <module>qooerp-crm/qooerp-crm-start</module>
+
+        <!-- P3 高级功能服务 -->
+        <module>qooerp-workflow/qooerp-workflow-service</module>
+        <module>qooerp-workflow/qooerp-workflow-start</module>
+        <module>qooerp-report/qooerp-report-service</module>
+        <module>qooerp-report/qooerp-report-start</module>
+        <module>qooerp-file/qooerp-file-service</module>
+        <module>qooerp-file/qooerp-file-start</module>
+        <module>qooerp-message/qooerp-message-service</module>
+        <module>qooerp-message/qooerp-message-start</module>
+        <module>qooerp-notify/qooerp-notify-service</module>
+        <module>qooerp-notify/qooerp-notify-start</module>
+        <module>qooerp-scheduler/qooerp-scheduler-service</module>
+        <module>qooerp-scheduler/qooerp-scheduler-start</module>
+        <module>qooerp-monitor/qooerp-monitor-service</module>
+        <module>qooerp-monitor/qooerp-monitor-start</module>
+        <module>qooerp-ai/qooerp-ai-service</module>
+        <module>qooerp-ai/qooerp-ai-start</module>
+
+        <!-- All-In-One 聚合服务 -->
+        <module>qooerp-all/qooerp-all-start</module>
+    </modules>
+
+    <!-- 属性配置 -->
+    <properties>
+        <!-- 编码配置 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- Java 版本配置 -->
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
+
+        <!-- 启用虚拟线程 -->
+        <maven.compiler.enablePreview>false</maven.compiler.enablePreview>
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+
+        <!-- Maven 版本要求 -->
+        <maven.version>3.9.0</maven.version>
+        <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
+
+        <!-- Spring Boot 版本 -->
+        <!-- 理由: 选择稳定版本 3.3.6，支持百万级用户规模的高并发场景 -->
+        <spring-boot.version>3.3.6</spring-boot.version>
+
+        <!-- Spring Cloud 版本 -->
+        <!-- 理由: 微服务治理框架，支持服务发现、配置中心、熔断限流、网关等 -->
+        <spring-cloud.version>2023.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2023.0.1.2</spring-cloud-alibaba.version>
+
+        <!-- Spring AI 版本 -->
+        <!-- 理由: AI 集成框架，支持与多种 LLM 模型对接，为 ERP 系统提供智能辅助功能 -->
+        <spring-ai.version>1.0.0-M6</spring-ai.version>
+        <spring-ai-alibaba.version>1.0.0-M6</spring-ai-alibaba.version>
+
+        <!-- LangChain4J 版本 -->
+        <!-- 理由: 轻量级 AI 编程框架，提供更灵活的 LLM 集成能力，适合定制化 AI 功能开发 -->
+        <langchain4j.version>0.34.0</langchain4j.version>
+
+        <!-- Spring 相关版本 -->
+        <!-- 理由: Spring Authorization Server 提供完整的 OAuth 2.1 / OpenID Connect 1.0 支持 -->
+        <spring-authorization-server.version>1.3.0</spring-authorization-server.version>
+        <!-- 理由: OpenAPI 3 文档生成，替代 Swagger，提供更好的 API 文档支持 -->
+        <springdoc.version>2.3.0</springdoc.version>
+
+        <!-- 数据库驱动 -->
+        <!-- 理由: 主数据库选择 PostgreSQL，提供强大的事务支持、JSONB 类型、全文搜索能力 -->
+        <postgresql.version>42.7.4</postgresql.version>
+        <!-- 理由: pgvector 扩展支持向量相似度搜索，为 AI 功能提供向量数据库能力 -->
+        <pgvector.version>0.1.4</pgvector.version>
+        <!-- 理由: 高性能 JDBC 连接池，替代 Druid，提供更好的性能和监控能力 -->
+        <hikaricp.version>6.3.3</hikaricp.version>
+        <!-- 理由: MyBatis 增强工具，简化 CRUD 操作，代码生成功能提升开发效率 -->
+        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <!-- JSON 处理 -->
+        <jackson.version>2.16.0</jackson.version>
+        <fastjson2.version>2.0.60</fastjson2.version>
+
+        <!-- 工具库 -->
+        <!-- 理由: Hutool 是国内最流行的 Java 工具类库，提供丰富的工具方法，大幅减少样板代码 -->
+        <hutool.version>5.8.23</hutool.version>
+        <!-- 理由: Apache Commons Lang，提供字符串、数组、对象操作等基础工具 -->
+        <commons-lang3.version>3.14.0</commons-lang3.version>
+        <!-- 理由: Apache Commons IO，提供文件流操作工具类 -->
+        <commons-io.version>2.15.0</commons-io.version>
+        <!-- 理由: Apache Commons Collections，提供增强的集合操作能力 -->
+        <commons-collections4.version>4.4</commons-collections4.version>
+        <!-- 理由: 阿里开源的 JSON 处理库，性能优异，API 简洁 -->
+        <fastjson2.version>2.0.43</fastjson2.version>
+        <!-- 理由: 通过注解简化 Java 代码，消除样板代码，提升代码可读性 -->
+        <lombok.version>1.18.42</lombok.version>
+
+        <!-- 日志 -->
+        <!-- 理由: Logback 是 Spring Boot 默认日志框架，性能优异，配置灵活 -->
+        <logback.version>1.5.25</logback.version>
+        <!-- 理由: SLF4J 是日志门面，提供统一的日志 API，解耦具体日志实现 -->
+        <slf4j.version>2.0.17</slf4j.version>
+
+        <!-- 安全 -->
+        <!-- 理由: JJWT 是 Java JWT 事实标准库，提供 JWT 生成、验证、解析功能 -->
+        <jjwt.version>0.12.3</jjwt.version>
+
+        <!-- 验证 -->
+        <!-- 理由: Hibernate Validator 是 Bean Validation 规范的参考实现，提供数据校验功能 -->
+        <hibernate-validator.version>8.0.3.Final</hibernate-validator.version>
+
+        <!-- 测试 -->
+        <!-- 理由: JUnit 5 是当前主流的单元测试框架，提供参数化测试、动态测试等高级特性 -->
+        <junit.version>4.13.2</junit.version>
+        <junit-jupiter.version>5.10.0</junit-jupiter.version>
+        <junit-bom.version>5.10.0</junit-bom.version>
+        <!-- 理由: Mockito 是 Java Mock 框架的事实标准，用于单元测试中的依赖 Mock -->
+        <mockito.version>5.7.0</mockito.version>
+        <!-- 理由: Testcontainers 提供容器化测试环境，支持在测试中运行真实的数据库等服务 -->
+        <testcontainers.version>1.19.3</testcontainers.version>
+
+        <!-- 插件版本 -->
+        <!-- 理由: Maven 编译插件，支持 Java 21 虚拟线程等新特性 -->
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <!-- 理由: Spring Boot Maven 插件，提供可执行 JAR 打包、热部署等功能 -->
+        <spring-boot-maven-plugin.version>3.3.6</spring-boot-maven-plugin.version>
+        <!-- 理由: Maven Surefire 插件，用于运行单元测试 -->
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <!-- 理由: JaCoCo 代码覆盖率工具，用于测试质量监控 -->
+        <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+        <!-- 理由: 源码打包插件，用于发布源码 JAR -->
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <!-- 理由: Javadoc 打包插件，用于生成 API 文档 -->
+        <maven-javadoc-plugin.version>3.6.3</maven-javadoc-plugin.version>
+        <!-- 理由: GPG 签名插件，用于 Maven 中央仓库发布 -->
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <!-- 理由: 部署插件，用于构件发布到远程仓库 -->
+        <maven-deploy-plugin.version>3.1.1</maven-deploy-plugin.version>
+    </properties>
+
+
+    <!-- 依赖管理 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot BOM -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud BOM -->
+            <!-- 理由: Spring Cloud 依赖管理，统一微服务组件版本 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Alibaba BOM -->
+            <!-- 理由: 阿里云微服务套件，包含 Nacos、Sentinel、Seata 等 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring AI BOM -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-bom</artifactId>
+                <version>${spring-ai.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- LangChain4J -->
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j</artifactId>
+                <version>${langchain4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>dev.langchain4j</groupId>
+                <artifactId>langchain4j-open-ai</artifactId>
+                <version>${langchain4j.version}</version>
+            </dependency>
+
+            <!-- PostgreSQL Driver -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <!-- pgvector for vector similarity search -->
+            <dependency>
+                <groupId>com.pgvector</groupId>
+                <artifactId>pgvector</artifactId>
+                <version>${pgvector.version}</version>
+            </dependency>
+
+            <!-- Caffeine 本地缓存 (L1缓存) -->
+            <!-- 理由: 高性能本地缓存，作为 L1 缓存，配合 Redis L2 缓存组成二级缓存架构 -->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>3.1.8</version>
+            </dependency>
+
+            <!-- Redis 分布式缓存 (L2缓存) -->
+            <!-- 理由: 分布式缓存，支持多实例共享，作为 L2 缓存，支持百万级用户规模 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
+            <!-- Redisson 分布式锁与高级缓存 -->
+            <!-- 理由: Redis 客户端，提供分布式锁、分布式集合、限流器等高级功能 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>3.29.0</version>
+            </dependency>
+
+            <!-- MyBatis Plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+
+
+
+
+            <!-- Hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- 工具库 -->
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons-collections4.version}</version>
+            </dependency>
+
+            <!-- Flowable工作流 -->
+            <!-- 理由: 轻量级工作流引擎，支持 BPMN 2.0 标准，用于审批流程、业务流程编排 -->
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>7.0.0</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter-process-rest</artifactId>
+                <version>7.0.0</version>
+            </dependency>
+
+            <!-- RocketMQ 消息队列 -->
+            <!-- 理由: 阿里开源的高性能消息队列，支持百万级 TPS，适用于异步解耦、流量削峰 -->
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-spring-boot-starter</artifactId>
+                <version>2.3.1</version>
+            </dependency>
+
+            <!-- Lombok使用项目自带版本，不在此处声明 -->
+
+            <!-- fastjson2 -->
+            <!-- 理由: 阿里开源的 JSON 处理库，性能优异，API 简洁，国产工具生态完善 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <!-- 日志 -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- JWT -->
+            <!-- 理由: JWT (JSON Web Token) 实现，用于无状态认证和授权 -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+
+
+
+
+            <!-- SpringDoc OpenAPI -->
+            <!-- 理由: OpenAPI 3.0 文档生成工具，替代 Swagger，提供更好的 Spring Boot 3 支持 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+
+            <!-- 测试 -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-bom</artifactId>
+                <version>${mockito.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 公共依赖 -->
+    <dependencies>
+        <!-- Spring Boot Starter -->
+        <!-- 理由: Spring Boot 核心依赖，提供自动配置、日志配置、YAML 配置等 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Web Starter -->
+        <!-- 理由: Web 开发依赖，包含 Spring MVC、Tomcat、Jackson 等 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Data JPA -->
+        <!-- 理由: JPA 数据访问抽象，提供 ORM 能力，简化数据库操作 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud LoadBalancer -->
+        <!-- 理由: 客户端负载均衡器，替代 Ribbon，支持多实例负载均衡 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud OpenFeign -->
+        <!-- 理由: 声明式 HTTP 客户端，简化微服务间调用，支持负载均衡和熔断 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- Nacos 服务注册与配置中心 -->
+        <!-- 理由: 阿里开源的服务注册与配置中心，支持百万级实例规模 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+
+        <!-- Sentinel 服务熔断与限流 -->
+        <!-- 理由: 阿里开源的流量控制组件，支持熔断、限流、系统保护，保护系统稳定性 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud Gateway API 网关 -->
+        <!-- 理由: 基于 WebFlux 的 API 网关，支持路由转发、限流、熔断、统一鉴权 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Actuator -->
+        <!-- 理由: 提供生产级别的监控端点，包括健康检查、指标收集、应用信息等 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Spring Cache -->
+        <!-- 理由: Spring Cache 抽象层，统一缓存 API，支持 L1 (Caffeine) + L2 (Redis) 二级缓存架构 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+
+        <!-- Caffeine 本地缓存 (L1) -->
+        <!-- 理由: 高性能本地缓存，作为 L1 缓存，配合 Redis L2 缓存组成二级缓存架构，提升命中率和性能 -->
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
+        <!-- Redis 分布式缓存 (L2) -->
+        <!-- 理由: 分布式缓存，支持多实例共享，作为 L2 缓存，支持百万级用户规模 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <!-- Redisson 分布式锁与高级缓存 -->
+        <!-- 理由: Redis 客户端，提供分布式锁、分布式集合、限流器等高级功能 -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Flyway -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
+
+        <!-- ShardingSphere 分库分表 -->
+        <!-- 理由: 分布式数据库中间件，支持分库分表、读写分离，支持百万级数据量 -->
+        <!-- 注意: 暂时注释，后续需要时再添加 -->
+        <!--
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+        -->
+
+        <!-- Seata 分布式事务 -->
+        <!-- 理由: 分布式事务解决方案，支持 AT/TCC/SAGA 模式，解决微服务分布式事务问题 -->
+        <!-- 注意: 暂时注释，后续需要时再添加 -->
+        <!--
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+        -->
+
+        <!-- Spring Boot Configuration Processor -->
+        <!-- 理由: 配置元数据生成，IDE 配置提示支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- Lombok - 使用项目自带版本 -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 测试 -->
+        <!-- 理由: 包含 JUnit 5, Mockito 等测试框架，提供完整的单元测试支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 构建配置 -->
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- Maven Compiler Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <release>${java.version}</release>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <compilerArgs>
+                            <arg>-parameters</arg>
+                            <arg>-XDignore.symbol.file</arg>
+                        </compilerArgs>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+
+                <!-- Spring Boot Maven Plugin -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
+                    <configuration>
+                        <excludes>
+                            <exclude>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                            </exclude>
+                        </excludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Maven Surefire Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Tests.java</include>
+                        </includes>
+                        <argLine>
+                            --add-opens java.base/java.lang=ALL-UNNAMED
+                            --add-opens java.base/java.util=ALL-UNNAMED
+                        </argLine>
+                    </configuration>
+                </plugin>
+
+                <!-- Jacoco Maven Plugin -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>${jacoco-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>prepare-agent</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>report</id>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                            <configuration>
+                                <formats>
+                                    <format>HTML</format>
+                                    <format>XML</format>
+                                </formats>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>check</id>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <rule>
+                                        <element>BUNDLE</element>
+                                        <limits>
+                                            <limit>
+                                                <counter>INSTRUCTION</counter>
+                                                <value>COVEREDRATIO</value>
+                                                <minimum>0.60</minimum>
+                                            </limit>
+                                            <limit>
+                                                <counter>CLASS</counter>
+                                                <value>COVEREDRATIO</value>
+                                                <minimum>0.60</minimum>
+                                            </limit>
+                                        </limits>
+                                    </rule>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Maven Source Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Maven Javadoc Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <configuration>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <charset>${project.build.sourceEncoding}</charset>
+                        <docencoding>${project.build.sourceEncoding}</docencoding>
+                        <doclint>none</doclint>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Maven GPG Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>${maven-gpg-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>sign-artifacts</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>sign</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Maven Deploy Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+
+                <!-- Maven Enforcer Plugin -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>${maven-enforcer-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>enforce-versions</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>[3.9.0,)</version>
+                                        <message>Maven 3.9.0 or higher is required</message>
+                                    </requireMavenVersion>
+                                    <requireJavaVersion>
+                                        <version>[21,)</version>
+                                        <message>JDK 21 or higher is required</message>
+                                    </requireJavaVersion>
+                                    <banDuplicatePomDependencyVersions/>
+                                    <!-- <requireUpperBoundDeps /> -->
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!-- Maven Enforcer Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+            </plugin>
+
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <!-- Maven Source Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
+
+            <!-- Maven Javadoc Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- 仓库配置 -->
+    <repositories>
+        <!-- Maven Central 仓库 -->
+        <repository>
+            <id>central</id>
+            <name>Maven Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- Spring Milestone 仓库 (Spring AI 需要此仓库) -->
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- 阿里云 Spring AI 仓库 -->
+        <repository>
+            <id>spring-ai-alibaba</id>
+            <name>Spring AI Alibaba Repository</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+        <!-- Shibboleth 仓库（OpenSAML 官方仓库） -->
+        <repository>
+            <id>shibboleth-releases</id>
+            <name>Shibboleth Releases</name>
+            <url>https://shibboleth.net/maven/releases/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- 开发人员信息 -->
+    <developers>
+        <developer>
+            <id>qoobot</id>
+            <name>Qoobot Team</name>
+            <email>dev@qoobot.com</email>
+            <organization>Qoobot</organization>
+            <organizationUrl>https://www.qoobot.com</organizationUrl>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
+    <!-- 许可证信息 -->
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+            <comments>A permissive open source license</comments>
+        </license>
+    </licenses>
+
+    <!-- SCM 信息 -->
+    <scm>
+        <connection>scm:git:git://github.com/qoobot-com/qooerp.git</connection>
+        <developerConnection>scm:git:ssh://github.com:qoobot/qooerp.git</developerConnection>
+        <url>https://github.com/qoobot-com/qooerp/tree/main</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- 分发管理 -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <!-- 组织信息 -->
+    <organization>
+        <name>Qoobot</name>
+        <url>https://www.qoobot.com</url>
+    </organization>
+
+    <!-- 问题追踪 -->
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/qoobot-com/qooerp/issues</url>
+    </issueManagement>
+
+    <!-- 持续集成 -->
+    <ciManagement>
+        <system>GitHub Actions</system>
+        <url>https://github.com/qoobot-com/qooerp/actions</url>
+    </ciManagement>
+
+</project>

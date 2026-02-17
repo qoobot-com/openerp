@@ -1,0 +1,56 @@
+server:
+  port: 8101
+
+spring:
+  application:
+    name: qooerp-monitor
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qooerp_monitor?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: qooerp_monitor
+    password: qooerp_monitor_2026
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: qooerp
+        group: DEFAULT_GROUP
+      config:
+        server-addr: localhost:8848
+        namespace: qooerp
+        group: DEFAULT_GROUP
+        file-extension: yml
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.qoobot.qooerp.monitor: debug
+    com.baomidou.mybatisplus: debug

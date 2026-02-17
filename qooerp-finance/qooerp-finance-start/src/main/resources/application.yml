@@ -1,0 +1,14 @@
+server:
+  port: 9032
+
+spring:
+  application:
+    name: qooerp-finance
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: qooerp
+
+  profiles:
+    active: dev

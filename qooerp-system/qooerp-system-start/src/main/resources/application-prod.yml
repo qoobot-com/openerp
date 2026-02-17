@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos-prod:8848
+        namespace: qooerp-prod
+        group: DEFAULT_GROUP
+      config:
+        server-addr: nacos-prod:8848
+        namespace: qooerp-prod
+        group: DEFAULT_GROUP
+
+  datasource:
+    url: jdbc:postgresql://postgres-prod:5432/qooerp
+    username: qooerp
+    password: ${DB_PASSWORD}
+
+  data:
+    redis:
+      host: redis-prod
+      password: ${REDIS_PASSWORD}
+
+logging:
+  level:
+    root: WARN
+    com.qoobot.system: INFO
+  file:
+    name: /data/qooerp/logs/qooerp-system.log

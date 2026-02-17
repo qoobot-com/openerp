@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.file.mapper.FileShareMapper">
+
+    <select id="selectByShareCode" resultType="com.qoobot.qooerp.file.entity.FileShare">
+        SELECT * FROM file_share
+        WHERE share_code = #{shareCode}
+          AND deleted = 0
+        LIMIT 1
+    </select>
+
+    <select id="selectByFileId" resultType="com.qoobot.qooerp.file.entity.FileShare">
+        SELECT * FROM file_share
+        WHERE file_id = #{fileId}
+          AND tenant_id = #{tenantId}
+          AND deleted = 0
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

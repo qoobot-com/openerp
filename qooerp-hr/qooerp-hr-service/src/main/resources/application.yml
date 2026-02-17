@@ -1,0 +1,123 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: qooerp-hr
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        namespace: qooerp
+        metadata:
+          version: 1.0.0
+      config:
+        server-addr: ${NACOS_ADDR:localhost:8848}
+        namespace: qooerp
+        group-id: HR_GROUP
+        file-extension: yml
+        shared-configs:
+          - data-id: hr-common.yml
+            group-id: COMMON_GROUP
+            refresh: true
+
+  # 数据源配置
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:qooerp_hr}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: HrHikariCP
+
+  # Redis配置
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    database: 0
+    password: ${REDIS_PASSWORD:}
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: -1ms
+
+  # 缓存配置
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=30m
+
+# MyBatis Plus配置
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.qoobot.qooerp.hr.**.domain
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Flyway配置
+spring:
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    encoding: UTF-8
+
+# OpenAPI配置
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  group-configs:
+    - group: 'hr-employee'
+      paths-to-match: /employee/**
+      display-name: '员工管理'
+    - group: 'hr-attendance'
+      paths-to-match: /attendance/**
+      display-name: '考勤管理'
+    - group: 'hr-salary'
+      paths-to-match: /salary/**
+      display-name: '薪资管理'
+    - group: 'hr-performance'
+      paths-to-match: /performance/**
+      display-name: '绩效管理'
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.qoobot.qooerp.hr: DEBUG
+    com.qoobot.qooerp.common: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+  file:
+    name: /data/qooerp/logs/hr/hr.log
+    max-size: 100MB
+    max-history: 30
+
+# 监控配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+      env: ${spring.profiles.active}

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.file.mapper.FileFolderMapper">
+
+    <select id="selectByParentId" resultType="com.qoobot.qooerp.file.entity.FileFolder">
+        SELECT * FROM file_folder
+        WHERE parent_id = #{parentId}
+          AND tenant_id = #{tenantId}
+          AND deleted = 0
+        ORDER BY sort ASC, create_time ASC
+    </select>
+
+    <select id="selectFolderTree" resultType="com.qoobot.qooerp.file.entity.FileFolder">
+        SELECT * FROM file_folder
+        WHERE tenant_id = #{tenantId}
+          AND status = 1
+          AND deleted = 0
+        ORDER BY folder_level ASC, sort ASC
+    </select>
+
+    <select id="checkNameExists" resultType="long">
+        SELECT COUNT(*) FROM file_folder
+        WHERE parent_id = #{parentId}
+          AND folder_name = #{folderName}
+          AND tenant_id = #{tenantId}
+          AND deleted = 0
+        <if test="excludeId != null">
+            AND id != #{excludeId}
+        </if>
+    </select>
+
+</mapper>

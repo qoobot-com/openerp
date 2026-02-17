@@ -1,0 +1,83 @@
+package com.qoobot.qooerp.auth.strategy.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.qoobot.qooerp.auth.constants.AuthConstant;
+import com.qoobot.qooerp.auth.dto.LoginRequest;
+import com.qoobot.qooerp.auth.dto.LoginResponse;
+import com.qoobot.qooerp.auth.entity.AuthUser;
+import com.qoobot.qooerp.auth.exception.LoginFailedException;
+import com.qoobot.qooerp.auth.mapper.AuthUserMapper;
+import com.qoobot.qooerp.auth.strategy.LoginStrategy;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+
+/**
+ * 手机验证码登录策略
+ */
+@Slf4j
+@Component
+@RequiredArgsConstructor
+public class SmsLoginStrategy implements LoginStrategy {
+
+    private final AuthUserMapper authUserMapper;
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    @Override
+    public boolean supports(String loginType) {
+        return AuthConstant.LOGIN_TYPE_PHONE.equals(loginType);
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest request) {
+        validate(request);
+
+        String phone = request.getPhone();
+        String code = request.getPhoneCode();
+
+        // 验证验证码
+        String cacheKey = AuthConstant.SMS_CODE_KEY + phone;
+        String cachedCode = (String) redisTemplate.opsForValue().get(cacheKey);
+        if (cachedCode == null || !cachedCode.equals(code)) {
+            throw new LoginFailedException("验证码错误或已过期");
+        }
+
+        // 查询用户
+        LambdaQueryWrapper<AuthUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(AuthUser::getPhone, phone);
+        queryWrapper.eq(AuthUser::getDeleted, 0);
+        AuthUser user = authUserMapper.selectOne(queryWrapper);
+
+        if (user == null) {
+            throw new LoginFailedException("手机号未注册");
+        }
+
+        // 检查用户状态
+        if (user.getStatus() != AuthConstant.USER_STATUS_ENABLED) {
+            throw new LoginFailedException("账户已被禁用");
+        }
+
+        // 删除验证码
+        redisTemplate.delete(cacheKey);
+
+        return LoginResponse.builder()
+                .userId(user.getId())
+                .username(user.getUsername())
+                .realName(user.getRealName())
+                .phone(user.getPhone())
+                .email(user.getEmail())
+                .status(user.getStatus())
+                .build();
+    }
+
+    @Override
+    public void validate(LoginRequest request) {
+        if (request.getPhone() == null || request.getPhone().trim().isEmpty()) {
+            throw new LoginFailedException("手机号不能为空");
+        }
+        if (request.getPhoneCode() == null || request.getPhoneCode().trim().isEmpty()) {
+            throw new LoginFailedException("验证码不能为空");
+        }
+    }
+}

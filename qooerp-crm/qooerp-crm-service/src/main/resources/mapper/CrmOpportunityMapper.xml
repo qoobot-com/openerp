@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.crm.mapper.CrmOpportunityMapper">
+
+    <select id="selectPageWithCondition" resultType="com.qoobot.qooerp.crm.entity.CrmOpportunity">
+        SELECT * FROM crm_opportunity
+        WHERE deleted = 0
+        <if test="customerId != null">
+            AND customer_id = #{customerId}
+        </if>
+        <if test="stage != null">
+            AND stage = #{stage}
+        </if>
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        <if test="ownerId != null">
+            AND owner_id = #{ownerId}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

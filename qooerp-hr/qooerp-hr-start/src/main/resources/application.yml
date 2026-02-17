@@ -1,0 +1,19 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: qooerp-hr
+  profiles:
+    active: dev
+
+logging:
+  level:
+    root: INFO
+    com.qoobot.qooerp.hr: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: /data/qooerp/logs/hr/hr.log
+    max-size: 100MB
+    max-history: 30

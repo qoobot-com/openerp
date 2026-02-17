@@ -1,0 +1,52 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        # 认证服务路由
+        - id: qooerp-auth
+          uri: lb://qooerp-auth
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=2
+            - name: Retry
+              args:
+                retries: 3
+                statuses: BAD_GATEWAY,SERVICE_UNAVAILABLE
+
+        # 用户服务路由
+        - id: qooerp-user
+          uri: lb://qooerp-user
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=2
+
+        # 权限服务路由
+        - id: qooerp-permission
+          uri: lb://qooerp-permission
+          predicates:
+            - Path=/api/permission/**
+          filters:
+            - StripPrefix=2
+
+        # 组织服务路由
+        - id: qooerp-organization
+          uri: lb://qooerp-organization
+          predicates:
+            - Path=/api/organization/**
+          filters:
+            - StripPrefix=2
+
+        # 系统服务路由
+        - id: qooerp-system
+          uri: lb://qooerp-system
+          predicates:
+            - Path=/api/system/**
+          filters:
+            - StripPrefix=2
+
+  redis:
+    host: localhost
+    port: 6379
+    database: 0

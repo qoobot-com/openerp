@@ -1,0 +1,29 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: qooerp-test
+        group: DEFAULT_GROUP
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: qooerp-test
+        group: DEFAULT_GROUP
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qooerp_test
+    username: postgres
+    password: postgres
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password:
+
+logging:
+  level:
+    root: INFO
+    com.qoobot.system: DEBUG
+  file:
+    name: logs/qooerp-system-test.log

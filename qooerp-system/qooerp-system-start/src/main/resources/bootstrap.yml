@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: qooerp-system
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${NACOS_ADDR:127.0.0.1:8848}
+        namespace: ${NACOS_NAMESPACE:qooerp-dev}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+        enabled: true
+      config:
+        server-addr: ${NACOS_ADDR:127.0.0.1:8848}
+        namespace: ${NACOS_NAMESPACE:qooerp-dev}
+        group: ${NACOS_GROUP:DEFAULT_GROUP}
+        file-extension: yml
+        refresh-enabled: true
+        enabled: true

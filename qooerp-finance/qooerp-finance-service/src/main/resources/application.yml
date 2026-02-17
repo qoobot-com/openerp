@@ -1,0 +1,52 @@
+server:
+  port: 8032
+
+spring:
+  application:
+    name: qooerp-finance-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: qooerp
+      config:
+        server-addr: localhost:8848
+        namespace: qooerp
+        file-extension: yml
+        shared-configs:
+          - data-id: qooerp-common.yml
+            group: DEFAULT_GROUP
+            refresh: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/qooerp_finance
+    username: postgres
+    password: postgres
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 3
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  type-aliases-package: com.qoobot.qooerp.finance.**.domain
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
