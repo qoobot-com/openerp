@@ -96,7 +96,7 @@ public class PermissionDataScopeServiceImpl implements PermissionDataScopeServic
             PermissionDataRule rule = getDataRuleByRoleAndResource(role.getId(), resourceType);
             if (rule != null && rule.getDataScope() != null) {
                 if (result == DataScopeEnum.SELF || rule.getDataScope() < result.getCode()) {
-                    result = DataScopeEnum.fromCode(rule.getDataScope());
+                    result = DataScopeEnum.getByCode(rule.getDataScope());
                 }
             }
         }

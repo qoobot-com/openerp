@@ -1,3 +1,18 @@
+-- ============================================================================
+-- PostgreSQL 数据库初始化脚本
+-- ============================================================================
+
+-- 创建更新时间触发器函数
+CREATE OR REPLACE FUNCTION update_modified_time()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.update_time = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+\c qooerp_hr
+
 -- QooERP 人力资源管理 - 数据库初始化脚本
 -- 版本：v1.0
 -- 创建日期：2026-02-17
@@ -6,11 +21,9 @@
 -- ============================================
 -- 1. 创建数据库
 -- ============================================
-CREATE DATABASE IF NOT EXISTS qooerp_hr 
-DEFAULT CHARACTER SET utf8mb4 
-DEFAULT COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE qooerp_hr WITH ENCODING 'UTF8';
 
-USE qooerp_hr;
+
 
 -- ============================================
 -- 2. 创建员工表
@@ -18,7 +31,7 @@ USE qooerp_hr;
 DROP TABLE IF EXISTS hr_employee;
 
 CREATE TABLE hr_employee (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     employee_code VARCHAR(32) NOT NULL COMMENT '员工编号',
     user_id BIGINT DEFAULT NULL COMMENT '用户ID',
@@ -45,20 +58,20 @@ CREATE TABLE hr_employee (
     remark VARCHAR(512) DEFAULT NULL COMMENT '备注',
     extend_info TEXT DEFAULT NULL COMMENT '扩展信息JSON',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
-    version INT NOT NULL DEFAULT 0 COMMENT '版本号',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    version INTEGER NOT NULL DEFAULT 0 COMMENT '版本号',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_employee_code (tenant_id, employee_code),
-    KEY idx_user_id (user_id),
-    KEY idx_department_id (department_id),
-    KEY idx_position_id (position_id),
-    KEY idx_status (status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='员工表';
+    UNIQUE INDEX uk_employee_code (tenant_id, employee_code),
+    INDEX idx_user_id (user_id),
+    INDEX idx_department_id (department_id),
+    INDEX idx_position_id (position_id),
+    INDEX idx_status (status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 3. 创建员工教育经历表
@@ -66,7 +79,7 @@ CREATE TABLE hr_employee (
 DROP TABLE IF EXISTS hr_employee_education;
 
 CREATE TABLE hr_employee_education (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     employee_id BIGINT NOT NULL COMMENT '员工ID',
     school_name VARCHAR(128) NOT NULL COMMENT '学校名称',
@@ -75,17 +88,17 @@ CREATE TABLE hr_employee_education (
     major VARCHAR(128) DEFAULT NULL COMMENT '专业',
     start_date DATE DEFAULT NULL COMMENT '入学时间',
     end_date DATE DEFAULT NULL COMMENT '毕业时间',
-    is_full_time TINYINT NOT NULL DEFAULT 1 COMMENT '是否全日制',
+    is_full_time SMALLINT NOT NULL DEFAULT 1 COMMENT '是否全日制',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
     PRIMARY KEY (id),
-    KEY idx_employee_id (employee_id),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='员工教育经历表';
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 4. 创建员工工作经历表
@@ -93,7 +106,7 @@ CREATE TABLE hr_employee_education (
 DROP TABLE IF EXISTS hr_employee_experience;
 
 CREATE TABLE hr_employee_experience (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     employee_id BIGINT NOT NULL COMMENT '员工ID',
     company_name VARCHAR(128) NOT NULL COMMENT '公司名称',
@@ -104,15 +117,15 @@ CREATE TABLE hr_employee_experience (
     leave_reason VARCHAR(256) DEFAULT NULL COMMENT '离职原因',
     job_description TEXT DEFAULT NULL COMMENT '工作内容',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
     PRIMARY KEY (id),
-    KEY idx_employee_id (employee_id),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='员工工作经历表';
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 5. 创建考勤记录表
@@ -120,28 +133,28 @@ CREATE TABLE hr_employee_experience (
 DROP TABLE IF EXISTS hr_attendance;
 
 CREATE TABLE hr_attendance (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     employee_id BIGINT NOT NULL COMMENT '员工ID',
     attendance_date DATE NOT NULL COMMENT '考勤日期',
     check_in_type VARCHAR(20) NOT NULL COMMENT '打卡类型',
-    check_time DATETIME NOT NULL COMMENT '打卡时间',
+    check_time TIMESTAMP NOT NULL COMMENT '打卡时间',
     location VARCHAR(256) DEFAULT NULL COMMENT '打卡地点',
     check_method VARCHAR(20) DEFAULT NULL COMMENT '打卡方式',
     device_id VARCHAR(64) DEFAULT NULL COMMENT '设备ID',
     device_ip VARCHAR(64) DEFAULT NULL COMMENT '设备IP',
     remark VARCHAR(512) DEFAULT NULL COMMENT '备注',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
     PRIMARY KEY (id),
-    KEY idx_employee_date (employee_id, attendance_date),
-    KEY idx_check_time (check_time),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='考勤记录表';
+    INDEX idx_employee_date (employee_id, attendance_date),
+    INDEX idx_check_time (check_time),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 6. 创建请假记录表
@@ -149,7 +162,7 @@ CREATE TABLE hr_attendance (
 DROP TABLE IF EXISTS hr_leave;
 
 CREATE TABLE hr_leave (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     leave_code VARCHAR(32) NOT NULL COMMENT '请假编号',
     employee_id BIGINT NOT NULL COMMENT '员工ID',
@@ -160,24 +173,24 @@ CREATE TABLE hr_leave (
     reason VARCHAR(512) DEFAULT NULL COMMENT '请假原因',
     approver_id BIGINT DEFAULT NULL COMMENT '审批人ID',
     approval_status VARCHAR(20) NOT NULL DEFAULT 'PENDING' COMMENT '审批状态',
-    approval_time DATETIME DEFAULT NULL COMMENT '审批时间',
+    approval_time TIMESTAMP DEFAULT NULL COMMENT '审批时间',
     approval_comment VARCHAR(512) DEFAULT NULL COMMENT '审批意见',
     attachment_id BIGINT DEFAULT NULL COMMENT '附件ID',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
-    version INT NOT NULL DEFAULT 0 COMMENT '版本号',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    version INTEGER NOT NULL DEFAULT 0 COMMENT '版本号',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_leave_code (tenant_id, leave_code),
-    KEY idx_employee_id (employee_id),
-    KEY idx_approver_id (approver_id),
-    KEY idx_approval_status (approval_status),
-    KEY idx_date_range (start_date, end_date),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='请假记录表';
+    UNIQUE INDEX uk_leave_code (tenant_id, leave_code),
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_approver_id (approver_id),
+    INDEX idx_approval_status (approval_status),
+    INDEX idx_date_range (start_date, end_date),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 7. 创建加班记录表
@@ -185,35 +198,35 @@ CREATE TABLE hr_leave (
 DROP TABLE IF EXISTS hr_overtime;
 
 CREATE TABLE hr_overtime (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     overtime_code VARCHAR(32) NOT NULL COMMENT '加班编号',
     employee_id BIGINT NOT NULL COMMENT '员工ID',
     overtime_type VARCHAR(20) NOT NULL COMMENT '加班类型',
     overtime_date DATE NOT NULL COMMENT '加班日期',
-    start_time DATETIME NOT NULL COMMENT '开始时间',
-    end_time DATETIME NOT NULL COMMENT '结束时间',
+    start_time TIMESTAMP NOT NULL COMMENT '开始时间',
+    end_time TIMESTAMP NOT NULL COMMENT '结束时间',
     overtime_hours DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '加班时长（小时）',
     reason VARCHAR(512) DEFAULT NULL COMMENT '加班原因',
     approver_id BIGINT DEFAULT NULL COMMENT '审批人ID',
     approval_status VARCHAR(20) NOT NULL DEFAULT 'PENDING' COMMENT '审批状态',
-    approval_time DATETIME DEFAULT NULL COMMENT '审批时间',
+    approval_time TIMESTAMP DEFAULT NULL COMMENT '审批时间',
     approval_comment VARCHAR(512) DEFAULT NULL COMMENT '审批意见',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
-    version INT NOT NULL DEFAULT 0 COMMENT '版本号',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    version INTEGER NOT NULL DEFAULT 0 COMMENT '版本号',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_overtime_code (tenant_id, overtime_code),
-    KEY idx_employee_id (employee_id),
-    KEY idx_overtime_date (overtime_date),
-    KEY idx_approver_id (approver_id),
-    KEY idx_approval_status (approval_status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='加班记录表';
+    UNIQUE INDEX uk_overtime_code (tenant_id, overtime_code),
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_overtime_date (overtime_date),
+    INDEX idx_approver_id (approver_id),
+    INDEX idx_approval_status (approval_status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 8. 创建出差记录表
@@ -221,7 +234,7 @@ CREATE TABLE hr_overtime (
 DROP TABLE IF EXISTS hr_business_trip;
 
 CREATE TABLE hr_business_trip (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     trip_code VARCHAR(32) NOT NULL COMMENT '出差编号',
     employee_id BIGINT NOT NULL COMMENT '员工ID',
@@ -234,23 +247,23 @@ CREATE TABLE hr_business_trip (
     actual_amount DECIMAL(18,2) DEFAULT 0.00 COMMENT '实际金额',
     approver_id BIGINT DEFAULT NULL COMMENT '审批人ID',
     approval_status VARCHAR(20) NOT NULL DEFAULT 'PENDING' COMMENT '审批状态',
-    approval_time DATETIME DEFAULT NULL COMMENT '审批时间',
+    approval_time TIMESTAMP DEFAULT NULL COMMENT '审批时间',
     approval_comment VARCHAR(512) DEFAULT NULL COMMENT '审批意见',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
-    version INT NOT NULL DEFAULT 0 COMMENT '版本号',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    version INTEGER NOT NULL DEFAULT 0 COMMENT '版本号',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_trip_code (tenant_id, trip_code),
-    KEY idx_employee_id (employee_id),
-    KEY idx_date_range (start_date, end_date),
-    KEY idx_approver_id (approver_id),
-    KEY idx_approval_status (approval_status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='出差记录表';
+    UNIQUE INDEX uk_trip_code (tenant_id, trip_code),
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_date_range (start_date, end_date),
+    INDEX idx_approver_id (approver_id),
+    INDEX idx_approval_status (approval_status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 9. 创建薪资记录表
@@ -258,7 +271,7 @@ CREATE TABLE hr_business_trip (
 DROP TABLE IF EXISTS hr_salary;
 
 CREATE TABLE hr_salary (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     salary_code VARCHAR(32) NOT NULL COMMENT '薪资编号',
     employee_id BIGINT NOT NULL COMMENT '员工ID',
@@ -280,19 +293,19 @@ CREATE TABLE hr_salary (
     payment_date DATE DEFAULT NULL COMMENT '发放日期',
     remark VARCHAR(512) DEFAULT NULL COMMENT '备注',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
-    version INT NOT NULL DEFAULT 0 COMMENT '版本号',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    version INTEGER NOT NULL DEFAULT 0 COMMENT '版本号',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_salary_code (tenant_id, salary_code),
-    KEY idx_employee_month (employee_id, salary_month),
-    KEY idx_salary_month (salary_month),
-    KEY idx_payment_status (payment_status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='薪资记录表';
+    UNIQUE INDEX uk_salary_code (tenant_id, salary_code),
+    INDEX idx_employee_month (employee_id, salary_month),
+    INDEX idx_salary_month (salary_month),
+    INDEX idx_payment_status (payment_status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 10. 创建薪资项目表
@@ -300,7 +313,7 @@ CREATE TABLE hr_salary (
 DROP TABLE IF EXISTS hr_salary_item;
 
 CREATE TABLE hr_salary_item (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     item_code VARCHAR(32) NOT NULL COMMENT '项目编码',
     item_name VARCHAR(64) NOT NULL COMMENT '项目名称',
@@ -309,21 +322,21 @@ CREATE TABLE hr_salary_item (
     calculation_method VARCHAR(20) NOT NULL DEFAULT 'FIXED' COMMENT '计算方式',
     formula TEXT DEFAULT NULL COMMENT '计算公式',
     default_value DECIMAL(18,2) DEFAULT 0.00 COMMENT '默认值',
-    is_enabled TINYINT NOT NULL DEFAULT 1 COMMENT '是否启用',
-    sort_order INT NOT NULL DEFAULT 0 COMMENT '排序号',
+    is_enabled SMALLINT NOT NULL DEFAULT 1 COMMENT '是否启用',
+    sort_order INTEGER NOT NULL DEFAULT 0 COMMENT '排序号',
     remark VARCHAR(512) DEFAULT NULL COMMENT '备注',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_item_code (tenant_id, item_code),
-    KEY idx_item_type (item_type),
-    KEY idx_item_category (item_category),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='薪资项目表';
+    UNIQUE INDEX uk_item_code (tenant_id, item_code),
+    INDEX idx_item_type (item_type),
+    INDEX idx_item_category (item_category),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 11. 创建绩效考核计划表
@@ -331,14 +344,14 @@ CREATE TABLE hr_salary_item (
 DROP TABLE IF EXISTS hr_performance_plan;
 
 CREATE TABLE hr_performance_plan (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     plan_code VARCHAR(32) NOT NULL COMMENT '计划编号',
     plan_name VARCHAR(128) NOT NULL COMMENT '计划名称',
     period_type VARCHAR(20) NOT NULL COMMENT '考核周期',
-    year INT NOT NULL COMMENT '考核年份',
-    quarter INT DEFAULT NULL COMMENT '考核季度',
-    month INT DEFAULT NULL COMMENT '考核月份',
+    year INTEGER NOT NULL COMMENT '考核年份',
+    quarter INTEGER DEFAULT NULL COMMENT '考核季度',
+    month INTEGER DEFAULT NULL COMMENT '考核月份',
     start_date DATE NOT NULL COMMENT '开始日期',
     end_date DATE NOT NULL COMMENT '结束日期',
     self_assessment_start DATE DEFAULT NULL COMMENT '自评开始日期',
@@ -348,19 +361,19 @@ CREATE TABLE hr_performance_plan (
     status VARCHAR(20) NOT NULL DEFAULT 'DRAFT' COMMENT '计划状态',
     remark VARCHAR(512) DEFAULT NULL COMMENT '备注',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
-    version INT NOT NULL DEFAULT 0 COMMENT '版本号',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    version INTEGER NOT NULL DEFAULT 0 COMMENT '版本号',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_plan_code (tenant_id, plan_code),
-    KEY idx_period (year, quarter, month),
-    KEY idx_date_range (start_date, end_date),
-    KEY idx_status (status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='绩效考核计划表';
+    UNIQUE INDEX uk_plan_code (tenant_id, plan_code),
+    INDEX idx_period (year, quarter, month),
+    INDEX idx_date_range (start_date, end_date),
+    INDEX idx_status (status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 12. 创建绩效评估表
@@ -368,7 +381,7 @@ CREATE TABLE hr_performance_plan (
 DROP TABLE IF EXISTS hr_performance_assessment;
 
 CREATE TABLE hr_performance_assessment (
-    id BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+    id BIGSERIAL NOT NULL COMMENT '主键ID',
     tenant_id BIGINT NOT NULL DEFAULT 0 COMMENT '租户ID',
     assessment_code VARCHAR(32) NOT NULL COMMENT '评估编号',
     plan_id BIGINT NOT NULL COMMENT '计划ID',
@@ -386,22 +399,22 @@ CREATE TABLE hr_performance_assessment (
     assessment_date DATE DEFAULT NULL COMMENT '评估日期',
     approver_id BIGINT DEFAULT NULL COMMENT '审批人ID',
     approval_status VARCHAR(20) NOT NULL DEFAULT 'PENDING' COMMENT '审批状态',
-    approval_time DATETIME DEFAULT NULL COMMENT '审批时间',
+    approval_time TIMESTAMP DEFAULT NULL COMMENT '审批时间',
     created_by BIGINT DEFAULT NULL COMMENT '创建人ID',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_by BIGINT DEFAULT NULL COMMENT '更新人ID',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '删除标记',
-    version INT NOT NULL DEFAULT 0 COMMENT '版本号',
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP  COMMENT '更新时间',
+    deleted SMALLINT NOT NULL DEFAULT 0 COMMENT '删除标记',
+    version INTEGER NOT NULL DEFAULT 0 COMMENT '版本号',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_assessment_code (tenant_id, assessment_code),
-    KEY idx_plan_employee (plan_id, employee_id),
-    KEY idx_assessor_id (assessor_id),
-    KEY idx_grade (grade),
-    KEY idx_approval_status (approval_status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='绩效评估表';
+    UNIQUE INDEX uk_assessment_code (tenant_id, assessment_code),
+    INDEX idx_plan_employee (plan_id, employee_id),
+    INDEX idx_assessor_id (assessor_id),
+    INDEX idx_grade (grade),
+    INDEX idx_approval_status (approval_status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- ============================================
 -- 初始化数据

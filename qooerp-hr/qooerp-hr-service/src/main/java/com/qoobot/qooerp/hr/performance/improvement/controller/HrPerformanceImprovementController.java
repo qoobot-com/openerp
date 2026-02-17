@@ -1,6 +1,6 @@
 package com.qoobot.qooerp.hr.performance.improvement.controller;
 
-import com.qoobot.qooerp.common.core.domain.Result;
+import com.qoobot.qooerp.common.response.Result;
 import com.qoobot.qooerp.hr.performance.improvement.domain.HrPerformanceImprovement;
 import com.qoobot.qooerp.hr.performance.improvement.service.IHrPerformanceImprovementService;
 import org.springframework.beans.factory.annotation.Autowired;

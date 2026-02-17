@@ -190,7 +190,7 @@ public class SystemMonitorServiceImpl extends ServiceImpl<SystemMonitorMapper, S
         LambdaQueryWrapper<SystemMonitor> wrapper = new LambdaQueryWrapper<>();
         wrapper.lt(SystemMonitor::getMonitorTime, expireTime);
 
-        int count = count(wrapper);
+        long count = count(wrapper);
         if (count > 0) {
             remove(wrapper);
             log.info("清理过期监控数据: {} 条", count);

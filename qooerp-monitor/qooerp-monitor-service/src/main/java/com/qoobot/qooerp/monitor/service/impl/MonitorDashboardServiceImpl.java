@@ -63,7 +63,7 @@ public class MonitorDashboardServiceImpl implements MonitorDashboardService {
         List<MonitorMetrics> metrics = metricsMapper.selectList(
                 new LambdaQueryWrapper<MonitorMetrics>()
                         .eq(MonitorMetrics::getTenantId, TenantContextHolder.getTenantId())
-                        .ge(MonitorMetrics::getCollectTime, LocalDateTime.now().minusMinutes(5))
+                        .ge(MonitorMetrics::getTime, LocalDateTime.now().minusMinutes(5))
         );
 
         if (!metrics.isEmpty()) {
@@ -73,7 +73,7 @@ public class MonitorDashboardServiceImpl implements MonitorDashboardService {
             if (metricsByType.containsKey("cpu")) {
                 List<MonitorMetrics> cpuMetrics = metricsByType.get("cpu");
                 BigDecimal cpuAvg = cpuMetrics.stream()
-                        .map(MonitorMetrics::getMetricValue)
+                        .map(m -> BigDecimal.valueOf(m.getMetricValue()))
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
                         .divide(BigDecimal.valueOf(cpuMetrics.size()), 2, RoundingMode.HALF_UP);
                 dashboardMetrics.setCpuUsage(cpuAvg);
@@ -82,7 +82,7 @@ public class MonitorDashboardServiceImpl implements MonitorDashboardService {
             if (metricsByType.containsKey("memory")) {
                 List<MonitorMetrics> memoryMetrics = metricsByType.get("memory");
                 BigDecimal memoryAvg = memoryMetrics.stream()
-                        .map(MonitorMetrics::getMetricValue)
+                        .map(m -> BigDecimal.valueOf(m.getMetricValue()))
                         .reduce(BigDecimal.ZERO, BigDecimal::add)
                         .divide(BigDecimal.valueOf(memoryMetrics.size()), 2, RoundingMode.HALF_UP);
                 dashboardMetrics.setMemoryUsage(memoryAvg);
@@ -158,7 +158,7 @@ public class MonitorDashboardServiceImpl implements MonitorDashboardService {
             wrapper.eq(MonitorMetrics::getTenantId, TenantContextHolder.getTenantId());
             wrapper.eq(MonitorMetrics::getServiceName, dto.getServiceName());
             wrapper.eq(MonitorMetrics::getMetricName, dto.getMetricName());
-            wrapper.orderByAsc(MonitorMetrics::getCollectTime);
+            wrapper.orderByAsc(MonitorMetrics::getTime);
 
             List<MonitorMetrics> metrics = metricsMapper.selectList(wrapper);
 
@@ -167,8 +167,8 @@ public class MonitorDashboardServiceImpl implements MonitorDashboardService {
 
             List<MetricsTrendDTO.TrendData> trendList = metrics.stream().map(m -> {
                 MetricsTrendDTO.TrendData data = new MetricsTrendDTO.TrendData();
-                data.setTimestamp(m.getCollectTime());
-                data.setValue(m.getMetricValue());
+                data.setTimestamp(m.getTime() != null ? m.getTime().toLocalDateTime() : null);
+                data.setValue(BigDecimal.valueOf(m.getMetricValue()));
                 return data;
             }).collect(Collectors.toList());
 

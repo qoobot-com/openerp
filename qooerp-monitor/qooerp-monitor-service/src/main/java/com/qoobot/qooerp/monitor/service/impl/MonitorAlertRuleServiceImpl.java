@@ -71,7 +71,8 @@ public class MonitorAlertRuleServiceImpl implements MonitorAlertRuleService {
 
         wrapper.orderByDesc(MonitorAlertRule::getCreateTime);
 
-        Page<MonitorAlertRule> page = ruleMapper.selectPage(dto, wrapper);
+        Page<MonitorAlertRule> page = new Page<>(dto.getCurrent(), dto.getSize());
+        page = ruleMapper.selectPage(page, wrapper);
         Page<AlertRuleDTO> result = new Page<>(page.getCurrent(), page.getSize(), page.getTotal());
         result.setRecords(page.getRecords().stream().map(this::convertToDTO).collect(Collectors.toList()));
         return result;

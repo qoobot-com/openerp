@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.production.mapper.ProductionMaterialMapper">
+
+    <select id="selectPageByCondition" resultType="com.qoobot.qooerp.production.entity.ProductionMaterial">
+        SELECT * FROM production_material
+        WHERE deleted = 0 AND tenant_id = #{tenantId}
+        <if test="materialNo != null and materialNo != ''">
+            AND material_no LIKE CONCAT('%', #{materialNo}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        ORDER BY created_time DESC
+    </select>
+
+</mapper>

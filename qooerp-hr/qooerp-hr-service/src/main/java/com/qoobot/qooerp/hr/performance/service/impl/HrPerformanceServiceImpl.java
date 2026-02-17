@@ -40,7 +40,7 @@ public class HrPerformanceServiceImpl extends ServiceImpl<HrPerformanceMapper, H
             return Result.error("员工不存在");
         }
 
-        performance.setEmployeeName(employee.getName());
+        performance.setEmployeeName(employee.getEmployeeName());
         performance.setPerformanceNo("PERF" + System.currentTimeMillis() + (int)(Math.random() * 1000));
         performance.setStatus(0); // 待评估
         performance.setCreateTime(LocalDateTime.now());

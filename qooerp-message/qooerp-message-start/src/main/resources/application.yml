@@ -7,10 +7,10 @@ spring:
   application:
     name: qooerp-message
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/qooerp_message?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/qooerp_message?useUnicode=true&characterEncoding=utf8
+    username: qooerp_message
+    password: qooerp_message_2026
   cloud:
     nacos:
       discovery:

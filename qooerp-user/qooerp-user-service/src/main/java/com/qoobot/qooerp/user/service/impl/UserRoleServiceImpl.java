@@ -1,8 +1,8 @@
 package com.qoobot.qooerp.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.qoobot.qooerp.permission.entity.PermissionUserRole;
-import com.qoobot.qooerp.permission.mapper.PermissionUserRoleMapper;
+import com.qoobot.qooerp.user.entity.UserRole;
+import com.qoobot.qooerp.user.mapper.UserRoleMapper;
 import com.qoobot.qooerp.user.service.UserRoleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserRoleServiceImpl implements UserRoleService {
 
-    private final PermissionUserRoleMapper userRoleMapper;
+    private final UserRoleMapper userRoleMapper;
     private static final String USER_ROLES_CACHE_PREFIX = "user:roles:";
 
     @Override
@@ -38,7 +38,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         // 添加新的角色关联
         int rows = 0;
         for (Long roleId : roleIds) {
-            PermissionUserRole userRole = new PermissionUserRole();
+            UserRole userRole = new UserRole();
             userRole.setUserId(userId);
             userRole.setRoleId(roleId);
             if (userRoleMapper.insert(userRole) > 0) {
@@ -54,11 +54,11 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = USER_ROLES_CACHE_PREFIX, key = "#userId")
     public boolean removeRoles(Long userId, List<Long> roleIds) {
-        LambdaQueryWrapper<PermissionUserRole> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(PermissionUserRole::getUserId, userId);
+        LambdaQueryWrapper<UserRole> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UserRole::getUserId, userId);
 
         if (roleIds != null && !roleIds.isEmpty()) {
-            wrapper.in(PermissionUserRole::getRoleId, roleIds);
+            wrapper.in(UserRole::getRoleId, roleIds);
         }
 
         int rows = userRoleMapper.delete(wrapper);
@@ -82,12 +82,12 @@ public class UserRoleServiceImpl implements UserRoleService {
 
     @Override
     public List<Long> getRoleIds(Long userId) {
-        LambdaQueryWrapper<PermissionUserRole> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(PermissionUserRole::getUserId, userId);
-        wrapper.select(PermissionUserRole::getRoleId);
+        LambdaQueryWrapper<UserRole> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(UserRole::getUserId, userId);
+        wrapper.select(UserRole::getRoleId);
 
         return userRoleMapper.selectList(wrapper).stream()
-                .map(PermissionUserRole::getRoleId)
+                .map(UserRole::getRoleId)
                 .collect(Collectors.toList());
     }
 

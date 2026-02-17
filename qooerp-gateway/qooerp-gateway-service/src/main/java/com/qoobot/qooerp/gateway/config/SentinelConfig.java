@@ -2,6 +2,8 @@ package com.qoobot.qooerp.gateway.config;
 
 import com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;
+import com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;
 import com.alibaba.csp.sentinel.adapter.gateway.common.api.GatewayApiDefinitionManager;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;
 import com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayParamFlowItem;
@@ -10,7 +12,6 @@ import com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;
 import com.alibaba.csp.sentinel.slots.block.RuleConstant;
-import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +22,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.*;
 
 /**
@@ -117,7 +118,7 @@ public class SentinelConfig {
         return new GatewayFlowRule(resource)
             .setCount(count)
             .setIntervalSec(1)
-            .setBurst(burst)
+            .setBurst((int) burst)
             .setControlBehavior(RuleConstant.CONTROL_BEHAVIOR_RATE_LIMITER)
             .setGrade(RuleConstant.FLOW_GRADE_QPS);
     }
@@ -126,7 +127,13 @@ public class SentinelConfig {
      * 构建API定义
      */
     private ApiDefinition buildApiDefinition(String apiName, List<String> predicates) {
-        return new ApiDefinition(apiName)
-            .setPredicateItems(new HashSet<>());
+        Set<ApiPredicateItem> predicateItems = new HashSet<>();
+        for (String pattern : predicates) {
+            ApiPathPredicateItem item = new ApiPathPredicateItem()
+                .setPattern(pattern)
+                .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX);
+            predicateItems.add(item);
+        }
+        return new ApiDefinition(apiName).setPredicateItems(predicateItems);
     }
 }

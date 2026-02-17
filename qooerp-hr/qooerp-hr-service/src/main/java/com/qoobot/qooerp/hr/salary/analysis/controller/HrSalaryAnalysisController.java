@@ -1,6 +1,6 @@
 package com.qoobot.qooerp.hr.salary.analysis.controller;
 
-import com.qoobot.qooerp.common.core.domain.Result;
+import com.qoobot.qooerp.common.response.Result;
 import com.qoobot.qooerp.hr.salary.analysis.domain.HrSalaryAnalysis;
 import com.qoobot.qooerp.hr.salary.analysis.service.IHrSalaryAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;

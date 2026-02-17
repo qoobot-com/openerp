@@ -83,16 +83,15 @@ spring:
             rule-type: flow
 
 # 链路追踪配置
-spring:
-  sleuth:
-    zipkin:
-      base-url: ${ZIPKIN_URL:http://localhost:9411}
-      sender-type: web
-    web:
-      client:
-        enabled: true
+management:
+  otlp:
+    tracing:
+      endpoint: ${OTEL_ENDPOINT:http://localhost:4318/v1/traces}
+  tracing:
     sampling:
       probability: 0.1
+    propagation:
+      type: w3c
 
 # 日志配置
 logging:
@@ -101,8 +100,8 @@ logging:
     com.qoobot.qooerp.gateway: DEBUG
     org.springframework.cloud.gateway: INFO
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId:-NA}] [%X{spanId:-NA}] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId:-NA}] [%X{spanId:-NA}] %logger{36} - %msg%n"
   file:
     name: /data/qooerp/logs/gateway.log
     max-size: 100MB
@@ -113,7 +112,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,gateway,metrics,prometheus
+        include: health,info,gateway,metrics,prometheus,tracing
   metrics:
     export:
       prometheus:
@@ -121,3 +120,12 @@ management:
     tags:
       application: ${spring.application.name}
       env: ${spring.profiles.active}
+      instance: ${spring.application.name}:${server.port}
+  otlp:
+    tracing:
+      endpoint: ${OTEL_ENDPOINT:http://localhost:4318/v1/traces}
+  tracing:
+    sampling:
+      probability: 0.1  # 网关10%采样
+    propagation:
+      type: w3c

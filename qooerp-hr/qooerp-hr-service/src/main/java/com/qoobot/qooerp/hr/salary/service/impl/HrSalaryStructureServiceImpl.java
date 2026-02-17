@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.qoobot.qooerp.common.exception.BizException;
 import com.qoobot.qooerp.common.result.Result;
 import com.qoobot.qooerp.hr.salary.domain.HrSalaryStructure;
 import com.qoobot.qooerp.hr.salary.mapper.HrSalaryStructureMapper;

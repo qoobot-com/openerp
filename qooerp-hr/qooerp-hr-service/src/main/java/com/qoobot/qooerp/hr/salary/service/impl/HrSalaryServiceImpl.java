@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.qoobot.qooerp.common.exception.BizException;
 import com.qoobot.qooerp.common.result.Result;
-import com.qoobot.qooerp.hr.attendance.domain.HrAttendanceSummary;
 import com.qoobot.qooerp.hr.attendance.summary.mapper.HrAttendanceSummaryMapper;
 import com.qoobot.qooerp.hr.employee.domain.HrEmployee;
 import com.qoobot.qooerp.hr.employee.mapper.HrEmployeeMapper;
@@ -15,6 +13,7 @@ import com.qoobot.qooerp.hr.salary.domain.HrSalaryStructure;
 import com.qoobot.qooerp.hr.salary.mapper.HrSalaryMapper;
 import com.qoobot.qooerp.hr.salary.service.IHrSalaryService;
 import com.qoobot.qooerp.hr.salary.service.IHrSalaryStructureService;
+import com.qoobot.qooerp.hr.attendance.summary.domain.HrAttendanceSummary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +33,7 @@ public class HrSalaryServiceImpl extends ServiceImpl<HrSalaryMapper, HrSalary>
         implements IHrSalaryService {
 
     private final HrEmployeeMapper employeeMapper;
-    private final HrSalaryStructureService salaryStructureService;
+    private final IHrSalaryStructureService salaryStructureService;
     private final HrAttendanceSummaryMapper attendanceSummaryMapper;
 
     @Override
@@ -49,7 +48,10 @@ public class HrSalaryServiceImpl extends ServiceImpl<HrSalaryMapper, HrSalary>
         // 获取薪酬方案
         Result<HrSalaryStructure> structureResult = salaryStructureService.getStructureByDepartment(employee.getDepartmentId());
         if (structureResult.getData() == null) {
-            structureResult = salaryStructureService.listEnabledStructures();
+            Result<List<HrSalaryStructure>> listResult = salaryStructureService.listEnabledStructures();
+            if (listResult.getData() != null && !listResult.getData().isEmpty()) {
+                structureResult.setData(listResult.getData().get(0));
+            }
         }
 
         HrSalaryStructure structure = structureResult.getData() != null ? structureResult.getData() : new HrSalaryStructure();
@@ -71,7 +73,7 @@ public class HrSalaryServiceImpl extends ServiceImpl<HrSalaryMapper, HrSalary>
         salary.setBaseSalary(structure.getBaseSalary() != null ? structure.getBaseSalary() : BigDecimal.ZERO);
         salary.setPostSalary(structure.getPostSalary() != null ? structure.getPostSalary() : BigDecimal.ZERO);
         salary.setPerformanceSalary(structure.getPerformanceSalary() != null ? structure.getPerformanceSalary() : BigDecimal.ZERO);
-        salary.setSenioritySalary(structure.getSenioriorSalary() != null ? structure.getSenioriorSalary() : BigDecimal.ZERO);
+        salary.setSenioritySalary(structure.getSenioritySalary() != null ? structure.getSenioritySalary() : BigDecimal.ZERO);
 
         // 补贴
         salary.setPostAllowance(structure.getPostAllowance() != null ? structure.getPostAllowance() : BigDecimal.ZERO);
@@ -83,11 +85,15 @@ public class HrSalaryServiceImpl extends ServiceImpl<HrSalaryMapper, HrSalary>
 
         // 考勤数据
         if (summary != null) {
-            salary.setWorkDays(summary.getWorkDays() != null ? summary.getWorkDays() : 22);
+            salary.setWorkDays(22);
             salary.setAttendanceDays(summary.getAttendanceDays() != null ? summary.getAttendanceDays() : 0);
             salary.setLeaveDays(summary.getLeaveDays() != null ? summary.getLeaveDays() : BigDecimal.ZERO);
             salary.setOvertimeHours(summary.getOvertimeHours() != null ? summary.getOvertimeHours() : BigDecimal.ZERO);
-            salary.setOvertimePay(summary.getOvertimeHours().multiply(structure.getBaseSalary().divide(BigDecimal.valueOf(22), 2, RoundingMode.HALF_UP)).divide(BigDecimal.valueOf(8), 2, RoundingMode.HALF_UP));
+            if (summary.getOvertimeHours() != null && structure.getBaseSalary() != null) {
+                salary.setOvertimePay(summary.getOvertimeHours().multiply(structure.getBaseSalary().divide(BigDecimal.valueOf(22), 2, RoundingMode.HALF_UP)).divide(BigDecimal.valueOf(8), 2, RoundingMode.HALF_UP));
+            } else {
+                salary.setOvertimePay(BigDecimal.ZERO);
+            }
         } else {
             salary.setWorkDays(22);
             salary.setAttendanceDays(22);
@@ -109,7 +115,7 @@ public class HrSalaryServiceImpl extends ServiceImpl<HrSalaryMapper, HrSalary>
         BigDecimal grossSalary = salary.getBaseSalary()
                 .add(salary.getPostSalary())
                 .add(salary.getPerformanceSalary())
-                .add(salary.getSenioriorSalary())
+                .add(salary.getSenioritySalary())
                 .add(totalAllowance)
                 .add(salary.getOvertimePay());
         salary.setGrossSalary(grossSalary);

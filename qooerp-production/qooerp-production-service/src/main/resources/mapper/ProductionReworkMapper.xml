@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.production.mapper.ProductionReworkMapper">
+
+    <select id="selectPageByCondition" resultType="com.qoobot.qooerp.production.entity.ProductionRework">
+        SELECT * FROM production_rework
+        WHERE deleted = 0 AND tenant_id = #{tenantId}
+        <if test="reworkNo != null and reworkNo != ''">
+            AND rework_no LIKE CONCAT('%', #{reworkNo}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        ORDER BY created_time DESC
+    </select>
+
+</mapper>

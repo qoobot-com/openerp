@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
          https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    
     <parent>
         <groupId>com.qoobot</groupId>
         <artifactId>qooerp</artifactId>
@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <name>qooerp-production-start</name>
-    <description>QooERP 生产管理 - 启动模块</description>
+    <description>QooERP 生产管理服务 - 启动模块</description>
 
     <dependencies>
         <!-- qooerp-production-service -->
@@ -44,14 +44,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

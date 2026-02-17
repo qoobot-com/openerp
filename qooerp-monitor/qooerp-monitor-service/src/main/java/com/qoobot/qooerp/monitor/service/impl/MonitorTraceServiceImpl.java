@@ -46,7 +46,7 @@ public class MonitorTraceServiceImpl implements MonitorTraceService {
             wrapper.eq(MonitorTrace::getServiceName, dto.getServiceName());
         }
         if (dto.getOperationName() != null) {
-            wrapper.like(MonitorTrace::getOperationName, dto.getOperationName());
+            wrapper.like(MonitorTrace::getSpanName, dto.getOperationName());
         }
         if (dto.getStatusCode() != null) {
             wrapper.eq(MonitorTrace::getStatusCode, dto.getStatusCode());
@@ -58,15 +58,16 @@ public class MonitorTraceServiceImpl implements MonitorTraceService {
             wrapper.le(MonitorTrace::getStartTime, dto.getStartTimeEnd());
         }
         if (dto.getMinDuration() != null) {
-            wrapper.ge(MonitorTrace::getDuration, dto.getMinDuration());
+            wrapper.ge(MonitorTrace::getDurationMs, dto.getMinDuration());
         }
         if (dto.getMaxDuration() != null) {
-            wrapper.le(MonitorTrace::getDuration, dto.getMaxDuration());
+            wrapper.le(MonitorTrace::getDurationMs, dto.getMaxDuration());
         }
 
         wrapper.orderByDesc(MonitorTrace::getStartTime);
 
-        Page<MonitorTrace> page = traceMapper.selectPage(dto, wrapper);
+        Page<MonitorTrace> page = new Page<>(dto.getCurrent(), dto.getSize());
+        page = traceMapper.selectPage(page, wrapper);
         Page<MonitorTraceDTO> result = new Page<>(page.getCurrent(), page.getSize(), page.getTotal());
         result.setRecords(page.getRecords().stream().map(this::convertToDTO).collect(Collectors.toList()));
         return result;
@@ -90,11 +91,11 @@ public class MonitorTraceServiceImpl implements MonitorTraceService {
         dto.setSpanId(entity.getSpanId());
         dto.setParentSpanId(entity.getParentSpanId());
         dto.setServiceName(entity.getServiceName());
-        dto.setOperationName(entity.getOperationName());
-        dto.setStartTime(entity.getStartTime());
-        dto.setDuration(entity.getDuration());
-        dto.setStatusCode(entity.getStatusCode());
-        dto.setCreateTime(entity.getCreateTime());
+        dto.setOperationName(entity.getSpanName());
+        dto.setStartTime(entity.getStartTime() != null ? entity.getStartTime().toLocalDateTime() : null);
+        dto.setDuration(entity.getDurationMs());
+        dto.setStatusCode(entity.getStatusCode() != null ? Integer.valueOf(entity.getStatusCode()) : null);
+        dto.setCreateTime(entity.getCreatedTime() != null ? entity.getCreatedTime().toLocalDateTime() : null);
 
         try {
             if (entity.getTags() != null) {

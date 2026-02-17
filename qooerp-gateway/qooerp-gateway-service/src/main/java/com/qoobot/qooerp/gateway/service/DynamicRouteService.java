@@ -12,7 +12,7 @@ import org.springframework.cloud.gateway.route.RouteDefinitionWriter;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executor;

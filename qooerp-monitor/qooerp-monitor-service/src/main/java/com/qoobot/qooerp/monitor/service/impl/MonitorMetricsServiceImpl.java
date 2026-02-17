@@ -35,14 +35,14 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
             LambdaQueryWrapper<MonitorMetrics> wrapper = new LambdaQueryWrapper<>();
             wrapper.eq(MonitorMetrics::getServiceName, serviceName);
             wrapper.eq(MonitorMetrics::getMetricType, metricType);
-            wrapper.orderByDesc(MonitorMetrics::getCollectTime);
+            wrapper.orderByDesc(MonitorMetrics::getTime);
             wrapper.last("LIMIT 10");
 
             List<MonitorMetrics> metrics = metricsMapper.selectList(wrapper);
             List<MonitorMetricsDTO.MetricItem> items = metrics.stream().map(m -> {
                 MonitorMetricsDTO.MetricItem item = new MonitorMetricsDTO.MetricItem();
                 item.setMetricName(m.getMetricName());
-                item.setMetricValue(m.getMetricValue());
+                item.setMetricValue(BigDecimal.valueOf(m.getMetricValue()));
                 item.setMetricUnit(m.getMetricUnit());
                 return item;
             }).collect(Collectors.toList());
@@ -66,10 +66,6 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
             }
         }
 
-        if (!metrics.isEmpty()) {
-            dto.setCollectTime(metrics.get(0).getCollectTime());
-        }
-
         return dto;
     }
 
@@ -88,15 +84,16 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
             wrapper.eq(MonitorMetrics::getMetricName, dto.getMetricName());
         }
         if (dto.getCollectTimeStart() != null) {
-            wrapper.ge(MonitorMetrics::getCollectTime, dto.getCollectTimeStart());
+            wrapper.ge(MonitorMetrics::getTime, dto.getCollectTimeStart());
         }
         if (dto.getCollectTimeEnd() != null) {
-            wrapper.le(MonitorMetrics::getCollectTime, dto.getCollectTimeEnd());
+            wrapper.le(MonitorMetrics::getTime, dto.getCollectTimeEnd());
         }
 
-        wrapper.orderByDesc(MonitorMetrics::getCollectTime);
+        wrapper.orderByDesc(MonitorMetrics::getTime);
 
-        Page<MonitorMetrics> page = metricsMapper.selectPage(dto, wrapper);
+        Page<MonitorMetrics> page = new Page<>(dto.getCurrent(), dto.getSize());
+        page = metricsMapper.selectPage(page, wrapper);
         Page<MonitorMetricsDTO> result = new Page<>(page.getCurrent(), page.getSize(), page.getTotal());
         result.setRecords(page.getRecords().stream().map(this::convertToDTO).collect(Collectors.toList()));
         return result;
@@ -109,10 +106,10 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
         wrapper.eq(MonitorMetrics::getServiceName, dto.getServiceName());
 
         if (dto.getStartTime() != null) {
-            wrapper.ge(MonitorMetrics::getCollectTime, dto.getStartTime());
+            wrapper.ge(MonitorMetrics::getTime, dto.getStartTime());
         }
         if (dto.getEndTime() != null) {
-            wrapper.le(MonitorMetrics::getCollectTime, dto.getEndTime());
+            wrapper.le(MonitorMetrics::getTime, dto.getEndTime());
         }
 
         List<MonitorMetrics> metrics = metricsMapper.selectList(wrapper);
@@ -125,7 +122,7 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
                 .collect(Collectors.toList());
         if (!cpuMetrics.isEmpty()) {
             BigDecimal avg = cpuMetrics.stream()
-                    .map(MonitorMetrics::getMetricValue)
+                    .map(m -> BigDecimal.valueOf(m.getMetricValue()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .divide(BigDecimal.valueOf(cpuMetrics.size()), 2, RoundingMode.HALF_UP);
             summary.setCpuUsageAvg(avg);
@@ -136,7 +133,7 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
                 .collect(Collectors.toList());
         if (!memoryMetrics.isEmpty()) {
             BigDecimal avg = memoryMetrics.stream()
-                    .map(MonitorMetrics::getMetricValue)
+                    .map(m -> BigDecimal.valueOf(m.getMetricValue()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .divide(BigDecimal.valueOf(memoryMetrics.size()), 2, RoundingMode.HALF_UP);
             summary.setMemoryUsageAvg(avg);
@@ -150,7 +147,7 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
                 .collect(Collectors.groupingBy(MonitorMetrics::getMetricName));
         jvmByMetricName.forEach((name, list) -> {
             BigDecimal avg = list.stream()
-                    .map(MonitorMetrics::getMetricValue)
+                    .map(m -> BigDecimal.valueOf(m.getMetricValue()))
                     .reduce(BigDecimal.ZERO, BigDecimal::add)
                     .divide(BigDecimal.valueOf(list.size()), 2, RoundingMode.HALF_UP);
             jvmMetricsAvg.put(name, avg);
@@ -170,13 +167,13 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
             wrapper.eq(MonitorMetrics::getMetricName, dto.getMetricName());
         }
         if (dto.getStartTime() != null) {
-            wrapper.ge(MonitorMetrics::getCollectTime, dto.getStartTime());
+            wrapper.ge(MonitorMetrics::getTime, dto.getStartTime());
         }
         if (dto.getEndTime() != null) {
-            wrapper.le(MonitorMetrics::getCollectTime, dto.getEndTime());
+            wrapper.le(MonitorMetrics::getTime, dto.getEndTime());
         }
 
-        wrapper.orderByAsc(MonitorMetrics::getCollectTime);
+        wrapper.orderByAsc(MonitorMetrics::getTime);
 
         List<MonitorMetrics> metrics = metricsMapper.selectList(wrapper);
 
@@ -185,8 +182,8 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
 
         List<MetricsTrendDTO.TrendData> trendList = metrics.stream().map(m -> {
             MetricsTrendDTO.TrendData data = new MetricsTrendDTO.TrendData();
-            data.setTimestamp(m.getCollectTime());
-            data.setValue(m.getMetricValue());
+            data.setTimestamp(m.getTime() != null ? m.getTime().toLocalDateTime() : null);
+            data.setValue(BigDecimal.valueOf(m.getMetricValue()));
             return data;
         }).collect(Collectors.toList());
 
@@ -200,9 +197,9 @@ public class MonitorMetricsServiceImpl implements MonitorMetricsService {
         dto.setServiceName(entity.getServiceName());
         MonitorMetricsDTO.MetricItem item = new MonitorMetricsDTO.MetricItem();
         item.setMetricName(entity.getMetricName());
-        item.setMetricValue(entity.getMetricValue());
+        item.setMetricValue(BigDecimal.valueOf(entity.getMetricValue()));
         item.setMetricUnit(entity.getMetricUnit());
-        dto.setCollectTime(entity.getCollectTime());
+        dto.setCollectTime(entity.getTime() != null ? entity.getTime().toLocalDateTime() : null);
         return dto;
     }
 }

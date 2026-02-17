@@ -6,6 +6,8 @@ import com.qoobot.qooerp.organization.dto.OrganizationPositionDTO;
 import com.qoobot.qooerp.organization.entity.OrganizationPosition;
 import com.qoobot.qooerp.organization.vo.OrganizationPositionVO;
 
+import java.util.List;
+
 /**
  * 岗位服务接口
  */

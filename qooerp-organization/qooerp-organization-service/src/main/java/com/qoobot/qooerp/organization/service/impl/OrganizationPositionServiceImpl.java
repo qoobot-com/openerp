@@ -1,6 +1,8 @@
 package com.qoobot.qooerp.organization.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qoobot.qooerp.common.exception.BusinessException;
 import com.qoobot.qooerp.common.exception.DataNotFoundException;
@@ -148,10 +150,10 @@ public class OrganizationPositionServiceImpl extends ServiceImpl<OrganizationPos
         wrapper.orderByAsc(OrganizationPosition::getPositionLevel)
                 .orderByDesc(OrganizationPosition::getCreateTime);
 
-        PageResult<OrganizationPosition> pageResult = positionMapper.selectPage(dto.toPage(), wrapper);
+        IPage<OrganizationPosition> page = positionMapper.selectPage(dto.toPage(), wrapper);
 
         // 转换为VO
-        List<OrganizationPositionVO> voList = pageResult.getRecords().stream()
+        List<OrganizationPositionVO> voList = page.getRecords().stream()
                 .map(position -> {
                     OrganizationPositionVO vo = BeanUtils.copyBean(position, OrganizationPositionVO.class);
                     vo.setStatusName(position.getStatus() == 1 ? "启用" : "禁用");
@@ -168,7 +170,7 @@ public class OrganizationPositionServiceImpl extends ServiceImpl<OrganizationPos
                 })
                 .collect(Collectors.toList());
 
-        return PageResult.of(pageResult, voList);
+        return PageResult.of(page.getCurrent(), page.getSize(), page.getTotal(), voList);
     }
 
     @Override

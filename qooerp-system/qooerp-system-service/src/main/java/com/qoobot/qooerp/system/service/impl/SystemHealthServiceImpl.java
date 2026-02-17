@@ -203,7 +203,7 @@ public class SystemHealthServiceImpl extends ServiceImpl<SystemHealthCheckMapper
         LambdaQueryWrapper<SystemHealthCheck> wrapper = new LambdaQueryWrapper<>();
         wrapper.lt(SystemHealthCheck::getCheckTime, expireTime);
 
-        int count = count(wrapper);
+        int count = Math.toIntExact(count(wrapper));
         if (count > 0) {
             remove(wrapper);
             log.info("清理过期健康检查记录: {} 条", count);

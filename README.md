@@ -165,7 +165,7 @@ Nginx (静态资源+反向代理)
     ↓
 Spring Boot API (后端服务)
     ↓
-Redis/MySQL/RocketMQ等中间件
+Redis/PostgreSQL/RocketMQ等中间件
 ```
 
 **Nginx配置示例：**

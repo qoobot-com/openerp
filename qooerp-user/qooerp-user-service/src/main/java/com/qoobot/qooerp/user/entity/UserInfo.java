@@ -41,6 +41,11 @@ public class UserInfo extends BaseEntity {
     private String phone;
 
     /**
+     * 密码（加密存储）
+     */
+    private String password;
+
+    /**
      * 邮箱（唯一）
      */
     private String email;

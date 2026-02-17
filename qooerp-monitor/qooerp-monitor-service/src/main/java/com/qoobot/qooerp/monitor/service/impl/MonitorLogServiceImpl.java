@@ -30,25 +30,23 @@ public class MonitorLogServiceImpl implements MonitorLogService {
         if (dto.getServiceName() != null) {
             wrapper.like(MonitorLog::getServiceName, dto.getServiceName());
         }
-        if (dto.getLogType() != null) {
-            wrapper.eq(MonitorLog::getLogType, dto.getLogType());
-        }
         if (dto.getLogLevel() != null) {
-            wrapper.eq(MonitorLog::getLogLevel, dto.getLogLevel());
+            wrapper.eq(MonitorLog::getLevel, dto.getLogLevel());
         }
         if (dto.getLogTimeStart() != null) {
-            wrapper.ge(MonitorLog::getLogTime, dto.getLogTimeStart());
+            wrapper.ge(MonitorLog::getTime, dto.getLogTimeStart());
         }
         if (dto.getLogTimeEnd() != null) {
-            wrapper.le(MonitorLog::getLogTime, dto.getLogTimeEnd());
+            wrapper.le(MonitorLog::getTime, dto.getLogTimeEnd());
         }
         if (dto.getKeyword() != null) {
-            wrapper.like(MonitorLog::getLogContent, dto.getKeyword());
+            wrapper.like(MonitorLog::getMessage, dto.getKeyword());
         }
 
-        wrapper.orderByDesc(MonitorLog::getLogTime);
+        wrapper.orderByDesc(MonitorLog::getTime);
 
-        Page<MonitorLog> page = logMapper.selectPage(dto, wrapper);
+        Page<MonitorLog> page = new Page<>(dto.getCurrent(), dto.getSize());
+        page = logMapper.selectPage(page, wrapper);
         Page<MonitorLogDTO> result = new Page<>(page.getCurrent(), page.getSize(), page.getTotal());
         result.setRecords(page.getRecords().stream().map(this::convertToDTO).collect(Collectors.toList()));
         return result;

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 审计日志服务实现类
@@ -36,20 +37,20 @@ public class PermissionAuditServiceImpl extends ServiceImpl<PermissionAuditLogMa
     public void logOperation(Long userId, String username, String operationType, String resourceType,
                               Long resourceId, String description, String beforeData, String afterData) {
         try {
-            PermissionAuditLog log = new PermissionAuditLog();
-            log.setLogType("OPERATION");
-            log.setUserId(userId);
-            log.setUsername(username);
-            log.setOperationType(operationType);
-            log.setResourceType(resourceType);
-            log.setResourceId(resourceId);
-            log.setDescription(description);
-            log.setBeforeData(beforeData);
-            log.setAfterData(afterData);
-            log.setOperateTime(LocalDateTime.now());
+            PermissionAuditLog auditLog = new PermissionAuditLog();
+            auditLog.setLogType("OPERATION");
+            auditLog.setUserId(userId);
+            auditLog.setUsername(username);
+            auditLog.setOperationType(operationType);
+            auditLog.setResourceType(resourceType);
+            auditLog.setResourceId(resourceId);
+            auditLog.setDescription(description);
+            auditLog.setBeforeData(beforeData);
+            auditLog.setAfterData(afterData);
+            auditLog.setOperateTime(LocalDateTime.now());
 
             // 异步写入数据库
-            save(log);
+            save(auditLog);
             log.debug("操作日志记录成功: userId={}, operation={}, resource={}", userId, operationType, resourceType);
         } catch (Exception e) {
             log.error("操作日志记录失败", e);
@@ -59,11 +60,11 @@ public class PermissionAuditServiceImpl extends ServiceImpl<PermissionAuditLogMa
     @Override
     @Async
     @Transactional(rollbackFor = Exception.class)
-    public void logAudit(PermissionAuditLog log) {
+    public void logAudit(PermissionAuditLog auditLog) {
         try {
-            log.setOperateTime(LocalDateTime.now());
-            save(log);
-            log.debug("审计日志记录成功: logType={}, userId={}", log.getLogType(), log.getUserId());
+            auditLog.setOperateTime(LocalDateTime.now());
+            save(auditLog);
+            log.debug("审计日志记录成功: logType={}, userId={}", auditLog.getLogType(), auditLog.getUserId());
         } catch (Exception e) {
             log.error("审计日志记录失败", e);
         }
@@ -187,7 +188,7 @@ public class PermissionAuditServiceImpl extends ServiceImpl<PermissionAuditLogMa
         LambdaQueryWrapper<PermissionAuditLog> wrapper = new LambdaQueryWrapper<>();
         wrapper.lt(PermissionAuditLog::getOperateTime, expireTime);
 
-        int count = count(wrapper);
+        int count = Math.toIntExact(count(wrapper));
         if (count > 0) {
             remove(wrapper);
             log.info("清理过期审计日志: {} 条", count);

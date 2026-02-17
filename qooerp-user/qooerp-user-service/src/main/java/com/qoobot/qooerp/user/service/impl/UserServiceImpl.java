@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.qoobot.qooerp.common.exception.BizException;
-import com.qoobot.qooerp.common.utils.SecurityUtils;
+import com.qoobot.qooerp.common.exception.BusinessException;
+import com.qoobot.qooerp.common.util.SecurityUtils;
 import com.qoobot.qooerp.user.entity.UserInfo;
 import com.qoobot.qooerp.user.mapper.UserInfoMapper;
 import com.qoobot.qooerp.user.service.UserService;
@@ -41,15 +41,15 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public Long createUser(UserInfo userInfo) {
         // 校验用户名唯一性
         if (checkUsernameExists(userInfo.getUsername())) {
-            throw new BizException("用户名已存在");
+            throw new BusinessException("用户名已存在");
         }
         // 校验手机号唯一性
         if (StringUtils.hasText(userInfo.getPhone()) && checkPhoneExists(userInfo.getPhone())) {
-            throw new BizException("手机号已存在");
+            throw new BusinessException("手机号已存在");
         }
         // 校验邮箱唯一性
         if (StringUtils.hasText(userInfo.getEmail()) && checkEmailExists(userInfo.getEmail())) {
-            throw new BizException("邮箱已存在");
+            throw new BusinessException("邮箱已存在");
         }
 
         // 设置默认状态
@@ -57,10 +57,10 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
             userInfo.setStatus(1); // 默认启用
         }
 
-        // 设置创建人
-        String currentUser = getCurrentUser();
-        userInfo.setCreateBy(currentUser);
-        userInfo.setUpdateBy(currentUser);
+        // 设置创建人ID
+        Long currentUserId = getCurrentUserId();
+        userInfo.setCreateBy(currentUserId);
+        userInfo.setUpdateBy(currentUserId);
 
         // 设置租户ID
         if (userInfo.getTenantId() == null) {
@@ -78,31 +78,31 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean updateUser(UserInfo userInfo) {
         UserInfo existUser = getUserById(userInfo.getId());
         if (existUser == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         // 校验用户名唯一性（排除自己）
         if (!existUser.getUsername().equals(userInfo.getUsername()) &&
             checkUsernameExists(userInfo.getUsername())) {
-            throw new BizException("用户名已存在");
+            throw new BusinessException("用户名已存在");
         }
 
         // 校验手机号唯一性
         if (StringUtils.hasText(userInfo.getPhone()) &&
             (!Objects.equals(existUser.getPhone(), userInfo.getPhone())) &&
             checkPhoneExists(userInfo.getPhone())) {
-            throw new BizException("手机号已存在");
+            throw new BusinessException("手机号已存在");
         }
 
         // 校验邮箱唯一性
         if (StringUtils.hasText(userInfo.getEmail()) &&
             (!Objects.equals(existUser.getEmail(), userInfo.getEmail())) &&
             checkEmailExists(userInfo.getEmail())) {
-            throw new BizException("邮箱已存在");
+            throw new BusinessException("邮箱已存在");
         }
 
-        // 设置更新人
-        userInfo.setUpdateBy(getCurrentUser());
+        // 设置更新人ID
+        userInfo.setUpdateBy(getCurrentUserId());
         userInfo.setUpdateTime(LocalDateTime.now());
 
         int rows = userInfoMapper.updateById(userInfo);
@@ -116,13 +116,13 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean deleteUser(Long userId) {
         UserInfo user = getUserById(userId);
         if (user == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         // 软删除
         user.setDeleted(1);
         user.setUpdateTime(LocalDateTime.now());
-        user.setUpdateBy(getCurrentUser());
+        user.setUpdateBy(getCurrentUserId());
 
         int rows = userInfoMapper.updateById(user);
         log.info("删除用户成功，userId={}, username={}", userId, user.getUsername());
@@ -213,12 +213,12 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean enableUser(Long userId) {
         UserInfo user = getUserById(userId);
         if (user == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         user.setStatus(1);
         user.setUpdateTime(LocalDateTime.now());
-        user.setUpdateBy(getCurrentUser());
+        user.setUpdateBy(getCurrentUserId());
 
         int rows = userInfoMapper.updateById(user);
         log.info("启用用户成功，userId={}, username={}", userId, user.getUsername());
@@ -231,12 +231,12 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean disableUser(Long userId) {
         UserInfo user = getUserById(userId);
         if (user == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         user.setStatus(0);
         user.setUpdateTime(LocalDateTime.now());
-        user.setUpdateBy(getCurrentUser());
+        user.setUpdateBy(getCurrentUserId());
 
         int rows = userInfoMapper.updateById(user);
         log.info("禁用用户成功，userId={}, username={}", userId, user.getUsername());
@@ -249,12 +249,12 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean lockUser(Long userId) {
         UserInfo user = getUserById(userId);
         if (user == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         user.setStatus(0); // 锁定即禁用
         user.setUpdateTime(LocalDateTime.now());
-        user.setUpdateBy(getCurrentUser());
+        user.setUpdateBy(getCurrentUserId());
 
         int rows = userInfoMapper.updateById(user);
         log.info("锁定用户成功，userId={}, username={}", userId, user.getUsername());
@@ -267,12 +267,12 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean unlockUser(Long userId) {
         UserInfo user = getUserById(userId);
         if (user == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         user.setStatus(1);
         user.setUpdateTime(LocalDateTime.now());
-        user.setUpdateBy(getCurrentUser());
+        user.setUpdateBy(getCurrentUserId());
 
         int rows = userInfoMapper.updateById(user);
         log.info("解锁用户成功，userId={}, username={}", userId, user.getUsername());
@@ -318,14 +318,14 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean resetPassword(Long userId, String newPassword) {
         UserInfo user = getUserById(userId);
         if (user == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         // 加密新密码
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
         user.setUpdateTime(LocalDateTime.now());
-        user.setUpdateBy(getCurrentUser());
+        user.setUpdateBy(getCurrentUserId());
 
         int rows = userInfoMapper.updateById(user);
         log.info("重置密码成功，userId={}, username={}", userId, user.getUsername());
@@ -337,19 +337,19 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     public boolean changePassword(Long userId, String oldPassword, String newPassword) {
         UserInfo user = getUserById(userId);
         if (user == null) {
-            throw new BizException("用户不存在");
+            throw new BusinessException("用户不存在");
         }
 
         // 校验旧密码
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            throw new BizException("旧密码错误");
+            throw new BusinessException("旧密码错误");
         }
 
         // 加密新密码
         String encodedPassword = passwordEncoder.encode(newPassword);
         user.setPassword(encodedPassword);
         user.setUpdateTime(LocalDateTime.now());
-        user.setUpdateBy(getCurrentUser());
+        user.setUpdateBy(getCurrentUserId());
 
         int rows = userInfoMapper.updateById(user);
         log.info("修改密码成功，userId={}, username={}", userId, user.getUsername());
@@ -415,13 +415,13 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
     }
 
     /**
-     * 获取当前用户
+     * 获取当前用户ID
      */
-    private String getCurrentUser() {
+    private Long getCurrentUserId() {
         try {
-            return SecurityUtils.getUsername();
+            return SecurityUtils.getUserIdOrDefault(0L);
         } catch (Exception e) {
-            return "system";
+            return 0L;
         }
     }
 }

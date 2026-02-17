@@ -54,7 +54,8 @@ public class MonitorAlertServiceImpl implements MonitorAlertService {
 
         wrapper.orderByDesc(MonitorAlert::getAlertTime);
 
-        Page<MonitorAlert> page = alertMapper.selectPage(dto, wrapper);
+        Page<MonitorAlert> page = new Page<>(dto.getCurrent(), dto.getSize());
+        page = alertMapper.selectPage(page, wrapper);
         Page<MonitorAlertDTO> result = new Page<>(page.getCurrent(), page.getSize(), page.getTotal());
         result.setRecords(page.getRecords().stream().map(this::convertToDTO).collect(Collectors.toList()));
         return result;

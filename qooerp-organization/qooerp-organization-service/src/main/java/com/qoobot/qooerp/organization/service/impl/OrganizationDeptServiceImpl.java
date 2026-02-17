@@ -1,6 +1,7 @@
 package com.qoobot.qooerp.organization.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.qoobot.qooerp.common.exception.BusinessException;
 import com.qoobot.qooerp.common.exception.DataNotFoundException;
@@ -19,7 +20,6 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -163,7 +163,7 @@ public class OrganizationDeptServiceImpl extends ServiceImpl<OrganizationDeptMap
         wrapper.orderByAsc(OrganizationDept::getSort)
                 .orderByDesc(OrganizationDept::getCreateTime);
 
-        PageResult<OrganizationDept> pageResult = deptMapper.selectPage(dto.toPage(), wrapper);
+        Page<OrganizationDept> pageResult = deptMapper.selectPage(dto.toPage(), wrapper);
 
         // 转换为VO
         List<OrganizationDeptVO> voList = pageResult.getRecords().stream()
@@ -214,7 +214,7 @@ public class OrganizationDeptServiceImpl extends ServiceImpl<OrganizationDeptMap
                 })
                 .map(node -> {
                     List<OrganizationDeptVO> children = buildTree(nodes, node.getId());
-                    node.setChildren(children);
+                    node.setOrganizationDeptVOList(children);
                     node.setHasChildren(!children.isEmpty());
                     return node;
                 })

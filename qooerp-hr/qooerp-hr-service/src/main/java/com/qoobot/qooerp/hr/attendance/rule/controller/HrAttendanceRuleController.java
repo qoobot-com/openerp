@@ -1,6 +1,6 @@
 package com.qoobot.qooerp.hr.attendance.rule.controller;
 
-import com.qoobot.qooerp.common.core.domain.Result;
+import com.qoobot.qooerp.common.response.Result;
 import com.qoobot.qooerp.hr.attendance.rule.domain.HrAttendanceRule;
 import com.qoobot.qooerp.hr.attendance.rule.service.IHrAttendanceRuleService;
 import org.springframework.beans.factory.annotation.Autowired;

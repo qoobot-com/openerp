@@ -46,7 +46,26 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include: health,info,metrics,prometheus,tracing
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      application: ${spring.application.name}
+      env: ${spring.profiles.active}
+      instance: ${spring.application.name}:${server.port}
+  otlp:
+    tracing:
+      endpoint: ${OTEL_ENDPOINT:http://localhost:4318/v1/traces}
+  tracing:
+    sampling:
+      probability: 0.1
+    propagation:
+      type: w3c
+  endpoint:
+    health:
+      show-details: always
   endpoint:
     health:
       show-details: always

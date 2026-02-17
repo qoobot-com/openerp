@@ -1,16 +1,29 @@
+-- ============================================================================
+-- PostgreSQL 数据库初始化脚本
+-- ============================================================================
+
+-- 创建更新时间触发器函数
+CREATE OR REPLACE FUNCTION update_modified_time()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.update_time = CURRENT_TIMESTAMP;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+\c qooerp_purchase
+
 -- QooERP 采购管理 - 数据库初始化脚本
 -- 版本：v1.0
 -- 创建日期：2026-02-17
 
-CREATE DATABASE IF NOT EXISTS qooerp_purchase 
-DEFAULT CHARACTER SET utf8mb4 
-DEFAULT COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE qooerp_purchase WITH ENCODING 'UTF8';
 
-USE qooerp_purchase;
+
 
 -- 采购订单表
 CREATE TABLE purchase_order (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    id BIGSERIAL NOT NULL,
     tenant_id BIGINT NOT NULL DEFAULT 0,
     order_code VARCHAR(32) NOT NULL,
     supplier_id BIGINT NOT NULL,
@@ -27,22 +40,22 @@ CREATE TABLE purchase_order (
     warehouse_name VARCHAR(64),
     remark VARCHAR(512),
     created_by BIGINT DEFAULT NULL,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT DEFAULT NULL,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted TINYINT NOT NULL DEFAULT 0,
-    version INT NOT NULL DEFAULT 0,
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    deleted SMALLINT NOT NULL DEFAULT 0,
+    version INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    UNIQUE KEY uk_order_code (tenant_id, order_code),
-    KEY idx_supplier_id (supplier_id),
-    KEY idx_order_status (order_status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='采购订单表';
+    UNIQUE INDEX uk_order_code (tenant_id, order_code),
+    INDEX idx_supplier_id (supplier_id),
+    INDEX idx_order_status (order_status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- 订单明细表
 CREATE TABLE purchase_order_detail (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    id BIGSERIAL NOT NULL,
     tenant_id BIGINT NOT NULL DEFAULT 0,
     order_id BIGINT NOT NULL,
     material_id BIGINT NOT NULL,
@@ -59,20 +72,20 @@ CREATE TABLE purchase_order_detail (
     received_quantity DECIMAL(10,2) NOT NULL DEFAULT 0.00,
     remark VARCHAR(512),
     created_by BIGINT DEFAULT NULL,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT DEFAULT NULL,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted TINYINT NOT NULL DEFAULT 0,
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    deleted SMALLINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    KEY idx_order_id (order_id),
-    KEY idx_material_id (material_id),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单明细表';
+    INDEX idx_order_id (order_id),
+    INDEX idx_material_id (material_id),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- 入库单表
 CREATE TABLE purchase_receipt (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    id BIGSERIAL NOT NULL,
     tenant_id BIGINT NOT NULL DEFAULT 0,
     receipt_code VARCHAR(32) NOT NULL,
     order_id BIGINT NOT NULL,
@@ -84,23 +97,23 @@ CREATE TABLE purchase_receipt (
     receipt_status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
     remark VARCHAR(512),
     created_by BIGINT DEFAULT NULL,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT DEFAULT NULL,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted TINYINT NOT NULL DEFAULT 0,
-    version INT NOT NULL DEFAULT 0,
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    deleted SMALLINT NOT NULL DEFAULT 0,
+    version INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    UNIQUE KEY uk_receipt_code (tenant_id, receipt_code),
-    KEY idx_order_id (order_id),
-    KEY idx_supplier_id (supplier_id),
-    KEY idx_receipt_status (receipt_status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='入库单表';
+    UNIQUE INDEX uk_receipt_code (tenant_id, receipt_code),
+    INDEX idx_order_id (order_id),
+    INDEX idx_supplier_id (supplier_id),
+    INDEX idx_receipt_status (receipt_status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- 入库明细表
 CREATE TABLE purchase_receipt_detail (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    id BIGSERIAL NOT NULL,
     tenant_id BIGINT NOT NULL DEFAULT 0,
     receipt_id BIGINT NOT NULL,
     order_detail_id BIGINT NOT NULL,
@@ -114,20 +127,20 @@ CREATE TABLE purchase_receipt_detail (
     amount DECIMAL(18,2) NOT NULL,
     remark VARCHAR(512),
     created_by BIGINT DEFAULT NULL,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT DEFAULT NULL,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted TINYINT NOT NULL DEFAULT 0,
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    deleted SMALLINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    KEY idx_receipt_id (receipt_id),
-    KEY idx_material_id (material_id),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='入库明细表';
+    INDEX idx_receipt_id (receipt_id),
+    INDEX idx_material_id (material_id),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- 退货单表
 CREATE TABLE purchase_return (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    id BIGSERIAL NOT NULL,
     tenant_id BIGINT NOT NULL DEFAULT 0,
     return_code VARCHAR(32) NOT NULL,
     order_id BIGINT NOT NULL,
@@ -141,23 +154,23 @@ CREATE TABLE purchase_return (
     return_status VARCHAR(20) NOT NULL DEFAULT 'PENDING',
     remark VARCHAR(512),
     created_by BIGINT DEFAULT NULL,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT DEFAULT NULL,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted TINYINT NOT NULL DEFAULT 0,
-    version INT NOT NULL DEFAULT 0,
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    deleted SMALLINT NOT NULL DEFAULT 0,
+    version INTEGER NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    UNIQUE KEY uk_return_code (tenant_id, return_code),
-    KEY idx_order_id (order_id),
-    KEY idx_supplier_id (supplier_id),
-    KEY idx_return_status (return_status),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='退货单表';
+    UNIQUE INDEX uk_return_code (tenant_id, return_code),
+    INDEX idx_order_id (order_id),
+    INDEX idx_supplier_id (supplier_id),
+    INDEX idx_return_status (return_status),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);
 
 -- 退货明细表
 CREATE TABLE purchase_return_detail (
-    id BIGINT NOT NULL AUTO_INCREMENT,
+    id BIGSERIAL NOT NULL,
     tenant_id BIGINT NOT NULL DEFAULT 0,
     return_id BIGINT NOT NULL,
     material_id BIGINT NOT NULL,
@@ -170,13 +183,13 @@ CREATE TABLE purchase_return_detail (
     amount DECIMAL(18,2) NOT NULL,
     remark VARCHAR(512),
     created_by BIGINT DEFAULT NULL,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT DEFAULT NULL,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    deleted TINYINT NOT NULL DEFAULT 0,
+    update_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+    deleted SMALLINT NOT NULL DEFAULT 0,
     PRIMARY KEY (id),
-    KEY idx_return_id (return_id),
-    KEY idx_material_id (material_id),
-    KEY idx_deleted (deleted),
-    KEY idx_tenant_id (tenant_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='退货明细表';
+    INDEX idx_return_id (return_id),
+    INDEX idx_material_id (material_id),
+    INDEX idx_deleted (deleted),
+    INDEX idx_tenant_id (tenant_id)
+);

@@ -25,7 +25,7 @@ public class I18nUtils {
      * @return 消息内容
      */
     public String getMessage(String code) {
-        return getMessage(code, null, null);
+        return getMessage(code, null, LocaleContextHolder.getLocale());
     }
 
     /**
@@ -36,7 +36,7 @@ public class I18nUtils {
      * @return 消息内容
      */
     public String getMessage(String code, Object[] args) {
-        return getMessage(code, args, null);
+        return getMessage(code, args, LocaleContextHolder.getLocale());
     }
 
     /**

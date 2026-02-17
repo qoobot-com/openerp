@@ -69,13 +69,7 @@ public class DistributedLockUtil {
      */
     public void lock(String lockKey, long leaseTime, TimeUnit unit) {
         RLock lock = getLock(lockKey);
-        try {
-            lock.lock(leaseTime, unit);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            log.error("获取锁被中断: lockKey={}", lockKey, e);
-            throw new RuntimeException("获取锁失败", e);
-        }
+        lock.lock(leaseTime, unit);
     }
 
     /**

@@ -1,0 +1,85 @@
+server:
+  port: 8013
+
+spring:
+  application:
+    name: qooerp-production-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/qooerp
+    username: qooerp
+    password: qooerp
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      idle-timeout: 300000
+      max-lifetime: 1800000
+      connection-timeout: 30000
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: qooerp
+        group: DEFAULT_GROUP
+      config:
+        server-addr: localhost:8848
+        namespace: qooerp
+        group: DEFAULT_GROUP
+        file-extension: yml
+
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 3000
+
+  flyway:
+    enabled: true
+    locations: classpath:migration
+    baseline-on-migrate: true
+    baseline-version: 1.0.0
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: com.qoobot.qooerp.production.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+logging:
+  level:
+    com.qoobot.qooerp: debug
+    org.springframework.cloud.openfeign: debug

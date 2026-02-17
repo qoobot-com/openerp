@@ -1,6 +1,6 @@
 package com.qoobot.qooerp.hr.lifecycle.controller;
 
-import com.qoobot.qooerp.common.core.domain.Result;
+import com.qoobot.qooerp.common.response.Result;
 import com.qoobot.qooerp.hr.lifecycle.domain.HrTransfer;
 import com.qoobot.qooerp.hr.lifecycle.service.IHrTransferService;
 import org.springframework.beans.factory.annotation.Autowired;

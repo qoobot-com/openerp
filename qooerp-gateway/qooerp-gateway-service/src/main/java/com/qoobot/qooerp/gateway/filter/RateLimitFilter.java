@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -16,9 +17,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -143,15 +142,22 @@ public class RateLimitFilter implements GlobalFilter, Ordered {
             "    return 1\n" +
             "end";
 
-        return reactiveRedisTemplate.execute(
-            reactiveRedisTemplate.scriptLoad(script),
-            Collections.singletonList(key),
+        RedisScript<Long> redisScript = RedisScript.of(script, Long.class);
+
+        List<String> keys = Collections.singletonList(key);
+        List<String> args = Arrays.asList(
             String.valueOf(replenishRate),
             String.valueOf(burstCapacity),
             String.valueOf(System.currentTimeMillis()),
             String.valueOf(1),
             String.valueOf(60)
-        ).map(result -> result != null && result == 1);
+        );
+
+        return reactiveRedisTemplate.execute(
+            redisScript,
+            keys,
+            args
+        ).next().map(result -> result != null && result.equals(1L));
     }
 
     /**

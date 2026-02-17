@@ -149,7 +149,7 @@ public class SystemBackupServiceImpl extends ServiceImpl<SystemBackupMapper, Sys
         LambdaQueryWrapper<SystemBackup> wrapper = new LambdaQueryWrapper<>();
         wrapper.lt(SystemBackup::getStartTime, expireTime);
 
-        int count = count(wrapper);
+        int count = Math.toIntExact(count(wrapper));
         if (count > 0) {
             remove(wrapper);
             log.info("清理过期备份: {} 条", count);

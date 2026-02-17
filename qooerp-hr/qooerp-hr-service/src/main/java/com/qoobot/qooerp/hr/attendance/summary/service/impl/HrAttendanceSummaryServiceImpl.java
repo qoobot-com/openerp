@@ -9,6 +9,8 @@ import com.qoobot.qooerp.hr.attendance.summary.service.IHrAttendanceSummaryServi
 import com.qoobot.qooerp.hr.attendance.service.IHrAttendanceService;
 import com.qoobot.qooerp.hr.business.trip.domain.HrBusinessTrip;
 import com.qoobot.qooerp.hr.business.trip.service.IHrBusinessTripService;
+import com.qoobot.qooerp.hr.employee.domain.HrEmployee;
+import com.qoobot.qooerp.hr.employee.service.IHrEmployeeService;
 import com.qoobot.qooerp.hr.leave.domain.HrLeave;
 import com.qoobot.qooerp.hr.leave.service.IHrLeaveService;
 import com.qoobot.qooerp.hr.overtime.domain.HrOvertime;
@@ -42,6 +44,7 @@ public class HrAttendanceSummaryServiceImpl extends ServiceImpl<HrAttendanceSumm
     private final IHrOvertimeService overtimeService;
     private final IHrLeaveService leaveService;
     private final IHrBusinessTripService businessTripService;
+    private final IHrEmployeeService employeeService;
 
     @Override
     public HrAttendanceSummary generateMonthlySummary(Long employeeId, Integer year, Integer month) {
@@ -54,9 +57,12 @@ public class HrAttendanceSummaryServiceImpl extends ServiceImpl<HrAttendanceSumm
         HrAttendanceSummary summary = new HrAttendanceSummary();
         summary.setEmployeeId(employeeId);
 
-        // TODO: 从员工服务获取员工姓名、部门信息
-        summary.setEmployeeName("待查询");
-        summary.setDeptName("待查询");
+        // 获取员工信息
+        HrEmployee employee = employeeService.getEmployeeById(employeeId);
+        if (employee != null) {
+            summary.setEmployeeName(employee.getEmployeeName());
+            summary.setDeptId(employee.getDepartmentId());
+        }
 
         summary.setSummaryMonth(String.format("%d-%02d", year, month));
 
@@ -65,20 +71,17 @@ public class HrAttendanceSummaryServiceImpl extends ServiceImpl<HrAttendanceSumm
         summary.setAttendanceDays(attendanceList.size());
 
         // 统计工作时长
-        BigDecimal totalWorkHours = attendanceList.stream()
+        Integer totalWorkHours = attendanceList.stream()
                 .filter(a -> a.getWorkHours() != null)
                 .map(HrAttendance::getWorkHours)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        summary.setWorkHours(totalWorkHours);
+                .reduce(0, Integer::sum);
+        summary.setWorkHours(BigDecimal.valueOf(totalWorkHours));
 
         // 统计迟到、早退、缺卡次数
-        int lateTimes = (int) attendanceList.stream().filter(a -> a.getLateMinutes() != null && a.getLateMinutes() > 0).count();
-        int earlyTimes = (int) attendanceList.stream().filter(a -> a.getEarlyMinutes() != null && a.getEarlyMinutes() > 0).count();
-        int absentTimes = (int) attendanceList.stream().filter(a -> a.getStatus() == 2).count();
-
-        summary.setLateTimes(lateTimes);
-        summary.setEarlyTimes(earlyTimes);
-        summary.setAbsentTimes(absentTimes);
+        // TODO: HrAttendance 实体暂无迟到、早退、缺卡等字段,需要补充后实现统计
+        summary.setLateTimes(0);
+        summary.setEarlyTimes(0);
+        summary.setAbsentTimes(0);
 
         // 统计请假天数（已审批通过的请假）
         List<HrLeave> leaveList = leaveService.getMyLeave(employeeId);
@@ -121,10 +124,10 @@ public class HrAttendanceSummaryServiceImpl extends ServiceImpl<HrAttendanceSumm
                 LocalDate overtimeDate = overtime.getStartTime().toLocalDate();
                 if (!overtimeDate.isBefore(startDate) && !overtimeDate.isAfter(endDate)) {
                     if (overtime.getDuration() != null) {
-                        totalOvertimeHours = totalOvertimeHours.add(
-                                BigDecimal.valueOf(overtime.getDuration()));
+                        BigDecimal duration = BigDecimal.valueOf(overtime.getDuration());
+                        totalOvertimeHours = totalOvertimeHours.add(duration);
                         totalOvertimeDays = totalOvertimeDays.add(
-                                overtime.getDuration().divide(8, 1, RoundingMode.HALF_UP));
+                                duration.divide(BigDecimal.valueOf(8), 1, RoundingMode.HALF_UP));
                     }
                 }
             }
@@ -157,11 +160,26 @@ public class HrAttendanceSummaryServiceImpl extends ServiceImpl<HrAttendanceSumm
     public Boolean batchGenerateMonthlySummary(Long deptId, Integer year, Integer month) {
         log.info("批量生成月度考勤汇总: 部门ID={}, 年={}, 月={}", deptId, year, month);
 
-        // TODO: 从部门服务获取部门下所有员工列表
-        // List<Long> employeeIds = departmentService.getEmployeeIdsByDept(deptId);
+        // 获取部门下所有员工
+        LambdaQueryWrapper<HrEmployee> employeeWrapper = new LambdaQueryWrapper<>();
+        employeeWrapper.eq(HrEmployee::getDepartmentId, deptId);
+        List<HrEmployee> employeeList = employeeService.list(employeeWrapper);
 
-        // 临时处理：需要集成部门服务后实现
-        log.warn("批量生成功能需要集成部门服务后完善");
+        if (employeeList.isEmpty()) {
+            log.warn("部门下无员工: deptId={}", deptId);
+            return true;
+        }
+
+        // 批量为每个员工生成考勤汇总
+        for (HrEmployee employee : employeeList) {
+            try {
+                generateMonthlySummary(employee.getId(), year, month);
+            } catch (Exception e) {
+                log.error("生成员工考勤汇总失败: employeeId={}, error={}", employee.getId(), e.getMessage(), e);
+            }
+        }
+
+        log.info("批量生成月度考勤汇总完成: 部门ID={}, 员工数={}", deptId, employeeList.size());
         return true;
     }
 

@@ -1,6 +1,6 @@
 package com.qoobot.qooerp.hr.lifecycle.controller;
 
-import com.qoobot.qooerp.common.core.domain.Result;
+import com.qoobot.qooerp.common.response.Result;
 import com.qoobot.qooerp.hr.lifecycle.domain.HrOnboarding;
 import com.qoobot.qooerp.hr.lifecycle.service.IHrOnboardingService;
 import org.springframework.beans.factory.annotation.Autowired;

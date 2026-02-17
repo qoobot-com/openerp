@@ -8,8 +8,8 @@ spring:
     active: dev
 
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/qooerp_monitor?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/qooerp_monitor?useUnicode=true&characterEncoding=utf8
     username: qooerp_monitor
     password: qooerp_monitor_2026
     hikari:
@@ -29,6 +29,15 @@ spring:
         group: DEFAULT_GROUP
         file-extension: yml
 
+  # 异步任务配置
+  task:
+    execution:
+      pool:
+        core-size: 4
+        max-size: 8
+        queue-capacity: 100
+        thread-name-prefix: monitor-async-
+
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
@@ -40,17 +49,114 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
 
+# OTLP 接收配置
+otlp:
+  receiver:
+    enabled: true
+    # 支持的 Content-Type
+    content-types:
+      - application/x-protobuf
+      - application/json
+    # 批量接收配置
+    batch:
+      enabled: true
+      max-batch-size: 100
+      timeout: 5000  # 毫秒
+  traces:
+    enabled: true
+  metrics:
+    enabled: true
+  logs:
+    enabled: true
+
+# Metrics 采集配置
+metrics:
+  collector:
+    enabled: true
+    scrape:
+      enabled: true
+      # 查询时间范围（毫秒）
+      time-range: 300000  # 5分钟
+    push:
+      enabled: true
+      # 推送数据大小限制（字节）
+      max-payload-size: 10485760  # 10MB
+
+# 告警引擎配置
+alert:
+  engine:
+    enabled: true
+    # 检查间隔（秒）
+    interval: 60
+    # 批量处理告警
+    batch:
+      enabled: true
+      size: 10
+  # 通知配置
+  notification:
+    email:
+      enabled: true
+      host: smtp.example.com
+      port: 587
+      username: alert@example.com
+      password: password
+      from: alert@example.com
+    sms:
+      enabled: false
+      provider: aliyun
+      access_key: your_access_key
+      secret_key: your_secret_key
+      sign_name: QooERP
+    webhook:
+      enabled: true
+      timeout: 10000
+    dingtalk:
+      enabled: true
+
+# 数据保留策略
+retention:
+  metrics:
+    raw: 7d      # 原始数据保留 7 天
+    1h: 30d      # 1 小时聚合保留 30 天
+    1d: 365d     # 1 天聚合保留 1 年
+  traces:
+    raw: 30d     # 链路数据保留 30 天
+  logs:
+    raw: 30d     # 日志数据保留 30 天
+
+# 前端配置（Vue 3 + TDesign）
+frontend:
+  enabled: true
+  build:
+    output: dist
+    assetsDir: assets
+  devServer:
+    port: 5173
+    proxy:
+      /api:
+        target: http://localhost:8101
+        changeOrigin: true
+
+# 管理端点
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,prometheus
+        include: health,info,metrics,tracing
   metrics:
-    export:
-      prometheus:
-        enabled: true
+    tags:
+      application: ${spring.application.name}
+      instance: ${spring.application.name}:${server.port}
+  tracing:
+    sampling:
+      probability: 1.0  # 监控服务100%采集
+    propagation:
+      type: w3c
 
 logging:
   level:
     com.qoobot.qooerp.monitor: debug
     com.baomidou.mybatisplus: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] [%X{spanId}] %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] [%X{spanId}] %logger{36} - %msg%n"

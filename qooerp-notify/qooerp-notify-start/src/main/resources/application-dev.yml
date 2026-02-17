@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: public
+        group: DEFAULT_GROUP
+      config:
+        server-addr: localhost:8848
+        namespace: public
+        group: DEFAULT_GROUP
+        file-extension: yml
+
+server:
+  port: 18085
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/qooerp_notify?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+    username: postgres
+    password: postgres
+
+spring:
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      database: 8
+
+logging:
+  level:
+    root: INFO
+    com.qoobot.qooerp: DEBUG

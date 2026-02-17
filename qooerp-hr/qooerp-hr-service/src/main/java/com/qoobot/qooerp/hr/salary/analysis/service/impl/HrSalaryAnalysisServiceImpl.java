@@ -41,8 +41,9 @@ public class HrSalaryAnalysisServiceImpl extends ServiceImpl<HrSalaryAnalysisMap
 
     @Override
     public HrSalaryAnalysis analyzeByDepartment(Long departmentId, Integer year, Integer month) {
+        String salaryMonth = String.format("%d-%02d", year, month);
         List<HrSalary> salaries = salaryMapper.selectList(null).stream()
-            .filter(s -> s.getYear().equals(year) && s.getMonth().equals(month))
+            .filter(s -> salaryMonth.equals(s.getSalaryMonth()))
             .collect(Collectors.toList());
 
         // TODO: 关联员工表，根据部门ID过滤
@@ -52,8 +53,9 @@ public class HrSalaryAnalysisServiceImpl extends ServiceImpl<HrSalaryAnalysisMap
 
     @Override
     public HrSalaryAnalysis analyzeByPosition(Long positionId, Integer year, Integer month) {
+        String salaryMonth = String.format("%d-%02d", year, month);
         List<HrSalary> salaries = salaryMapper.selectList(null).stream()
-            .filter(s -> s.getYear().equals(year) && s.getMonth().equals(month))
+            .filter(s -> salaryMonth.equals(s.getSalaryMonth()))
             .collect(Collectors.toList());
 
         // TODO: 关联员工表，根据岗位ID过滤
@@ -63,9 +65,10 @@ public class HrSalaryAnalysisServiceImpl extends ServiceImpl<HrSalaryAnalysisMap
 
     @Override
     public HrSalaryAnalysis analyzeByEmployee(Long employeeId, Integer year, Integer month) {
+        String salaryMonth = String.format("%d-%02d", year, month);
         HrSalary salary = salaryMapper.selectList(null).stream()
-            .filter(s -> s.getEmployeeId().equals(employeeId) && 
-                        s.getYear().equals(year) && s.getMonth().equals(month))
+            .filter(s -> s.getEmployeeId().equals(employeeId) &&
+                        salaryMonth.equals(s.getSalaryMonth()))
             .findFirst().orElse(null);
 
         HrSalaryAnalysis analysis = new HrSalaryAnalysis();
@@ -77,8 +80,8 @@ public class HrSalaryAnalysisServiceImpl extends ServiceImpl<HrSalaryAnalysisMap
             analysis.setTotalBaseSalary(salary.getBaseSalary());
             analysis.setTotalPerformanceSalary(salary.getPerformanceSalary());
             analysis.setTotalBonus(salary.getBonus());
-            analysis.setTotalSocialSecurity(salary.getSocialSecurity());
-            analysis.setTotalTax(salary.getTax());
+            analysis.setTotalSocialSecurity(salary.getSocialPersonal());
+            analysis.setTotalTax(salary.getPersonalTax());
             analysis.setTotalNetSalary(salary.getNetSalary());
             analysis.setHeadcount(1);
         }
@@ -94,7 +97,7 @@ public class HrSalaryAnalysisServiceImpl extends ServiceImpl<HrSalaryAnalysisMap
     @Override
     public HrSalaryAnalysis analyzeByPeriod(Integer startYear, Integer startMonth, Integer endYear, Integer endMonth) {
         List<HrSalary> salaries = salaryMapper.selectList(null).stream()
-            .filter(s -> isInPeriod(s.getYear(), s.getMonth(), startYear, startMonth, endYear, endMonth))
+            .filter(s -> isInPeriod(s.getSalaryMonth(), startYear, startMonth, endYear, endMonth))
             .collect(Collectors.toList());
 
         return calculateStatistics(salaries, "PERIOD", null, null, null, startYear, startMonth);
@@ -172,8 +175,8 @@ public class HrSalaryAnalysisServiceImpl extends ServiceImpl<HrSalaryAnalysisMap
         analysis.setTotalBaseSalary(salaries.stream().map(HrSalary::getBaseSalary).reduce(BigDecimal.ZERO, BigDecimal::add));
         analysis.setTotalPerformanceSalary(salaries.stream().map(HrSalary::getPerformanceSalary).reduce(BigDecimal.ZERO, BigDecimal::add));
         analysis.setTotalBonus(salaries.stream().map(HrSalary::getBonus).reduce(BigDecimal.ZERO, BigDecimal::add));
-        analysis.setTotalSocialSecurity(salaries.stream().map(HrSalary::getSocialSecurity).reduce(BigDecimal.ZERO, BigDecimal::add));
-        analysis.setTotalTax(salaries.stream().map(HrSalary::getTax).reduce(BigDecimal.ZERO, BigDecimal::add));
+        analysis.setTotalSocialSecurity(salaries.stream().map(HrSalary::getSocialPersonal).reduce(BigDecimal.ZERO, BigDecimal::add));
+        analysis.setTotalTax(salaries.stream().map(HrSalary::getPersonalTax).reduce(BigDecimal.ZERO, BigDecimal::add));
         analysis.setTotalNetSalary(salaries.stream().map(HrSalary::getNetSalary).reduce(BigDecimal.ZERO, BigDecimal::add));
         analysis.setHeadcount(salaries.size());
         analysis.setAnalysisDate(LocalDate.now());
@@ -181,8 +184,11 @@ public class HrSalaryAnalysisServiceImpl extends ServiceImpl<HrSalaryAnalysisMap
         return analysis;
     }
 
-    private boolean isInPeriod(Integer year, Integer month, Integer startYear, Integer startMonth, 
+    private boolean isInPeriod(String salaryMonth, Integer startYear, Integer startMonth,
             Integer endYear, Integer endMonth) {
+        String[] parts = salaryMonth.split("-");
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
         if (year < startYear || year > endYear) return false;
         if (year == startYear && month < startMonth) return false;
         if (year == endYear && month > endMonth) return false;

@@ -12,7 +12,7 @@ import java.util.List;
  * 部门VO
  */
 @Data
-public class OrganizationDeptVO implements Serializable, TreeNodeVO {
+public class OrganizationDeptVO extends TreeNodeVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -104,7 +104,7 @@ public class OrganizationDeptVO implements Serializable, TreeNodeVO {
     /**
      * 子部门列表（树形结构）
      */
-    private List<OrganizationDeptVO> children = new ArrayList<>();
+    private List<OrganizationDeptVO> organizationDeptVOList = new ArrayList<>();
 
     /**
      * 是否有子节点
@@ -116,17 +116,14 @@ public class OrganizationDeptVO implements Serializable, TreeNodeVO {
      */
     private Integer employeeCount = 0;
 
-    @Override
     public Long getTreeId() {
         return this.id;
     }
 
-    @Override
     public Long getTreeParentId() {
         return this.parentId;
     }
 
-    @Override
     public Integer getTreeSort() {
         return this.sort;
     }
