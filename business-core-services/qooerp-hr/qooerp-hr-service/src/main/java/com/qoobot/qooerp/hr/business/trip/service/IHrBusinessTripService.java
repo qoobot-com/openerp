@@ -9,7 +9,7 @@ import java.util.List;
  * 出差申请服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IHrBusinessTripService extends IService<HrBusinessTrip> {
 

@@ -12,7 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * Feign配置
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Configuration
 public class FeignConfig {

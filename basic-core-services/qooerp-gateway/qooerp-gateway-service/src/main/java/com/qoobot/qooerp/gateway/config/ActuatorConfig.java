@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * Actuator配置
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Configuration
 public class ActuatorConfig {

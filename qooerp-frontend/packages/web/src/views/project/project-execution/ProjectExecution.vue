@@ -202,7 +202,7 @@ const searchForm = reactive({
 // 表格数据
 const loading = ref(false)
 const tableData = ref([
-  { id: 1, taskNo: 'TASK-001', taskName: '需求分析', projectName: '智能制造系统研发', assignee: '1', startDate: '2026-02-20', endDate: '2026-03-31', estimatedHours: 160, status: 'completed', progress: 100, description: '完成需求分析' },
+  { id: 1, taskNo: 'TASK-001', taskName: '需求分析', projectName: '智能制造系统研发', assignee: '1', startDate: '20xx-xx-xx', endDate: '2026-03-31', estimatedHours: 160, status: 'completed', progress: 100, description: '完成需求分析' },
   { id: 2, taskNo: 'TASK-002', taskName: '系统设计', projectName: '智能制造系统研发', assignee: '2', startDate: '2026-04-01', endDate: '2026-05-31', estimatedHours: 320, status: 'in-progress', progress: 50, description: '进行系统设计' },
   { id: 3, taskNo: 'TASK-003', taskName: '设备安装', projectName: '自动化生产线改造', assignee: '3', startDate: '2026-03-01', endDate: '2026-03-15', estimatedHours: 80, status: 'pending', progress: 0, description: '安装设备' }
 ])

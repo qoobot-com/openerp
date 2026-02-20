@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
  * 存储配额Mapper
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Mapper
 public interface FileQuotaMapper extends BaseMapper<FileQuota> {

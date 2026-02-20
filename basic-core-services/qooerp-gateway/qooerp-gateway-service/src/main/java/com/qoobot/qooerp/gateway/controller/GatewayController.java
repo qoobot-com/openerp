@@ -17,7 +17,7 @@ import java.util.Map;
  * 网关管理控制器
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @RestController

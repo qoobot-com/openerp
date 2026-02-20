@@ -15,7 +15,7 @@ $$ LANGUAGE plpgsql;
 
 -- QooERP 销售管理 - 数据库初始化脚本
 -- 版本：v1.0
--- 创建日期：2026-02-17
+-- 创建日期：20xx-xx-xx
 
 CREATE DATABASE qooerp_sales WITH ENCODING 'UTF8';
 

@@ -352,16 +352,16 @@ INSERT INTO production_plan (
   plan_no, plan_name, plan_date, plan_quantity, status,
   product_id, product_code, product_name, delivery_date, tenant_id
 ) VALUES 
-('PP20260217001', '2026年2月生产计划A', '2026-02-17', 1000.0000, 1,
+('PP20260217001', '2026年2月生产计划A', '20xx-xx-xx', 1000.0000, 1,
  1, 'PROD001', '产品A', '2026-03-01', 1),
-('PP20260217002', '2026年2月生产计划B', '2026-02-17', 500.0000, 0,
+('PP20260217002', '2026年2月生产计划B', '20xx-xx-xx', 500.0000, 0,
  2, 'PROD002', '产品B', '2026-03-15', 1);
 
 INSERT INTO production_order (
   order_no, plan_id, plan_no, order_date, order_quantity, status,
   product_id, product_code, product_name, delivery_date, tenant_id
 ) VALUES 
-('PO20260217001', 1, 'PP20260217001', '2026-02-17', 1000.0000, 2,
+('PO20260217001', 1, 'PP20260217001', '20xx-xx-xx', 1000.0000, 2,
  1, 'PROD001', '产品A', '2026-03-01', 1);
 
 INSERT INTO production_bom (

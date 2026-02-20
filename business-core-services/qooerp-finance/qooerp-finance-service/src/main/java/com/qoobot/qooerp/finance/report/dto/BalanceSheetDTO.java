@@ -10,7 +10,7 @@ import java.util.Date;
  * 资产负债表DTO
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @Schema(description = "资产负债表DTO")

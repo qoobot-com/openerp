@@ -12,7 +12,7 @@ import java.time.LocalDate;
  * 收款记录实体
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

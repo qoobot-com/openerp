@@ -103,7 +103,7 @@ const tableData = ref([
     instanceNo: 'INS202602170004',
     initiator: '赵六',
     result: 'approved',
-    completeTime: '2026-02-17 10:00:00',
+    completeTime: '20xx-xx-xx 10:00:00',
     duration: '4小时15分',
     remark: '合同条款审核通过',
   },

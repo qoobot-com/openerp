@@ -15,7 +15,7 @@ import java.util.List;
  * 会计期间控制器
  * 
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Tag(name = "会计期间管理", description = "会计期间相关接口")
 @RestController

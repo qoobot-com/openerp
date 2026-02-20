@@ -23,7 +23,7 @@ import java.util.Map;
  * 全局认证过滤器
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @Component

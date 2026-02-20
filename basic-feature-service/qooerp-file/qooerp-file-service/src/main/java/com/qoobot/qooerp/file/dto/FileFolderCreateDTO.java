@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
  * 文件夹创建DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class FileFolderCreateDTO {

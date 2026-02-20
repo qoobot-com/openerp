@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * 网关自定义配置属性
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @Component("qooerpGatewayProperties")

@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * 提供对象属性复制、集合转换等功能
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Component
 public class BeanUtils implements ApplicationContextAware {

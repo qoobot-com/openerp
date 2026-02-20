@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
  * 文件查询DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

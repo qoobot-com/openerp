@@ -312,7 +312,7 @@ const orderReportData = ref([
     id: '5',
     orderNo: 'SO202602170001',
     customerName: '杭州网络公司',
-    orderDate: '2026-02-17',
+    orderDate: '20xx-xx-xx',
     quantity: 25,
     amount: 7500,
     receivedAmount: 7500,
@@ -387,7 +387,7 @@ const customerReportData = ref([
     receivedAmount: 85000,
     unpaidAmount: 0,
     avgAmount: 7083,
-    lastOrderDate: '2026-02-17',
+    lastOrderDate: '20xx-xx-xx',
   },
 ])
 
@@ -581,7 +581,7 @@ const receiptReportData = ref([
     receiptNo: 'SR202602170001',
     orderNo: 'SO202602170001',
     customerName: '杭州网络公司',
-    receiptDate: '2026-02-17',
+    receiptDate: '20xx-xx-xx',
     receiptAmount: 7500,
     paymentMethod: '支付宝',
     status: '已确认',

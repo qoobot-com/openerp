@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * 文件分享DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class FileShareDTO {

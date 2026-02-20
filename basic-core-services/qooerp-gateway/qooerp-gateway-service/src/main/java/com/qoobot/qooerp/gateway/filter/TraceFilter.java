@@ -15,7 +15,7 @@ import java.util.UUID;
  * 链路追踪过滤器 - 传递TraceId和SpanId
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @Component

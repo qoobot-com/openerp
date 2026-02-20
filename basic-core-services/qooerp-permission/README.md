@@ -176,7 +176,7 @@ java -jar qooerp-permission-start/target/qooerp-permission-start-1.0.0-SNAPSHOT.
 
 | 版本 | 日期 | 说明 |
 |------|------|------|
-| 1.0.0 | 2026-02-17 | 初始版本 |
+| 1.0.0 | 20xx-xx-xx | 初始版本 |
 
 ## 许可证
 

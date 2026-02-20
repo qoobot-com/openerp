@@ -312,7 +312,7 @@
           <t-textarea v-model="approveForm.opinion" placeholder="请输入审批意见" :maxlength="200" />
         </t-form-item>
       </t-form>
-      
+
       <div class="dialog-footer">
         <t-space>
           <t-button theme="default" @click="approveDialogVisible = false">取消</t-button>
@@ -468,7 +468,7 @@ const loadData = async () => {
   loading.value = true
   try {
     await new Promise(resolve => setTimeout(resolve, 500))
-    
+
     tableData.value = [
       {
         id: '1',
@@ -481,7 +481,7 @@ const loadData = async () => {
         priority: 2,
         totalQuantity: 50,
         totalAmount: 75000,
-        expectedDate: '2026-02-20',
+        expectedDate: '20xx-xx-xx',
         status: 1,
         createTime: '2026-01-19 10:00:00'
       },
@@ -501,9 +501,9 @@ const loadData = async () => {
         createTime: '2026-01-18 14:30:00'
       }
     ]
-    
+
     pagination.total = 2
-    
+
     stats.totalCount = 2
     stats.pendingCount = 1
     stats.approvedCount = 1
@@ -605,7 +605,7 @@ const handleApproveSubmit = () => {
     MessagePlugin.warning('请输入审批意见')
     return
   }
-  
+
   MessagePlugin.success('审批通过')
   approveDialogVisible.value = false
   loadData()
@@ -617,7 +617,7 @@ const handleRejectSubmit = () => {
     MessagePlugin.warning('请输入审批意见')
     return
   }
-  
+
   MessagePlugin.success('已驳回')
   approveDialogVisible.value = false
   loadData()
@@ -709,7 +709,7 @@ const handleSave = () => {
     MessagePlugin.warning('请输入申请说明')
     return
   }
-  
+
   MessagePlugin.success('保存成功')
   editDialogVisible.value = false
   loadData()

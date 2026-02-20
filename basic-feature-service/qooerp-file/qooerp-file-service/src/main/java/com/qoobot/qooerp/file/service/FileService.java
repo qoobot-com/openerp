@@ -14,7 +14,7 @@ import java.io.IOException;
  * 文件服务接口
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 public interface FileService extends IService<FileInfo> {
 

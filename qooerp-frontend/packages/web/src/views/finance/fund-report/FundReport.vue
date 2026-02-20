@@ -261,8 +261,8 @@ const loadIncomeData = async () => {
     { date: '2026-02-19', account: '中国工商银行', type: 'income', category: '销售收入', amount: 50000, description: '货款到账', operator: '张三' },
     { date: '2026-02-18', account: '支付宝', type: 'expense', category: '办公费用', amount: 1200, description: '办公用品采购', operator: '李四' },
     { date: '2026-02-18', account: '中国建设银行', type: 'income', category: '其他收入', amount: 8000, description: '退款收入', operator: '王五' },
-    { date: '2026-02-17', account: '微信支付', type: 'expense', category: '差旅费', amount: 3500, description: '出差报销', operator: '赵六' },
-    { date: '2026-02-17', account: '中国工商银行', type: 'income', category: '销售收入', amount: 120000, description: '货款到账', operator: '张三' },
+    { date: '20xx-xx-xx', account: '微信支付', type: 'expense', category: '差旅费', amount: 3500, description: '出差报销', operator: '赵六' },
+    { date: '20xx-xx-xx', account: '中国工商银行', type: 'income', category: '销售收入', amount: 120000, description: '货款到账', operator: '张三' },
     { date: '2026-02-16', account: '支付宝', type: 'expense', category: '采购付款', amount: 45000, description: '供应商付款', operator: '李四' },
     { date: '2026-02-16', account: '中国建设银行', type: 'expense', category: '工资福利', amount: 180000, description: '员工工资', operator: '王五' },
     { date: '2026-02-15', account: '中国工商银行', type: 'income', category: '销售收入', amount: 80000, description: '货款到账', operator: '张三' }

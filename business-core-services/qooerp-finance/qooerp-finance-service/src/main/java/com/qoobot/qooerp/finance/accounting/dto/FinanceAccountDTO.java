@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
  * 会计科目DTO
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 public class FinanceAccountDTO {

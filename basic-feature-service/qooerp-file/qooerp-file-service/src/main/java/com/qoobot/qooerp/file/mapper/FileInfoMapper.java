@@ -12,7 +12,7 @@ import java.util.Map;
  * 文件信息Mapper
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Mapper
 public interface FileInfoMapper extends BaseMapper<FileInfo> {

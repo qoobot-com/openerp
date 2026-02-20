@@ -17,7 +17,7 @@ import java.util.Map;
  * 应收账款控制器
  * 
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Tag(name = "应收账款管理", description = "应收账款相关接口")
 @RestController

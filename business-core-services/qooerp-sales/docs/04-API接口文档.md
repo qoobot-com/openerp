@@ -1,7 +1,7 @@
 # QooERP 销售管理 - API接口文档
 
 > 版本：v1.0
-> 创建日期：2026-02-17
+> 创建日期：20xx-xx-xx
 > 基础路径：/api/sales
 
 ---
@@ -15,7 +15,7 @@ POST /api/sales/quotations
 ```json
 {
   "customerName": "客户A",
-  "quotationDate": "2026-02-17",
+  "quotationDate": "20xx-xx-xx",
   "validUntil": "2026-03-17",
   "salespersonId": 1001,
   "details": [
@@ -52,8 +52,8 @@ POST /api/sales/contracts
 ```json
 {
   "customerName": "客户A",
-  "contractDate": "2026-02-17",
-  "effectiveDate": "2026-02-20",
+  "contractDate": "20xx-xx-xx",
+  "effectiveDate": "20xx-xx-xx",
   "expiryDate": "2027-02-20",
   "details": [...]
 }
@@ -82,8 +82,8 @@ POST /api/sales/orders
 ```json
 {
   "customerName": "客户A",
-  "orderDate": "2026-02-17",
-  "deliveryDate": "2026-02-20",
+  "orderDate": "20xx-xx-xx",
+  "deliveryDate": "20xx-xx-xx",
   "details": [
     {
       "materialCode": "MAT001",
@@ -122,7 +122,7 @@ POST /api/sales/deliveries
 ```json
 {
   "orderId": 1001,
-  "deliveryDate": "2026-02-18",
+  "deliveryDate": "20xx-xx-xx",
   "details": [...]
 }
 ```
@@ -178,7 +178,7 @@ POST /api/sales/receipts
 ```json
 {
   "customerName": "客户A",
-  "receiptDate": "2026-02-18",
+  "receiptDate": "20xx-xx-xx",
   "receiptAmount": 5000.00,
   "paymentMethod": "BANK_TRANSFER",
   "details": [

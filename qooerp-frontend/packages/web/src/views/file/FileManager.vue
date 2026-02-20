@@ -87,7 +87,7 @@ const fileList = ref([
   { id: 2, name: '项目资料', type: 'folder', size: '-', updateTime: '2026-02-18', icon: FolderIcon },
   { id: 3, name: '设计稿.png', type: 'image', size: '2.5MB', updateTime: '2026-02-19', icon: ImageIcon },
   { id: 4, name: '需求文档.docx', type: 'word', size: '1.2MB', updateTime: '2026-02-18', icon: FileIcon },
-  { id: 5, name: '数据报表.xlsx', type: 'excel', size: '3.5MB', updateTime: '2026-02-17', icon: FileExcelIcon },
+  { id: 5, name: '数据报表.xlsx', type: 'excel', size: '3.5MB', updateTime: '20xx-xx-xx', icon: FileExcelIcon },
   { id: 6, name: '演示视频.mp4', type: 'video', size: '125MB', updateTime: '2026-02-16', icon: VideoIcon },
 ])
 

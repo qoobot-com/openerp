@@ -1,7 +1,7 @@
 # QooERP 库存管理 - API接口文档
 
 > 版本：v1.1
-> 创建日期：2026-02-17
+> 创建日期：20xx-xx-xx
 > 基础路径：/api/inventory
 
 ---
@@ -141,7 +141,7 @@ POST /api/inventory/inbounds
 ```json
 {
   "inboundType": "PURCHASE",
-  "inboundDate": "2026-02-17",
+  "inboundDate": "20xx-xx-xx",
   "warehouseId": 1,
   "supplierId": 1,
   "details": [
@@ -193,7 +193,7 @@ POST /api/inventory/outbounds
 ```json
 {
   "outboundType": "SALES",
-  "outboundDate": "2026-02-17",
+  "outboundDate": "20xx-xx-xx",
   "warehouseId": 1,
   "customerId": 1,
   "details": [
@@ -244,7 +244,7 @@ POST /api/inventory/transfers
 
 ```json
 {
-  "transferDate": "2026-02-17",
+  "transferDate": "20xx-xx-xx",
   "fromWarehouseId": 1,
   "toWarehouseId": 2,
   "details": [
@@ -294,7 +294,7 @@ POST /api/inventory/checks
 ```json
 {
   "warehouseId": 1,
-  "checkDate": "2026-02-17"
+  "checkDate": "20xx-xx-xx"
 }
 ```
 

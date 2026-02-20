@@ -76,7 +76,7 @@ const shareList = ref([
     shareType: 'department',
     shareTarget: '技术部、销售部',
     expireTime: '2026-02-26',
-    createTime: '2026-02-17',
+    createTime: '20xx-xx-xx',
   },
 ])
 

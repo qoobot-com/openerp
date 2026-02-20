@@ -11,7 +11,7 @@ import java.util.List;
  * 文件分享Mapper
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Mapper
 public interface FileShareMapper extends BaseMapper<FileShare> {

@@ -415,7 +415,7 @@ const reconciliationList = ref([
     receivedAmount: 95000,
     receivableAmount: 10000,
     status: 'pending',
-    createTime: '2026-02-17 10:00:00',
+    createTime: '20xx-xx-xx 10:00:00',
     reconciliationTime: '',
     confirmTime: '',
     diffAmount: 500,

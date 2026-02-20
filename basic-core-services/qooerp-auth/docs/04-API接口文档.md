@@ -1,7 +1,7 @@
 # qooerp-auth 认证服务 - API接口文档
 
 > 模块版本：1.0.0-SNAPSHOT
-> 创建日期：2026-02-17
+> 创建日期：20xx-xx-xx
 > 文档作者：QooERP团队
 
 ---
@@ -128,7 +128,7 @@ Content-Type: application/json
   "code": 403,
   "message": "账户已锁定，请30分钟后重试",
   "data": {
-    "lockTime": "2026-02-17T10:30:00"
+    "lockTime": "20xx-xx-xxT10:30:00"
   }
 }
 ```

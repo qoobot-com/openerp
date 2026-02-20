@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * 会计科目服务实现
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Service
 public class FinanceAccountServiceImpl extends ServiceImpl<FinanceAccountMapper, FinanceAccount> implements IFinanceAccountService {

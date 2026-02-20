@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * 文件操作日志DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class FileLogDTO {

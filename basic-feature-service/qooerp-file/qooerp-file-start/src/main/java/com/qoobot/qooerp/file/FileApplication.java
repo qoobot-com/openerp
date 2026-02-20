@@ -9,7 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * 文件服务启动类
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @SpringBootApplication(scanBasePackages = {"com.qoobot.qooerp.file", "com.qoobot.qooerp.common"})
 @EnableDiscoveryClient

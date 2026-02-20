@@ -9,7 +9,7 @@ import jakarta.validation.constraints.Min;
  * 文件分享创建DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class FileShareCreateDTO {

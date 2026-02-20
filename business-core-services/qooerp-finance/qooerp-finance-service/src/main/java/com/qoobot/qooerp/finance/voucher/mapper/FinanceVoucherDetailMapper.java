@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 凭证明细Mapper
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Mapper
 public interface FinanceVoucherDetailMapper extends BaseMapper<FinanceVoucherDetail> {

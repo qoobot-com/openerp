@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * 教育背景实体
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

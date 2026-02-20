@@ -671,7 +671,7 @@ const handleView = (row: any) => {
   Object.assign(detailForm, { ...row })
   candidateList.value = [
     { id: '1', name: '张三', phone: '13800138001', email: 'zhangsan@example.com', applyDate: '2026-02-10', interviewDate: '2026-02-15', status: 'hired' },
-    { id: '2', name: '李四', phone: '13800138002', email: 'lisi@example.com', applyDate: '2026-02-12', interviewDate: '2026-02-17', status: 'interviewing' }
+    { id: '2', name: '李四', phone: '13800138002', email: 'lisi@example.com', applyDate: '2026-02-12', interviewDate: '20xx-xx-xx', status: 'interviewing' }
   ]
   detailDialogVisible.value = true
 }

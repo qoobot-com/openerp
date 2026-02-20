@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * 出差申请实体
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

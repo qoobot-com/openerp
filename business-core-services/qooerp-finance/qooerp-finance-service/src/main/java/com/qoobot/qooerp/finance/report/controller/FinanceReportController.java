@@ -17,7 +17,7 @@ import java.util.Map;
  * 财务报表控制器
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Tag(name = "财务报表管理", description = "财务报表相关接口")
 @RestController

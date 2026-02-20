@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
  * 排班规则实体
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

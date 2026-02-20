@@ -12,7 +12,7 @@ import java.util.List;
  * 会计凭证服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IFinanceVoucherService extends IService<FinanceVoucher> {
 

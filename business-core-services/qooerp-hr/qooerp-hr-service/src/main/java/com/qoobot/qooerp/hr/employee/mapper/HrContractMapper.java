@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 员工合同Mapper
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Mapper
 public interface HrContractMapper extends BaseMapper<HrContract> {

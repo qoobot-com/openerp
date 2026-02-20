@@ -25,7 +25,7 @@ import { MessagePlugin } from 'tdesign-vue-next'
 const statistics = ref({ total: 30, onTime: 20, delayed: 8, overBudget: 2 })
 const loading = ref(false)
 const tableData = ref([
-  { id: 1, projectNo: 'PRJ-001', projectName: '智能制造系统研发', progress: 65, scheduleStatus: 'on-track', budgetStatus: 'normal', startDate: '2026-02-20', endDate: '2026-12-31', budget: 1000000, actualCost: 650000 },
+  { id: 1, projectNo: 'PRJ-001', projectName: '智能制造系统研发', progress: 65, scheduleStatus: 'on-track', budgetStatus: 'normal', startDate: '20xx-xx-xx', endDate: '2026-12-31', budget: 1000000, actualCost: 650000 },
   { id: 2, projectNo: 'PRJ-002', projectName: '自动化生产线改造', progress: 45, scheduleStatus: 'delayed', budgetStatus: 'normal', startDate: '2026-03-01', endDate: '2026-08-31', budget: 800000, actualCost: 400000 },
   { id: 3, projectNo: 'PRJ-003', projectName: '产品研发项目A', progress: 30, scheduleStatus: 'delayed', budgetStatus: 'over-budget', startDate: '2026-04-01', endDate: '2026-09-30', budget: 500000, actualCost: 550000 }
 ])

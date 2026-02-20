@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
  * 文件夹更新DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class FileFolderUpdateDTO {

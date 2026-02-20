@@ -11,7 +11,7 @@ import java.util.List;
  * 发票服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IFinanceInvoiceService extends IService<FinanceInvoice> {
 

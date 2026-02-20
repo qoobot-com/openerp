@@ -244,13 +244,13 @@ const tableData = ref([
     planNo: 'PLAN-20260219-001',
     planName: '项目A开发计划',
     projectName: '智能制造系统研发',
-    planPeriod: ['2026-02-20', '2026-06-30'],
+    planPeriod: ['20xx-xx-xx', '2026-06-30'],
     status: 'executing',
     progress: 45,
     totalWorkHours: 1200,
     description: '项目A的开发计划',
     tasks: [
-      { id: 1, taskName: '需求分析', startDate: '2026-02-20', endDate: '2026-03-31', workHours: 160 },
+      { id: 1, taskName: '需求分析', startDate: '20xx-xx-xx', endDate: '2026-03-31', workHours: 160 },
       { id: 2, taskName: '系统设计', startDate: '2026-04-01', endDate: '2026-05-31', workHours: 320 }
     ]
   },

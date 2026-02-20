@@ -119,7 +119,7 @@ const tableData = ref([
     priority: 'medium',
     isUrgent: false,
     submitTime: '2026-02-19 10:20:00',
-    deadline: '2026-02-20 17:00:00',
+    deadline: '20xx-xx-xx 17:00:00',
   },
   {
     id: 3,

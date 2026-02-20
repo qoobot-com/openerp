@@ -185,7 +185,7 @@ const projectProgressData = ref([
 ]);
 
 const todoList = ref([
-  { id: 1, title: '完成ERP系统需求评审', projectName: 'ERP系统开发', priority: 'high', dueDate: '2026-02-20', completed: false },
+  { id: 1, title: '完成ERP系统需求评审', projectName: 'ERP系统开发', priority: 'high', dueDate: '20xx-xx-xx', completed: false },
   { id: 2, title: '提交CRM系统设计方案', projectName: 'CRM系统开发', priority: 'medium', dueDate: '2026-02-22', completed: false },
   { id: 3, title: '修复移动端登录问题', projectName: '移动端开发', priority: 'high', dueDate: '2026-02-21', completed: false },
   { id: 4, title: '更新项目文档', projectName: 'ERP系统开发', priority: 'low', dueDate: '2026-02-25', completed: true }

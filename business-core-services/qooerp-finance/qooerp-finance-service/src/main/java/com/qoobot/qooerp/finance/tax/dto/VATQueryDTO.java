@@ -10,7 +10,7 @@ import java.time.LocalDate;
  * 增值税查询DTO
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @Schema(description = "增值税查询DTO")

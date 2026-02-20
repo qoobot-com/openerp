@@ -127,8 +127,8 @@ const config: CapacitorConfig = {
   android: {
     allowMixedContent: true,
     captureInput: true,
-    webContentsDebuggingEnabled: process.env.NODE_ENV === 'development',
-  },
+    webContentsDebuggingEnabled: process.env.NODE_ENV === 'development'
+  }
 };
 
 export default config;

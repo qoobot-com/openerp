@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * 存储配额实体
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 @TableName("file_quota")

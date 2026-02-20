@@ -1,7 +1,7 @@
 # QooERP 财务管理 - API接口文档
 
 > 版本：v1.0
-> 创建日期：2026-02-17
+> 创建日期：20xx-xx-xx
 > 基础路径：/api/finance
 
 ---
@@ -19,9 +19,9 @@
 **请求参数：**
 ```json
 {
-  "voucherDate": "2026-02-17",
+  "voucherDate": "20xx-xx-xx",
   "voucherType": "RECEIPT",
-  "accountingPeriod": "2026-02",
+  "accountingPeriod": "20xx-xx",
   "summary": "收到客户货款",
   "details": [
     {
@@ -142,7 +142,7 @@
   "relatedOrderId": 1001,
   "relatedOrderCode": "SO2026020001",
   "receivableAmount": 50000.00,
-  "receivableDate": "2026-02-17",
+  "receivableDate": "20xx-xx-xx",
   "dueDate": "2026-03-17"
 }
 ```
@@ -164,7 +164,7 @@
   "customerId": 1,
   "customerName": "客户A",
   "receiptAmount": 50000.00,
-  "receiptDate": "2026-02-20",
+  "receiptDate": "20xx-xx-xx",
   "paymentMethod": "BANK_TRANSFER",
   "bankAccount": "6225881234567890"
 }
@@ -224,7 +224,7 @@
   "relatedOrderId": 1001,
   "relatedOrderCode": "PO2026020001",
   "payableAmount": 30000.00,
-  "payableDate": "2026-02-17",
+  "payableDate": "20xx-xx-xx",
   "dueDate": "2026-03-17"
 }
 ```
@@ -246,7 +246,7 @@
   "supplierId": 1,
   "supplierName": "供应商A",
   "paymentAmount": 30000.00,
-  "paymentDate": "2026-02-20",
+  "paymentDate": "20xx-xx-xx",
   "paymentMethod": "BANK_TRANSFER",
   "bankAccount": "6225880987654321"
 }
@@ -299,8 +299,8 @@
   "userId": 1001,
   "userName": "张三",
   "location": "办公室A座",
-  "entryDate": "2026-02-17",
-  "startDate": "2026-02-17",
+  "entryDate": "20xx-xx-xx",
+  "startDate": "20xx-xx-xx",
   "usefulLife": 3,
   "depreciationMethod": "STRAIGHT_LINE"
 }
@@ -337,7 +337,7 @@
 **请求参数：**
 ```json
 {
-  "accountingPeriod": "2026-02"
+  "accountingPeriod": "20xx-xx"
 }
 ```
 

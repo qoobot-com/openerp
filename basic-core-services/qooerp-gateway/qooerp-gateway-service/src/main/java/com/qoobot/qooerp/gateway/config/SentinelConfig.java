@@ -29,7 +29,7 @@ import java.util.*;
  * Sentinel网关配置
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @Configuration

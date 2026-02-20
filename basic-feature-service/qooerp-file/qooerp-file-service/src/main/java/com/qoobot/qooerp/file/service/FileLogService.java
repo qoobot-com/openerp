@@ -8,7 +8,7 @@ import com.qoobot.qooerp.file.dto.FileLogDTO;
  * 文件操作日志服务接口
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 public interface FileLogService {
 

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 会计期间Mapper接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Mapper
 public interface FinancePeriodMapper extends BaseMapper<FinancePeriod> {

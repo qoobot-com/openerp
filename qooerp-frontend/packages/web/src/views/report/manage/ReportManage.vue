@@ -104,7 +104,7 @@ const tableData = ref([
     version: '1.0',
     status: 'draft',
     views: 0,
-    updateTime: '2026-02-17',
+    updateTime: '20xx-xx-xx',
   },
 ])
 

@@ -10,7 +10,7 @@ import java.util.List;
  * 排班计划服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IHrSchedulePlanService extends IService<HrSchedulePlan> {
 

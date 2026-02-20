@@ -16,7 +16,7 @@ import java.util.UUID;
  * 日志过滤器 - 记录请求和响应日志
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @Component

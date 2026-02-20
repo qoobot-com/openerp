@@ -10,7 +10,7 @@ import java.util.List;
  * 考勤管理服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IHrAttendanceService extends IService<HrAttendance> {
 

@@ -8,7 +8,7 @@ import java.util.Map;
  * 存储统计DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class StorageStatisticsDTO {

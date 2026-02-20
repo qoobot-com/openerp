@@ -15,7 +15,7 @@ $$ LANGUAGE plpgsql;
 
 -- QooERP 库存管理 - 数据库初始化脚本
 -- 版本：v1.1
--- 创建日期：2026-02-17
+-- 创建日期：20xx-xx-xx
 
 CREATE DATABASE qooerp_inventory WITH ENCODING 'UTF8';
 

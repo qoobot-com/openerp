@@ -22,7 +22,7 @@ import java.util.Map;
  * 权限校验过滤器
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @Component

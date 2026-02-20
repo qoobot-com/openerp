@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 成本中心Mapper接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Mapper
 public interface FinanceCostCenterMapper extends BaseMapper<FinanceCostCenter> {

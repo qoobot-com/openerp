@@ -164,7 +164,7 @@ const alertList = ref([
     instanceNo: 'INS202602180002',
     currentNode: '部门审批',
     initiator: '李四',
-    deadline: '2026-02-20 10:00:00',
+    deadline: '20xx-xx-xx 10:00:00',
     remaining: '17小时',
     urgency: 'medium',
   },

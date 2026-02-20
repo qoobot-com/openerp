@@ -1,8 +1,8 @@
 # QooERP 供应链管理 - API接口文档
 
 > 版本：v2.0
-> 创建日期：2026-02-17
-> 更新日期：2026-02-18
+> 创建日期：20xx-xx-xx
+> 更新日期：20xx-xx-xx
 > 基础路径：/api/scm
 
 ---
@@ -354,8 +354,8 @@
   "receiver": "李四",
   "receiverPhone": "13900139000",
   "receiverAddress": "上海市浦东新区",
-  "shipmentDate": "2026-02-18",
-  "estimatedArrivalDate": "2026-02-20",
+  "shipmentDate": "20xx-xx-xx",
+  "estimatedArrivalDate": "20xx-xx-xx",
   "logisticsCost": 50.00
 }
 ```
@@ -421,13 +421,13 @@
   "message": "成功",
   "data": [
     {
-      "trackingTime": "2026-02-18 10:00:00",
+      "trackingTime": "20xx-xx-xx 10:00:00",
       "location": "北京市朝阳区",
       "status": "SHIPPED",
       "description": "已发货"
     },
     {
-      "trackingTime": "2026-02-19 08:00:00",
+      "trackingTime": "20xx-xx-xx 08:00:00",
       "location": "上海转运中心",
       "status": "IN_TRANSIT",
       "description": "到达上海转运中心"
@@ -470,7 +470,7 @@
 ```json
 {
   "status": "DELIVERED",
-  "actualArrivalDate": "2026-02-20"
+  "actualArrivalDate": "20xx-xx-xx"
 }
 ```
 
@@ -494,7 +494,7 @@
 ```json
 {
   "supplierId": 1,
-  "quotationDate": "2026-02-18",
+  "quotationDate": "20xx-xx-xx",
   "validUntil": "2026-03-18",
   "quotationType": "NORMAL",
   "details": [
@@ -567,7 +567,7 @@
     "quotationCode": "QT20260218001",
     "supplierId": 1,
     "supplierName": "供应商A",
-    "quotationDate": "2026-02-18",
+    "quotationDate": "20xx-xx-xx",
     "validUntil": "2026-03-18",
     "totalAmount": 1000.00,
     "auditStatus": "PENDING",
@@ -648,8 +648,8 @@
 ```json
 {
   "materialCodes": ["M001", "M002"],
-  "startDate": "2026-02-01",
-  "endDate": "2026-02-18"
+  "startDate": "20xx-xx-01",
+  "endDate": "20xx-xx-xx"
 }
 ```
 
@@ -700,7 +700,7 @@
   "statementType": "MONTHLY",
   "startDate": "2026-01-01",
   "endDate": "2026-01-31",
-  "statementDate": "2026-02-01",
+  "statementDate": "20xx-xx-01",
   "remark": "1月份对账单"
 }
 ```
@@ -791,7 +791,7 @@
     "statementType": "MONTHLY",
     "startDate": "2026-01-01",
     "endDate": "2026-01-31",
-    "statementDate": "2026-02-01",
+    "statementDate": "20xx-xx-01",
     "purchaseAmount": 50000.00,
     "returnAmount": 2000.00,
     "freightAmount": 500.00,
@@ -862,7 +862,7 @@
 ```json
 {
   "settlementMethod": "BANK_TRANSFER",
-  "settlementDate": "2026-02-05"
+  "settlementDate": "20xx-xx-05"
 }
 ```
 

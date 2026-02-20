@@ -26,20 +26,21 @@
 
 > **QooERP** - 适用于全球大、中、小企业、政府机构的云原生微服务架构开源ERP系统
 
-QooERP 是一款基于现代云原生技术构建的**世界级大型企业级开源ERP系统**,采用 DDD 领域驱动设计和微服务架构,支持多租户、多语言、多币种,专为**大型企业、跨国集团、政府机构、科技企业**设计,支持**百万级用户规模**,同时完美兼容中小型企业。
+QooERP 是一款基于现代云原生技术构建的**世界级大型企业级开源ERP系统**,采用 DDD 领域驱动设计和微服务架构,支持多租户、多语言、多币种,专为**大型企业、跨国集团、政府机构、科技企业**设计,支持**百万级企业内部用户规模**,同时完美兼容中小型企业。
 
 作为**全球最大、最专业、最易用**的开源 ERP 系统,QooERP 致力于为全球企业提供全场景、全渠道、全终端的数字化管理解决方案。
 
 ### 🎯 为什么选择 QooERP?
 
 - **🌍 全球化视野**: 支持 100+ 语言、100+ 币种、多时区,服务全球 190+ 国家和地区
-- **🏗️ 企业级架构**: DDD 领域驱动设计 + 微服务架构,支撑千万级用户、亿级数据量
+- **🏗️ 企业级架构**: DDD 领域驱动设计 + 微服务架构,支撑百万级企业员工、亿级业务数据量
 - **⚡ 极致性能**: 毫秒级响应、秒级加载,99.99% 可用性保障
 - **🔐 企业级安全**: 通过 ISO 27001 认证,支持 GDPR、SOC 2、ISO 27001 等国际合规
 - **📦 开箱即用**: 100+ 预置业务模块,80+ 开箱即用的核心组件,零代码快速搭建
 - **🔄 持续演进**: 每周发布新版本,每季度重大更新,紧跟技术前沿
 - **🌐 云原生**: 深度集成 Kubernetes、Docker,支持多云、混合云、边缘计算
-- **🤖 AI 智能化**: 内置 AI 助手,智能数据分析,自动化流程,预测性决策支持
+- **🤖 AI 智能化**: 内置 10,000 名数字员工,深度集成 LLM 大模型、知识库、智能体、具身智能,引领未来企业管理
+- **🚀 未来导向**: 专为未来企业打造,融合前沿 AI 技术,人机协作,智能驱动
 
 ---
 
@@ -62,7 +63,7 @@ QooERP 是一款基于现代云原生技术构建的**世界级大型企业级�
 - **合规认证**: GDPR、SOC 2 Type II、ISO 27001、ISO 27701、ISO 27018
 
 ### 🚀 性能与可扩展性
-- **高并发支持**: 支持 100 万+ 在线用户,10 万+ QPS
+- **高并发支持**: 支持 100 万+ 企业内部员工同时在线,10 万+ QPS
 - **水平扩展**: 无状态服务设计,支持秒级自动扩容
 - **服务治理**: Spring Cloud Alibaba 完整生态,Nacos 注册中心、Sentinel 流量控制
 - **负载均衡**: Nginx + Ribbon + Spring Cloud Gateway 多级负载均衡
@@ -93,11 +94,50 @@ QooERP 是一款基于现代云原生技术构建的**世界级大型企业级�
 - **PWA 支持**: 离线使用、桌面图标、消息推送
 
 ### 🤖 AI 智能化
-- **智能助手**: 基于 LLM 的自然语言查询、智能推荐
-- **数据分析**: AI 驱动的数据洞察、异常检测、趋势预测
-- **流程自动化**: RPA 机器人流程自动化,智能审批
-- **图像识别**: OCR 票据识别、图像分类、智能标签
-- **代码生成**: AI 辅助代码生成、智能重构、代码审查
+
+QooERP 深度融合前沿 AI 技术,内置 **10,000 名数字员工**,为企业提供全方位智能化支持:
+
+#### 🤖 大模型集成
+- **LLM 集成**: 支持 GPT-4、Claude、文心一言、通义千问等主流大语言模型
+- **多模态能力**: 文本、图像、语音、视频多模态理解与生成
+- **智能对话**: 自然语言交互,支持复杂业务场景问答
+- **代码助手**: AI 辅助代码生成、智能重构、代码审查、Bug 修复
+- **文档智能**: 自动生成需求文档、技术文档、API 文档
+
+#### 📚 知识库与智能检索
+- **企业知识库**: 自动构建企业知识图谱,智能知识管理
+- **语义检索**: 基于 Embedding 的语义搜索,精准定位信息
+- **知识问答**: RAG (检索增强生成) 技术,基于企业知识库精准问答
+- **文档理解**: 自动提取文档关键信息,智能摘要生成
+- **知识更新**: 实时知识更新,知识图谱自动维护
+
+#### 🎯 智能体协作
+- **业务智能体**: 财务智能体、HR 智能体、采购智能体、销售智能体等 50+ 预置智能体
+- **任务编排**: 多智能体协同工作,自动完成复杂业务流程
+- **自主决策**: 基于业务规则和 AI 模型,实现智能决策
+- **流程优化**: AI 驱动的流程优化,自动发现瓶颈并优化
+- **异常处理**: 智能异常检测,自动预警并处理
+
+#### 🤖 具身智能
+- **数字员工**: 10,000 名可配置数字员工,7x24 小时不间断工作
+- **虚拟助手**: 每个员工配备专属 AI 助手,个性化服务
+- **自动化办公**: RPA + AI 智能自动化,释放人力资源
+- **智能客服**: AI 客服机器人,自动处理常见问题
+- **培训助手**: AI 培训导师,个性化学习路径推荐
+
+#### 📊 数据智能
+- **智能分析**: AI 驱动的数据洞察,自动发现业务规律
+- **异常检测**: 实时监控业务数据,智能异常检测与预警
+- **趋势预测**: 基于历史数据的趋势预测,辅助决策
+- **智能报表**: 自动生成报表,智能数据可视化
+- **预测分析**: 销售预测、库存预测、财务预测等
+
+#### 🔮 前沿技术应用
+- **联邦学习**: 保护数据隐私的分布式机器学习
+- **边缘计算**: AI 模型边缘部署,低延迟实时响应
+- **强化学习**: 基于强化学习的智能决策优化
+- **图神经网络**: 企业关系图谱智能分析
+- **持续学习**: AI 模型持续学习,不断优化性能
 
 ---
 
@@ -318,10 +358,10 @@ qooerp/
 5. **移动应用** - 移动审批、移动报表、移动查询
 
 ### 🚀 P3 级:高级功能模块 (增强能力)
-1. **报表与数据分析** - 报表设计、BI 分析、数据挖掘
-2. **业务流程管理** - 流程优化、流程监控、流程分析
-3. **低代码平台** - 表单设计、页面设计、代码生成
-4. **AI 智能助手** - 智能问答、智能推荐、智能分析
+1. **报表与数据分析** - 报表设计、BI 分析、数据挖掘、AI 驱动洞察
+2. **业务流程管理** - 流程优化、流程监控、流程分析、智能流程推荐
+3. **低代码平台** - 表单设计、页面设计、代码生成、AI 辅助开发
+4. **AI 智能中心** - LLM 大模型集成、企业知识库、智能体协作、具身智能、10,000 名数字员工
 
 ---
 
@@ -420,10 +460,10 @@ pnpm dev:mobile
 
 | 规模 | 部署方式 | 并发能力 | 适用场景 | 成本 |
 |------|---------|---------|---------|------|
-| **小微** | Docker 单机 | 100-500 用户 | 小团队、快速上线 | 低 |
-| **中型** | 微服务集群 | 500-5000 用户 | 中等规模、完整业务 | 中 |
-| **大型** | K8s 集群 | 5000-50000 用户 | 大规模组织、复杂流程 | 中高 |
-| **集团** | K8s 多区域 | 50000-100 万+ 用户 | 跨地域、多组织架构 | 高 |
+| **小微** | Docker 单机 | 100-500 员工 | 小团队、快速上线 | 低 |
+| **中型** | 微服务集群 | 500-5000 员工 | 中等规模、完整业务 | 中 |
+| **大型** | K8s 集群 | 5000-50000 员工 | 大规模组织、复杂流程 | 中高 |
+| **集团** | K8s 多区域 | 50000-100 万+ 员工 | 跨地域、多组织架构 | 高 |
 
 ### 🚀 小微企业部署 (Docker 一键部署)
 
@@ -836,15 +876,86 @@ server {
 
 ---
 
+## 🤖 AI 智能能力
+
+QooERP 深度融合前沿 AI 技术,内置 **10,000 名数字员工**,为企业提供全方位智能化支持,引领未来企业管理趋势。
+
+### 🔥 核心亮点
+- **🤖 10,000 名数字员工**: 7x24 小时不间断工作,可配置、可培训、可优化
+- **🧠 LLM 大模型集成**: 支持 GPT-4、Claude、文心一言、通义千问等主流大语言模型
+- **📚 企业知识库**: 自动构建企业知识图谱,智能知识管理,RAG 检索增强生成
+- **🎯 智能体协作**: 50+ 预置业务智能体,多智能体协同工作,自动完成复杂业务流程
+- **🤖 具身智能**: 数字员工、虚拟助手、机器人控制,实现人机协作
+
+### 📊 技术架构
+
+| 技术类别 | 技术方案 | 说明 |
+|---------|---------|------|
+| **大模型** | GPT-4/Claude/文心一言/通义千问 | 多模型支持,按需切换 |
+| **应用框架** | LangChain | LLM 应用开发框架 |
+| **向量数据库** | Weaviate/Pinecone | 高性能向量检索 |
+| **知识图谱** | Neo4j | 企业知识库构建 |
+| **RAG 框架** | LlamaIndex | 检索增强生成 |
+| **智能体框架** | LangGraph | Agent 智能体编排 |
+| **多模态** | 文本/图像/语音/视频 | 多模态理解与生成 |
+| **具身智能** | 数字员工/虚拟助手 | 人机协作 |
+| **强化学习** | Stable-Baselines3 | 智能决策优化 |
+
+### 🎯 应用场景
+
+#### 1. 🤖 数字员工
+- **财务数字员工**: 自动对账、智能记账、财务分析、风险预警
+- **HR 数字员工**: 智能招聘、简历筛选、面试安排、培训管理
+- **采购数字员工**: 供应商管理、询比价、合同管理、付款跟踪
+- **销售数字客户**: 客户跟进、商机挖掘、报价生成、合同管理
+- **客服数字员工**: 智能问答、问题处理、工单管理、满意度调查
+
+#### 2. 📚 知识库与智能检索
+- **企业知识库**: 自动构建企业知识图谱,智能知识管理
+- **语义检索**: 基于 Embedding 的语义搜索,精准定位信息
+- **知识问答**: RAG 技术,基于企业知识库精准问答
+- **文档理解**: 自动提取文档关键信息,智能摘要生成
+- **知识更新**: 实时知识更新,知识图谱自动维护
+
+#### 3. 🎯 智能体协作
+- **业务智能体**: 50+ 预置业务智能体,覆盖各业务场景
+- **任务编排**: 多智能体协同工作,自动完成复杂业务流程
+- **自主决策**: 基于业务规则和 AI 模型,实现智能决策
+- **流程优化**: AI 驱动的流程优化,自动发现瓶颈并优化
+- **异常处理**: 智能异常检测,自动预警并处理
+
+#### 4. 🤖 具身智能
+- **虚拟助手**: 每个员工配备专属 AI 助手,个性化服务
+- **自动化办公**: RPA + AI 智能自动化,释放人力资源
+- **智能客服**: AI 客服机器人,自动处理常见问题
+- **培训助手**: AI 培训导师,个性化学习路径推荐
+- **机器人控制**: 物理机器人集成,仓储物流自动化
+
+#### 5. 📊 数据智能
+- **智能分析**: AI 驱动的数据洞察,自动发现业务规律
+- **异常检测**: 实时监控业务数据,智能异常检测与预警
+- **趋势预测**: 基于历史数据的趋势预测,辅助决策
+- **智能报表**: 自动生成报表,智能数据可视化
+- **预测分析**: 销售预测、库存预测、财务预测等
+
+### 🔮 前沿技术应用
+- **联邦学习**: 保护数据隐私的分布式机器学习
+- **边缘计算**: AI 模型边缘部署,低延迟实时响应
+- **强化学习**: 基于强化学习的智能决策优化
+- **图神经网络**: 企业关系图谱智能分析
+- **持续学习**: AI 模型持续学习,不断优化性能
+
+---
+
 ## 性能指标
 
-我们持续优化性能,确保提供卓越的用户体验:
+我们持续优化性能,确保提供卓越的企业内部用户体验:
 
 | 指标 | 目标值 | 当前值 | 说明 |
 |------|--------|--------|------|
 | **系统可用性** | > 99.99% | 99.99% | SLA 保证 |
 | **响应时间** | < 100ms (P99) | ~80ms | API 响应时间 |
-| **并发用户** | 100 万+ | 100 万+ | 在线用户数 |
+| **在线员工数** | 100 万+ | 100 万+ | 企业内部员工同时在线数 |
 | **QPS** | 10 万+ | 10 万+ | 每秒查询数 |
 | **吞吐量** | 1GB/s+ | 1GB/s+ | 数据传输速率 |
 | **缓存命中率** | > 95% | 96% | Redis 缓存 |
@@ -884,20 +995,21 @@ server {
 
 > **QooERP** - Cloud-Native Microservices Open-Source ERP System for Global Enterprises, SMEs, and Government Agencies
 
-QooERP is a **world-class enterprise-grade open-source ERP system** built with modern cloud-native technologies. It adopts DDD (Domain-Driven Design) and microservices architecture, supports multi-tenancy, multi-language, and multi-currency. Designed for **large enterprises, multinational corporations, government agencies, and technology companies**, it supports **millions of users** while being perfectly compatible with small and medium enterprises.
+QooERP is a **world-class enterprise-grade open-source ERP system** built with modern cloud-native technologies. It adopts DDD (Domain-Driven Design) and microservices architecture, supports multi-tenancy, multi-language, and multi-currency. Designed for **large enterprises, multinational corporations, government agencies, and technology companies**, it supports **millions of enterprise internal users (employees)** while being perfectly compatible with small and medium enterprises.
 
 As the **largest, most professional, and easiest-to-use** open-source ERP system globally, QooERP is committed to providing comprehensive digital management solutions for global enterprises.
 
 ### 🎯 Why Choose QooERP?
 
 - **🌍 Global Vision**: Supports 100+ languages, 100+ currencies, multiple time zones, serving 190+ countries and regions
-- **🏗️ Enterprise Architecture**: DDD + Microservices, supporting tens of millions of users and billions of data records
+- **🏗️ Enterprise Architecture**: DDD + Microservices, supporting millions of enterprise employees and billions of business data records
 - **⚡ Extreme Performance**: Millisecond response, second-level loading, 99.99% availability guarantee
 - **🔐 Enterprise Security**: ISO 27001 certified, supports GDPR, SOC 2, ISO 27001 international compliance
 - **📦 Ready-to-Use**: 100+ pre-built business modules, 80+ out-of-the-box core components, zero-code rapid deployment
 - **🔄 Continuous Evolution**: Weekly releases, quarterly major updates, keeping pace with technology trends
 - **🌐 Cloud-Native**: Deep integration with Kubernetes and Docker, supports multi-cloud, hybrid cloud, edge computing
-- **🤖 AI-Powered**: Built-in AI assistant, intelligent data analysis, automated processes, predictive decision support
+- **🤖 AI-Powered**: Built-in 10,000 digital employees, deep integration of LLM, knowledge base, agents, embodied AI, leading future enterprise management
+- **🚀 Future-Oriented**: Built for future enterprises, integrating cutting-edge AI technologies, human-machine collaboration, intelligent-driven
 
 ---
 
@@ -920,7 +1032,7 @@ As the **largest, most professional, and easiest-to-use** open-source ERP system
 - **Compliance**: GDPR, SOC 2 Type II, ISO 27001, ISO 27701, ISO 27018
 
 ### 🚀 Performance & Scalability
-- **High Concurrency**: 1M+ online users, 100K+ QPS
+- **High Concurrency**: 1M+ enterprise employees online, 100K+ QPS
 - **Horizontal Scaling**: Stateless services, second-level auto-scaling
 - **Service Governance**: Spring Cloud Alibaba ecosystem, Nacos, Sentinel
 - **Load Balancing**: Nginx + Ribbon + Gateway multi-level LB
@@ -951,11 +1063,50 @@ As the **largest, most professional, and easiest-to-use** open-source ERP system
 - **PWA Support**: Offline use, desktop icons, push notifications
 
 ### 🤖 AI Intelligence
-- **Smart Assistant**: LLM-based natural language queries, smart recommendations
-- **Data Analytics**: AI-driven insights, anomaly detection, trend prediction
-- **Process Automation**: RPA robotic process automation, smart approval
-- **Image Recognition**: OCR, image classification, smart tagging
-- **Code Generation**: AI-assisted code generation, intelligent refactoring, code review
+
+QooERP deeply integrates cutting-edge AI technologies with **10,000 digital employees** built-in, providing comprehensive intelligent support for enterprises:
+
+#### 🤖 LLM Integration
+- **LLM Integration**: Supports mainstream LLMs including GPT-4, Claude, Wenxin Yiyan, Tongyi Qianwen
+- **Multimodal Capabilities**: Text, image, voice, and video multimodal understanding and generation
+- **Intelligent Dialogue**: Natural language interaction, supports complex business scenario Q&A
+- **Code Assistant**: AI-assisted code generation, intelligent refactoring, code review, bug fixes
+- **Document Intelligence**: Automatic generation of requirement docs, technical docs, API docs
+
+#### 📚 Knowledge Base & Intelligent Retrieval
+- **Enterprise Knowledge Base**: Automatically builds enterprise knowledge graphs, intelligent knowledge management
+- **Semantic Retrieval**: Embedding-based semantic search, precise information location
+- **Knowledge Q&A**: RAG (Retrieval-Augmented Generation) technology, precise Q&A based on enterprise knowledge base
+- **Document Understanding**: Automatically extracts key information from documents, generates intelligent summaries
+- **Knowledge Updates**: Real-time knowledge updates, automatic knowledge graph maintenance
+
+#### 🎯 Agent Collaboration
+- **Business Agents**: 50+ pre-built business agents including Finance Agent, HR Agent, Procurement Agent, Sales Agent
+- **Task Orchestration**: Multi-agent collaboration, automatic completion of complex business processes
+- **Autonomous Decision-Making**: Based on business rules and AI models, achieving intelligent decision-making
+- **Process Optimization**: AI-driven process optimization, automatically discovers bottlenecks and optimizes
+- **Exception Handling**: Intelligent anomaly detection, automatic alerts and handling
+
+#### 🤖 Embodied Intelligence
+- **Digital Employees**: 10,000 configurable digital employees, 7x24 uninterrupted work
+- **Virtual Assistants**: Each employee has a dedicated AI assistant, personalized services
+- **Automated Office Work**: RPA + AI intelligent automation, releasing human resources
+- **Intelligent Customer Service**: AI customer service robots, automatically handle common issues
+- **Training Assistants**: AI training mentors, personalized learning path recommendations
+
+#### 📊 Data Intelligence
+- **Intelligent Analysis**: AI-driven data insights, automatic discovery of business patterns
+- **Anomaly Detection**: Real-time monitoring of business data, intelligent anomaly detection and alerts
+- **Trend Prediction**: Trend prediction based on historical data, supporting decision-making
+- **Intelligent Reports**: Automatic report generation, intelligent data visualization
+- **Predictive Analytics**: Sales prediction, inventory prediction, financial prediction, etc.
+
+#### 🔮 Cutting-Edge Technologies
+- **Federated Learning**: Distributed machine learning with data privacy protection
+- **Edge Computing**: AI model edge deployment, low-latency real-time response
+- **Reinforcement Learning**: Intelligent decision optimization based on reinforcement learning
+- **Graph Neural Networks**: Enterprise relationship graph intelligent analysis
+- **Continuous Learning**: AI model continuous learning, continuous performance optimization
 
 ---
 

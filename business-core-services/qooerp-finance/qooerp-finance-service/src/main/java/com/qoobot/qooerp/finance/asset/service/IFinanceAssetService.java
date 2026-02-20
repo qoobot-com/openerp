@@ -13,7 +13,7 @@ import java.util.List;
  * 固定资产服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IFinanceAssetService extends IService<FinanceAsset> {
 

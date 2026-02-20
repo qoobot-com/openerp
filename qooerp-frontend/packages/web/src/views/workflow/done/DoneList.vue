@@ -80,7 +80,7 @@ const tableData = ref([
     instanceNo: 'INS202602170003',
     initiator: '王五',
     endStatus: 'completed',
-    endTime: '2026-02-17 18:00:00',
+    endTime: '20xx-xx-xx 18:00:00',
     duration: '3天2小时',
   },
 ])

@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * 财务管理服务启动类
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @SpringBootApplication(scanBasePackages = {"com.qoobot.qooerp"})
 @EnableFeignClients(basePackages = {"com.qoobot.qooerp"})

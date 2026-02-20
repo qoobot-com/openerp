@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
  * QooERP HR 启动类
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @SpringBootApplication
 @EnableDiscoveryClient

@@ -1,7 +1,7 @@
 # QooERP 人力资源管理 - API接口文档
 
 > 版本：v1.0
-> 创建日期：2026-02-17
+> 创建日期：20xx-xx-xx
 > 服务名称：qooerp-hr
 > 基础路径：/api/hr
 
@@ -311,7 +311,7 @@ Content-Type: application/json
   "message": "打卡成功",
   "data": {
     "attendanceId": 3001,
-    "checkTime": "2026-02-17T08:55:00.000Z"
+    "checkTime": "20xx-xx-xxT08:55:00.000Z"
   },
   "timestamp": 1708147200000
 }
@@ -332,8 +332,8 @@ Content-Type: application/json
 {
   "employeeId": 1001,
   "leaveType": "ANNUAL",
-  "startDate": "2026-02-20",
-  "endDate": "2026-02-22",
+  "startDate": "20xx-xx-xx",
+  "endDate": "20xx-xx-22",
   "leaveDays": 3,
   "reason": "年假",
   "approverId": 2001
@@ -394,9 +394,9 @@ Content-Type: application/json
 {
   "employeeId": 1001,
   "overtimeType": "WEEKDAY",
-  "overtimeDate": "2026-02-17",
-  "startTime": "2026-02-17T18:00:00.000Z",
-  "endTime": "2026-02-17T21:00:00.000Z",
+  "overtimeDate": "20xx-xx-xx",
+  "startTime": "20xx-xx-xxT18:00:00.000Z",
+  "endTime": "20xx-xx-xxT21:00:00.000Z",
   "reason": "项目紧急",
   "approverId": 2001
 }
@@ -440,8 +440,8 @@ Content-Type: application/json
   "employeeId": 1001,
   "destination": "北京",
   "purpose": "客户拜访",
-  "startDate": "2026-02-25",
-  "endDate": "2026-02-27",
+  "startDate": "20xx-xx-25",
+  "endDate": "20xx-xx-27",
   "tripDays": 3,
   "budgetAmount": 5000.00,
   "approverId": 2001
@@ -583,7 +583,7 @@ Content-Type: application/json
 ```json
 {
   "salaryMonth": "2026-01",
-  "paymentDate": "2026-02-25"
+  "paymentDate": "20xx-xx-25"
 }
 ```
 

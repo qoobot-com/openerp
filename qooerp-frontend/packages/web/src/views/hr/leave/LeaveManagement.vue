@@ -275,7 +275,7 @@ const loadData = async () => {
         applicantName: '张三',
         department: '技术研发部',
         leaveType: '2',
-        startTime: '2026-02-20 09:00',
+        startTime: '20xx-xx-xx 09:00',
         endTime: '2026-02-21 18:00',
         days: 2,
         reason: '感冒发烧，去医院看病',

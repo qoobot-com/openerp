@@ -111,7 +111,7 @@ const tableData = ref([
     initiator: '王五',
     status: 'suspended',
     currentNode: '财务审批',
-    startTime: '2026-02-17 10:00:00',
+    startTime: '20xx-xx-xx 10:00:00',
     duration: '2天5小时',
   },
   {

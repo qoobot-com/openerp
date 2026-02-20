@@ -196,7 +196,7 @@ const topCustomers = ref([
     totalAmount: 980000,
     orderCount: 38,
     trend: 8.5,
-    lastOrderDate: '2026-02-17'
+    lastOrderDate: '20xx-xx-xx'
   },
   {
     id: 3,

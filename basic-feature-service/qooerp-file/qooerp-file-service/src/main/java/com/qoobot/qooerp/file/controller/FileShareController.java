@@ -17,7 +17,7 @@ import java.util.List;
  * 文件分享控制器
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Tag(name = "文件分享", description = "文件分享创建、访问等接口")
 @RestController

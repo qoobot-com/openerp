@@ -1,7 +1,7 @@
 # QooERP 采购管理 - API接口文档
 
 > 版本：v1.0
-> 创建日期：2026-02-17
+> 创建日期：20xx-xx-xx
 > 基础路径：/api/purchase
 
 ---
@@ -17,8 +17,8 @@
 {
   "supplierId": 1001,
   "supplierName": "供应商A",
-  "orderDate": "2026-02-17",
-  "deliveryDate": "2026-02-20",
+  "orderDate": "20xx-xx-xx",
+  "deliveryDate": "20xx-xx-xx",
   "warehouseId": 2001,
   "warehouseName": "主仓库",
   "remark": "紧急订单",
@@ -55,7 +55,7 @@
 ```json
 {
   "id": 10001,
-  "deliveryDate": "2026-02-22",
+  "deliveryDate": "20xx-xx-22",
   "warehouseId": 2001,
   "warehouseName": "主仓库",
   "remark": "更新备注",
@@ -120,8 +120,8 @@
     "orderCode": "PO202602170001",
     "supplierId": 1001,
     "supplierName": "供应商A",
-    "orderDate": "2026-02-17",
-    "deliveryDate": "2026-02-20",
+    "orderDate": "20xx-xx-xx",
+    "deliveryDate": "20xx-xx-xx",
     "orderAmount": 5000.00,
     "discountAmount": 250.00,
     "payableAmount": 4750.00,
@@ -132,7 +132,7 @@
     "warehouseId": 2001,
     "warehouseName": "主仓库",
     "remark": "紧急订单",
-    "createTime": "2026-02-17T10:30:00",
+    "createTime": "20xx-xx-xxT10:30:00",
     "details": [
       {
         "id": 20001,
@@ -182,7 +182,7 @@
 ```json
 {
   "orderId": 10001,
-  "receiptDate": "2026-02-18",
+  "receiptDate": "20xx-xx-xx",
   "warehouseId": 2001,
   "warehouseName": "主仓库",
   "remark": "",
@@ -233,7 +233,7 @@
     "orderCode": "PO202602170001",
     "supplierId": 1001,
     "supplierName": "供应商A",
-    "receiptDate": "2026-02-18",
+    "receiptDate": "20xx-xx-xx",
     "receiptAmount": 5000.00,
     "receiptStatus": "COMPLETED",
     "receiptStatusName": "已完成",
@@ -242,7 +242,7 @@
     "operatorId": 5001,
     "operatorName": "张三",
     "remark": "",
-    "createTime": "2026-02-18T09:00:00",
+    "createTime": "20xx-xx-xxT09:00:00",
     "details": [
       {
         "id": 20001,
@@ -293,7 +293,7 @@
 {
   "orderId": 10001,
   "receiptId": 10001,
-  "returnDate": "2026-02-20",
+  "returnDate": "20xx-xx-xx",
   "reason": "质量问题",
   "warehouseId": 2001,
   "warehouseName": "主仓库",
@@ -348,7 +348,7 @@
     "receiptId": 10001,
     "supplierId": 1001,
     "supplierName": "供应商A",
-    "returnDate": "2026-02-20",
+    "returnDate": "20xx-xx-xx",
     "returnAmount": 500.00,
     "reason": "质量问题",
     "returnStatus": "COMPLETED",
@@ -358,7 +358,7 @@
     "operatorId": 5001,
     "operatorName": "张三",
     "remark": "",
-    "createTime": "2026-02-20T10:00:00",
+    "createTime": "20xx-xx-xxT10:00:00",
     "details": [
       {
         "id": 20001,

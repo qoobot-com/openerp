@@ -9,7 +9,7 @@ import java.util.List;
  * 会计期间服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IFinancePeriodService extends IService<FinancePeriod> {
 

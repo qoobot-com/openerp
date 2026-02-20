@@ -392,7 +392,7 @@ const tableData = ref([
     targetCount: 5000,
     deliveredCount: 0,
     clickedCount: 0,
-    sendTime: '2026-02-20 10:00:00',
+    sendTime: '20xx-xx-xx 10:00:00',
     createTime: '2026-02-19 14:00:00',
     content: '限时特惠，立享8折优惠',
     url: 'https://qooerp.com/promotion',

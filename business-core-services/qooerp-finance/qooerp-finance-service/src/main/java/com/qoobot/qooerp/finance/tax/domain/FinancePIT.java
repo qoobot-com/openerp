@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  * 个人所得税实体
  * 
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Data
 @TableName("finance_pit")

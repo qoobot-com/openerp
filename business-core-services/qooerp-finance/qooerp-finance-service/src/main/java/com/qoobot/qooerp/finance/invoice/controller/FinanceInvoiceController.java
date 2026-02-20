@@ -16,7 +16,7 @@ import java.util.List;
  * 发票管理控制器
  * 
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Tag(name = "发票管理", description = "发票相关接口")
 @RestController

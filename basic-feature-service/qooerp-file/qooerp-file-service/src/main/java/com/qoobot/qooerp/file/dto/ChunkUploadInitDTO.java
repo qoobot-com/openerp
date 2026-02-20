@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Positive;
  * 分片上传初始化DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class ChunkUploadInitDTO {

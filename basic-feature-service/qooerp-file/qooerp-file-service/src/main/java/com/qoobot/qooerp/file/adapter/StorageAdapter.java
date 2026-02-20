@@ -6,7 +6,7 @@ import java.io.InputStream;
  * 存储适配器接口
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 public interface StorageAdapter {
 

@@ -1,7 +1,7 @@
 # qooerp-permission 权限服务 - API接口文档
 
 > 模块版本：1.0.0-SNAPSHOT
-> 创建日期：2026-02-17
+> 创建日期：20xx-xx-xx
 > 文档作者：QooERP团队
 
 ---
@@ -172,8 +172,8 @@
     "status": 1,
     "sort": 1,
     "remark": "销售部门经理角色",
-    "createTime": "2026-02-17T10:00:00",
-    "updateTime": "2026-02-17T10:00:00"
+    "createTime": "20xx-xx-xxT10:00:00",
+    "updateTime": "20xx-xx-xxT10:00:00"
   },
   "timestamp": 1234567890000
 }
@@ -215,7 +215,7 @@
         "roleType": 2,
         "dataScope": 3,
         "status": 1,
-        "createTime": "2026-02-17T10:00:00"
+        "createTime": "20xx-xx-xxT10:00:00"
       }
     ]
   },

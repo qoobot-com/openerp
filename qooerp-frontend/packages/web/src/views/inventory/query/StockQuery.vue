@@ -367,7 +367,7 @@ const handleViewRecord = (row: any) => {
     records: [
       { id: 1, type: 'in', typeName: '入库', quantity: 100, date: '2026-02-18 10:30', operator: '张三', remark: '采购入库' },
       { id: 2, type: 'out', typeName: '出库', quantity: 50, date: '2026-02-19 14:20', operator: '李四', remark: '销售出库' },
-      { id: 3, type: 'in', typeName: '入库', quantity: 200, date: '2026-02-17 09:00', operator: '王五', remark: '入库补充' }
+      { id: 3, type: 'in', typeName: '入库', quantity: 200, date: '20xx-xx-xx 09:00', operator: '王五', remark: '入库补充' }
     ]
   };
   recordVisible.value = true;

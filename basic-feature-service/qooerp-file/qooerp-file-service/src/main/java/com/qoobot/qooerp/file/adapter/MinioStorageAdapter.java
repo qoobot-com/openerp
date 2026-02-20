@@ -13,7 +13,7 @@ import java.io.InputStream;
  * MinIO存储适配器实现
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Slf4j
 @Component

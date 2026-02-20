@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  * 限流过滤器 - 基于Redis的分布式限流
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @Component

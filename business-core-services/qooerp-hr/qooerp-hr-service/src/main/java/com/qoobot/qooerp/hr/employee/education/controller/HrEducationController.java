@@ -18,7 +18,7 @@ import java.util.List;
  * 教育背景管理控制器
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Slf4j
 @RestController

@@ -244,7 +244,7 @@ const tableData = ref([
     updateTime: '2026-02-18 16:45:00',
     transactions: [
       { id: 1, type: 'income', amount: 100000, date: '2026-02-18', description: '销售收款', balance: 350000 },
-      { id: 2, type: 'expense', amount: 50000, date: '2026-02-17', description: '采购付款', balance: 250000 }
+      { id: 2, type: 'expense', amount: 50000, date: '20xx-xx-xx', description: '采购付款', balance: 250000 }
     ]
   },
   {

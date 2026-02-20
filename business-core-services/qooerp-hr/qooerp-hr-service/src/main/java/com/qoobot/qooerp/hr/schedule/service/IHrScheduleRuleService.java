@@ -7,7 +7,7 @@ import com.qoobot.qooerp.hr.schedule.domain.HrScheduleRule;
  * 排班规则服务接口
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 public interface IHrScheduleRuleService extends IService<HrScheduleRule> {
 

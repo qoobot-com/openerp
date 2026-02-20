@@ -25,7 +25,7 @@ const loading = ref(false)
 const tableData = ref([
   { id: 1, docNo: 'DOC-001', docName: '项目需求规格说明书', project: '智能制造系统研发', fileType: 'word', version: 'v2.0', size: 2.5, uploadBy: '张三', uploadTime: '2026-02-19' },
   { id: 2, docNo: 'DOC-002', docName: '系统设计文档', project: '智能制造系统研发', fileType: 'pdf', version: 'v1.5', size: 5.0, uploadBy: '李四', uploadTime: '2026-02-18' },
-  { id: 3, docNo: 'DOC-003', docName: '技术方案', project: '自动化生产线改造', fileType: 'excel', version: 'v1.0', size: 1.2, uploadBy: '王五', uploadTime: '2026-02-17' }
+  { id: 3, docNo: 'DOC-003', docName: '技术方案', project: '自动化生产线改造', fileType: 'excel', version: 'v1.0', size: 1.2, uploadBy: '王五', uploadTime: '20xx-xx-xx' }
 ])
 
 const columns = [

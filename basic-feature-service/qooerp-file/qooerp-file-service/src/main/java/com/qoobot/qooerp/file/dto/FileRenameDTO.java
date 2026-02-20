@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotBlank;
  * 文件重命名DTO
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 public class FileRenameDTO {

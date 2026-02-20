@@ -119,7 +119,7 @@ const tableData = ref([
     delegator: '王五',
     delegatee: '赵六',
     startTime: '2026-02-15',
-    endTime: '2026-02-17',
+    endTime: '20xx-xx-xx',
     scope: '请假审批流程',
     reason: '休假期间委托审批',
     status: 'expired',

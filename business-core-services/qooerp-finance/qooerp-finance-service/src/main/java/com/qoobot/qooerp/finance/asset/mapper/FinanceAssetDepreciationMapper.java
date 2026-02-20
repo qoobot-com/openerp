@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 资产折旧Mapper
  *
  * @author QooERP Team
- * @since 2026-02-17
+ * @since 20xx-xx-xx
  */
 @Mapper
 public interface FinanceAssetDepreciationMapper extends BaseMapper<FinanceAssetDepreciation> {

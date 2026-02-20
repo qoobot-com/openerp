@@ -12,7 +12,7 @@ import java.util.List;
  * 文件夹服务接口
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 public interface FileFolderService extends IService<FileFolder> {
 

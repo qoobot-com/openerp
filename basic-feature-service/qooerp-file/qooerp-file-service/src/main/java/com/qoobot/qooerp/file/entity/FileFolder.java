@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * 文件夹实体
  *
  * @author QooERP
- * @date 2026-02-17
+ * @date 20xx-xx-xx
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

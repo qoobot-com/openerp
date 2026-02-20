@@ -332,7 +332,7 @@ const tableData = ref([
     customerName: 'ABC公司',
     projectManager: '1',
     budget: 1000000,
-    startDate: '2026-02-20',
+    startDate: '20xx-xx-xx',
     endDate: '2026-12-31',
     status: 'approved',
     approver: '经理',

@@ -407,7 +407,7 @@ const loadLeaveList = async () => {
       id: '1',
       leaveNo: 'LJ20260219001',
       leaveType: 'annual',
-      startTime: '2026-02-20 09:00',
+      startTime: '20xx-xx-xx 09:00',
       endTime: '2026-02-21 18:00',
       days: 2,
       reason: '个人事务处理',
@@ -439,7 +439,7 @@ const loadOvertimeList = async () => {
       duration: 3,
       reason: '项目紧急任务',
       status: 'approved',
-      applyDate: '2026-02-17'
+      applyDate: '20xx-xx-xx'
     }
   ]
 }
