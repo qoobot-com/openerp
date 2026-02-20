@@ -1,0 +1,56 @@
+{
+  "name": "qooerp-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QooERP 统一前端工程 - 企业级 ERP 系统",
+  "scripts": {
+    "dev": "pnpm --filter @qooerp/web dev",
+    "dev:desktop": "pnpm --filter @qooerp/desktop dev",
+    "dev:mobile": "pnpm --filter @qooerp/mobile dev",
+    "build": "pnpm --filter @qooerp/web build",
+    "build:desktop": "pnpm --filter @qooerp/desktop build",
+    "build:mobile": "pnpm --filter @qooerp/mobile build",
+    "preview": "pnpm --filter @qooerp/web preview",
+    "lint": "eslint . --ext .vue,.ts,.tsx --max-warnings 0",
+    "lint:fix": "eslint . --ext .vue,.ts,.tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "pnpm --filter @qooerp/web type-check",
+    "clean": "pnpm --filter \"./packages/**\" clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.5",
+    "@types/nprogress": "^0.2.3",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-vue": "^9.20.1",
+    "prettier": "^3.2.4",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11",
+    "vue": "^3.4.15",
+    "vue-tsc": "^1.8.27"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.14.1",
+  "workspaces": [
+    "packages/*",
+    "shared"
+  ],
+  "keywords": [
+    "erp",
+    "enterprise",
+    "vue3",
+    "typescript",
+    "tdesign",
+    "monorepo"
+  ],
+  "author": "QooERP Team",
+  "license": "MIT"
+}

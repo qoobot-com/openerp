@@ -1,0 +1,68 @@
+server:
+  port: 8089
+  servlet:
+    context-path: /lowcode
+
+spring:
+  application:
+    name: qooerp-lowcode-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/qooerp_lowcode
+    username: qooerp
+    password: qooerp123
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 9
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: com.qoobot.qooerp.lowcode.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 低代码平台配置
+lowcode:
+  # 表单设计器配置
+  form:
+    max-components: 100  # 单个表单最大组件数
+    enable-script: true   # 是否启用脚本编辑
+
+  # 页面设计器配置
+  page:
+    max-pages: 1000       # 最大页面数量
+    enable-drag-drop: true # 是否启用拖拽设计
+
+  # 数据源配置
+  datasource:
+    enable-external: true  # 是否允许外部数据源
+    max-datasources: 10   # 最大外部数据源数量
+
+  # 代码生成配置
+  code-generator:
+    output-path: ./generated-code
+    enable-download: true # 是否允许下载生成的代码
+
+  # 权限配置
+  permission:
+    enable-rbac: true     # 是否启用RBAC权限控制
+
+# 日志配置
+logging:
+  level:
+    com.qoobot.qooerp.lowcode: DEBUG
+    com.qoobot.qooerp.lowcode.mapper: DEBUG

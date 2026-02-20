@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.system.mapper.SystemDictMapper">
+
+    <!-- 分页查询字典 -->
+    <select id="selectPageByQuery" resultType="com.qoobot.qooerp.system.entity.SystemDict">
+        SELECT id, dict_name, dict_code, dict_type, status, remark,
+               create_time, create_by, update_time, update_by
+        FROM system_dict
+        <where>
+            <if test="query.dictCode != null and query.dictCode != ''">
+                AND dict_code = #{query.dictCode}
+            </if>
+            <if test="query.dictName != null and query.dictName != ''">
+                AND dict_name LIKE CONCAT('%', #{query.dictName}, '%')
+            </if>
+            <if test="query.dictType != null and query.dictType != ''">
+                AND dict_type = #{query.dictType}
+            </if>
+            <if test="query.status != null">
+                AND status = #{query.status}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

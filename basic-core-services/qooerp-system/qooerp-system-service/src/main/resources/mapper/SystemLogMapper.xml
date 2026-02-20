@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.system.mapper.SystemLogMapper">
+
+    <!-- 分页查询日志 -->
+    <select id="selectPageByQuery" resultType="com.qoobot.qooerp.system.dto.SystemLogDTO">
+        SELECT id, user_id, username, module, operation, method, params, ip, location,
+               browser, os, status, error_msg, cost_time, operate_time
+        FROM system_log
+        <where>
+            <if test="query.userId != null">
+                AND user_id = #{query.userId}
+            </if>
+            <if test="query.username != null and query.username != ''">
+                AND username LIKE CONCAT('%', #{query.username}, '%')
+            </if>
+            <if test="query.module != null and query.module != ''">
+                AND module = #{query.module}
+            </if>
+            <if test="query.operation != null and query.operation != ''">
+                AND operation = #{query.operation}
+            </if>
+            <if test="query.ip != null and query.ip != ''">
+                AND ip = #{query.ip}
+            </if>
+            <if test="query.status != null">
+                AND status = #{query.status}
+            </if>
+            <if test="query.startTime != null">
+                AND operate_time >= #{query.startTime}
+            </if>
+            <if test="query.endTime != null">
+                AND operate_time &lt;= #{query.endTime}
+            </if>
+        </where>
+        ORDER BY operate_time DESC
+    </select>
+
+    <!-- 日志统计 -->
+    <select id="selectStatistics" resultType="map">
+        SELECT
+            COUNT(*) AS total_count,
+            COUNT(CASE WHEN status = 1 THEN 1 END) AS success_count,
+            COUNT(CASE WHEN status = 0 THEN 1 END) AS failure_count,
+            COALESCE(SUM(cost_time), 0) AS total_cost_time,
+            COALESCE(AVG(cost_time), 0) AS avg_cost_time
+        FROM system_log
+        <where>
+            <if test="query.userId != null">
+                AND user_id = #{query.userId}
+            </if>
+            <if test="query.username != null and query.username != ''">
+                AND username LIKE CONCAT('%', #{query.username}, '%')
+            </if>
+            <if test="query.module != null and query.module != ''">
+                AND module = #{query.module}
+            </if>
+            <if test="query.operation != null and query.operation != ''">
+                AND operation = #{query.operation}
+            </if>
+            <if test="query.ip != null and query.ip != ''">
+                AND ip = #{query.ip}
+            </if>
+            <if test="query.status != null">
+                AND status = #{query.status}
+            </if>
+            <if test="query.startTime != null">
+                AND operate_time >= #{query.startTime}
+            </if>
+            <if test="query.endTime != null">
+                AND operate_time &lt;= #{query.endTime}
+            </if>
+        </where>
+    </select>
+
+</mapper>

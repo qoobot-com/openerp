@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: qooerp-gateway
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    com.qoobot.qooerp: DEBUG

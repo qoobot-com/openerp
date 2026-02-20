@@ -1,9 +1,0 @@
-spring:
-  cloud:
-    nacos:
-      config:
-        server-addr: ${NACOS_ADDR:localhost:8848}
-        namespace: qooerp
-        group-id: GATEWAY_GROUP
-        file-extension: yml
-        name: ${spring.application.name}

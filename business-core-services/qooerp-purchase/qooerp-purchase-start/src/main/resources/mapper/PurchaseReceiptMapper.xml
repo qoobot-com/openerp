@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qoobot.qooerp.purchase.mapper.PurchaseReceiptMapper">
+
+    <select id="queryPage" resultType="com.qoobot.qooerp.purchase.entity.PurchaseReceipt">
+        SELECT * FROM purchase_receipt
+        <where>
+            deleted = 0
+            <if test="receiptCode != null and receiptCode != ''">
+                AND receipt_code LIKE CONCAT('%', #{receiptCode}, '%')
+            </if>
+            <if test="orderId != null">
+                AND order_id = #{orderId}
+            </if>
+            <if test="supplierId != null">
+                AND supplier_id = #{supplierId}
+            </if>
+            <if test="receiptStatus != null and receiptStatus != ''">
+                AND receipt_status = #{receiptStatus}
+            </if>
+            <if test="startDate != null">
+                AND receipt_date &gt;= #{startDate}
+            </if>
+            <if test="endDate != null">
+                AND receipt_date &lt;= #{endDate}
+            </if>
+        </where>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

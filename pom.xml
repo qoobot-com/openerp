@@ -16,7 +16,7 @@
     <!-- 基本信息 -->
     <groupId>com.qoobot</groupId>
     <artifactId>qooerp</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>qooerp</name>
@@ -25,69 +25,77 @@
 
     <!-- 模块声明 -->
     <modules>
+
         <!-- 公共模块 -->
-        <module>qooerp-common</module>
+        <module>basic-common</module>
 
         <!-- P0 核心基础服务 -->
-        <module>qooerp-gateway/qooerp-gateway-service</module>
-        <module>qooerp-gateway/qooerp-gateway-start</module>
-        <module>qooerp-auth/qooerp-auth-service</module>
-        <module>qooerp-auth/qooerp-auth-start</module>
-        <module>qooerp-system/qooerp-system-service</module>
-        <module>qooerp-system/qooerp-system-start</module>
-        <module>qooerp-organization/qooerp-organization-service</module>
-        <module>qooerp-organization/qooerp-organization-start</module>
-        <module>qooerp-user/qooerp-user-service</module>
-        <module>qooerp-user/qooerp-user-start</module>
-        <module>qooerp-permission/qooerp-permission-service</module>
-        <module>qooerp-permission/qooerp-permission-start</module>
+        <module>basic-core-services/qooerp-gateway/qooerp-gateway-service</module>
+        <module>basic-core-services/qooerp-gateway/qooerp-gateway-start</module>
+        <module>basic-core-services/qooerp-auth/qooerp-auth-service</module>
+        <module>basic-core-services/qooerp-auth/qooerp-auth-start</module>
+        <module>basic-core-services/qooerp-system/qooerp-system-service</module>
+        <module>basic-core-services/qooerp-system/qooerp-system-start</module>
+        <module>basic-core-services/qooerp-organization/qooerp-organization-service</module>
+        <module>basic-core-services/qooerp-organization/qooerp-organization-start</module>
+        <module>basic-core-services/qooerp-user/qooerp-user-service</module>
+        <module>basic-core-services/qooerp-user/qooerp-user-start</module>
+        <module>basic-core-services/qooerp-permission/qooerp-permission-service</module>
+        <module>basic-core-services/qooerp-permission/qooerp-permission-start</module>
 
         <!-- P1 核心业务服务 -->
-        <module>qooerp-hr/qooerp-hr-service</module>
-        <module>qooerp-hr/qooerp-hr-start</module>
-        <module>qooerp-finance/qooerp-finance-service</module>
-        <module>qooerp-finance/qooerp-finance-start</module>
-        <module>qooerp-scm/qooerp-scm-service</module>
-        <module>qooerp-scm/qooerp-scm-start</module>
-        <module>qooerp-sales/qooerp-sales-service</module>
-        <module>qooerp-sales/qooerp-sales-start</module>
-        <module>qooerp-inventory/qooerp-inventory-service</module>
-        <module>qooerp-inventory/qooerp-inventory-start</module>
-        <module>qooerp-purchase/qooerp-purchase-service</module>
-        <module>qooerp-purchase/qooerp-purchase-start</module>
+        <module>business-core-services/qooerp-hr/qooerp-hr-service</module>
+        <module>business-core-services/qooerp-hr/qooerp-hr-start</module>
+        <module>business-core-services/qooerp-finance/qooerp-finance-service</module>
+        <module>business-core-services/qooerp-finance/qooerp-finance-start</module>
+        <module>business-core-services/qooerp-scm/qooerp-scm-service</module>
+        <module>business-core-services/qooerp-scm/qooerp-scm-start</module>
+        <module>business-core-services/qooerp-sales/qooerp-sales-service</module>
+        <module>business-core-services/qooerp-sales/qooerp-sales-start</module>
+        <module>business-core-services/qooerp-inventory/qooerp-inventory-service</module>
+        <module>business-core-services/qooerp-inventory/qooerp-inventory-start</module>
+        <module>business-core-services/qooerp-purchase/qooerp-purchase-service</module>
+        <module>business-core-services/qooerp-purchase/qooerp-purchase-start</module>
 
         <!-- P2 扩展业务服务 -->
-        <module>qooerp-production/qooerp-production-service</module>
-        <module>qooerp-production/qooerp-production-start</module>
-        <module>qooerp-project/qooerp-project-service</module>
-        <module>qooerp-project/qooerp-project-start</module>
-        <module>qooerp-crm/qooerp-crm-service</module>
-        <module>qooerp-crm/qooerp-crm-start</module>
+        <module>business-expand-services/qooerp-production/qooerp-production-service</module>
+        <module>business-expand-services/qooerp-production/qooerp-production-start</module>
+        <module>business-expand-services/qooerp-project/qooerp-project-service</module>
+        <module>business-expand-services/qooerp-project/qooerp-project-start</module>
+        <module>business-expand-services/qooerp-crm/qooerp-crm-service</module>
+        <module>business-expand-services/qooerp-crm/qooerp-crm-start</module>
 
         <!-- P3 高级功能服务 -->
-        <module>qooerp-workflow/qooerp-workflow-service</module>
-        <module>qooerp-workflow/qooerp-workflow-start</module>
-        <module>qooerp-report/qooerp-report-service</module>
-        <module>qooerp-report/qooerp-report-start</module>
-        <module>qooerp-file/qooerp-file-service</module>
-        <module>qooerp-file/qooerp-file-start</module>
-        <module>qooerp-message/qooerp-message-service</module>
-        <module>qooerp-message/qooerp-message-start</module>
-        <module>qooerp-notify/qooerp-notify-service</module>
-        <module>qooerp-notify/qooerp-notify-start</module>
-        <module>qooerp-scheduler/qooerp-scheduler-service</module>
-        <module>qooerp-scheduler/qooerp-scheduler-start</module>
-        <module>qooerp-monitor/qooerp-monitor-service</module>
-        <module>qooerp-monitor/qooerp-monitor-start</module>
-        <module>qooerp-ai/qooerp-ai-service</module>
-        <module>qooerp-ai/qooerp-ai-start</module>
+        <module>basic-feature-service/qooerp-workflow/qooerp-workflow-service</module>
+        <module>basic-feature-service/qooerp-workflow/qooerp-workflow-start</module>
+        <module>basic-feature-service/qooerp-report/qooerp-report-service</module>
+        <module>basic-feature-service/qooerp-report/qooerp-report-start</module>
+        <module>basic-feature-service/qooerp-file/qooerp-file-service</module>
+        <module>basic-feature-service/qooerp-file/qooerp-file-start</module>
+        <module>basic-feature-service/qooerp-message/qooerp-message-service</module>
+        <module>basic-feature-service/qooerp-message/qooerp-message-start</module>
+        <module>basic-feature-service/qooerp-notify/qooerp-notify-service</module>
+        <module>basic-feature-service/qooerp-notify/qooerp-notify-start</module>
+        <module>basic-feature-service/qooerp-scheduler/qooerp-scheduler-service</module>
+        <module>basic-feature-service/qooerp-scheduler/qooerp-scheduler-start</module>
+        <module>basic-feature-service/qooerp-monitor/qooerp-monitor-service</module>
+        <module>basic-feature-service/qooerp-monitor/qooerp-monitor-start</module>
+<!--        <module>basic-feature-service/qooerp-ai/qooerp-ai-service</module>-->
+<!--        <module>basic-feature-service/qooerp-ai/qooerp-ai-start</module>-->
+        <module>basic-feature-service/qooerp-lowcode/qooerp-lowcode-service</module>
+        <module>basic-feature-service/qooerp-lowcode/qooerp-lowcode-start</module>
 
         <!-- All-In-One 聚合服务 -->
-        <module>qooerp-all/qooerp-all-start</module>
+        <module>all-start</module>
     </modules>
 
     <!-- 属性配置 -->
     <properties>
+        <revision>1.1.0-${build.time}-SNAPSHOT</revision>
+        <!-- 构建时间戳 (YYMMDD格式) -->
+        <build.time>${maven.build.timestamp}</build.time>
+        <maven.build.timestamp.format>yyMMdd</maven.build.timestamp.format>
+
         <!-- 编码配置 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -106,10 +114,6 @@
         <maven.version>3.9.0</maven.version>
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
 
-        <!-- Spring Boot 版本 -->
-        <!-- 理由: 选择稳定版本 3.3.6，支持百万级用户规模的高并发场景 -->
-        <spring-boot.version>3.3.6</spring-boot.version>
-
         <!-- Spring Cloud 版本 -->
         <!-- 理由: 微服务治理框架，支持服务发现、配置中心、熔断限流、网关等 -->
         <spring-cloud.version>2023.0.3</spring-cloud.version>
@@ -117,30 +121,41 @@
 
         <!-- Spring AI 版本 -->
         <!-- 理由: AI 集成框架，支持与多种 LLM 模型对接，为 ERP 系统提供智能辅助功能 -->
-        <spring-ai.version>1.0.0-M6</spring-ai.version>
-        <spring-ai-alibaba.version>1.0.0-M6</spring-ai-alibaba.version>
+        <spring-ai.version>1.1.2</spring-ai.version>
+        <spring-ai-alibaba.version>2025.0.1</spring-ai-alibaba.version>
 
         <!-- LangChain4J 版本 -->
         <!-- 理由: 轻量级 AI 编程框架，提供更灵活的 LLM 集成能力，适合定制化 AI 功能开发 -->
-        <langchain4j.version>0.34.0</langchain4j.version>
+        <langchain4j.version>1.11.0</langchain4j.version>
 
         <!-- Spring 相关版本 -->
         <!-- 理由: Spring Authorization Server 提供完整的 OAuth 2.1 / OpenID Connect 1.0 支持 -->
-        <spring-authorization-server.version>1.3.0</spring-authorization-server.version>
+        <spring-authorization-server.version>1.2.3</spring-authorization-server.version>
         <!-- 理由: OpenAPI 3 文档生成，替代 Swagger，提供更好的 API 文档支持 -->
-        <springdoc.version>2.3.0</springdoc.version>
+        <springdoc.version>2.0.3</springdoc.version>
 
         <!-- 数据库驱动 -->
         <!-- 理由: 主数据库选择 PostgreSQL，提供强大的事务支持、JSONB 类型、全文搜索能力 -->
-        <postgresql.version>42.7.4</postgresql.version>
+        <postgresql.version>42.5.4</postgresql.version>
         <!-- 理由: pgvector 扩展支持向量相似度搜索，为 AI 功能提供向量数据库能力 -->
         <pgvector.version>0.1.4</pgvector.version>
         <!-- 理由: 高性能 JDBC 连接池，替代 Druid，提供更好的性能和监控能力 -->
         <hikaricp.version>6.3.3</hikaricp.version>
         <!-- 理由: MyBatis 增强工具，简化 CRUD 操作，代码生成功能提升开发效率 -->
         <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <!-- 理由: 数据库版本迁移工具,支持版本化 SQL 脚本,团队协作时保证数据库结构一致 -->
+        <flyway-core.version>12.0.1</flyway-core.version>
+        <flyway-database-postgresql.version>12.0.1</flyway-database-postgresql.version>
+        <!-- Seata 分布式事务 -->
+        <!-- 理由: 分布式事务解决方案，支持 AT/TCC/SAGA 模式，解决微服务分布式事务问题 -->
+        <seata.version>2.0.0</seata.version>
+        <!-- ShardingSphere 分库分表 -->
+        <!-- 理由: 分布式数据库中间件，支持分库分表、读写分离，支持百万级数据量 -->
+        <shardingsphere.version>5.5.1</shardingsphere.version>
         <!-- JSON 处理 -->
+        <!-- 理由: Jackson 是 Spring Boot 默认 JSON 处理库,提供高性能的序列化/反序列化 -->
         <jackson.version>2.16.0</jackson.version>
+        <!-- 理由: 阿里开源的 JSON 处理库，性能优异，API 简洁，国产工具生态完善 -->
         <fastjson2.version>2.0.60</fastjson2.version>
 
         <!-- 工具库 -->
@@ -152,8 +167,8 @@
         <commons-io.version>2.15.0</commons-io.version>
         <!-- 理由: Apache Commons Collections，提供增强的集合操作能力 -->
         <commons-collections4.version>4.4</commons-collections4.version>
-        <!-- 理由: 阿里开源的 JSON 处理库，性能优异，API 简洁 -->
-        <fastjson2.version>2.0.43</fastjson2.version>
+        <!-- 理由: Apache Commons Codec，提供编码解码工具，如 Base64、Hex、MD5 等 -->
+        <commons-codec.version>1.16.0</commons-codec.version>
         <!-- 理由: 通过注解简化 Java 代码，消除样板代码，提升代码可读性 -->
         <lombok.version>1.18.42</lombok.version>
 
@@ -215,15 +230,6 @@
     <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot BOM -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <!-- Spring Cloud BOM -->
             <!-- 理由: Spring Cloud 依赖管理，统一微服务组件版本 -->
             <dependency>
@@ -288,14 +294,6 @@
                 <version>3.1.8</version>
             </dependency>
 
-            <!-- Redis 分布式缓存 (L2缓存) -->
-            <!-- 理由: 分布式缓存，支持多实例共享，作为 L2 缓存，支持百万级用户规模 -->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${spring-boot.version}</version>
-            </dependency>
-
             <!-- Redisson 分布式锁与高级缓存 -->
             <!-- 理由: Redis 客户端，提供分布式锁、分布式集合、限流器等高级功能 -->
             <dependency>
@@ -310,10 +308,6 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-
-
-
-
 
             <!-- Hutool -->
             <dependency>
@@ -342,14 +336,19 @@
                 <version>${commons-collections4.version}</version>
             </dependency>
 
-            <!-- Flowable工作流 -->
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
+
+            <!-- Flowable 工作流引擎 -->
             <!-- 理由: 轻量级工作流引擎，支持 BPMN 2.0 标准，用于审批流程、业务流程编排 -->
             <dependency>
                 <groupId>org.flowable</groupId>
                 <artifactId>flowable-spring-boot-starter</artifactId>
                 <version>7.0.0</version>
             </dependency>
-
             <dependency>
                 <groupId>org.flowable</groupId>
                 <artifactId>flowable-spring-boot-starter-process-rest</artifactId>
@@ -362,16 +361,6 @@
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-spring-boot-starter</artifactId>
                 <version>2.3.1</version>
-            </dependency>
-
-            <!-- Lombok使用项目自带版本，不在此处声明 -->
-
-            <!-- fastjson2 -->
-            <!-- 理由: 阿里开源的 JSON 处理库，性能优异，API 简洁，国产工具生态完善 -->
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>${fastjson2.version}</version>
             </dependency>
 
             <!-- 日志 -->
@@ -444,15 +433,52 @@
                 <version>${jjwt.version}</version>
             </dependency>
 
-
-
-
-            <!-- SpringDoc OpenAPI -->
+            <!-- SpringDoc OpenAPI 文档 -->
             <!-- 理由: OpenAPI 3.0 文档生成工具，替代 Swagger，提供更好的 Spring Boot 3 支持 -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>2.3.0</version>
+                <version>${springdoc.version}</version>
+            </dependency>
+
+            <!-- Fastjson2 JSON 处理 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+
+            <!-- Flyway 数据库版本管理 -->
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-database-postgresql</artifactId>
+                <version>${flyway-database-postgresql.version}</version> <!-- 注意：不是 9.22.3 -->
+            </dependency>
+
+            <!-- Seata 分布式事务 -->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring-boot-starter</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <!-- Spring AI OpenAI Starter -->
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-openai-spring-boot-starter</artifactId>
+                <version>${spring-ai.version}</version>
+            </dependency>
+
+            <!-- ShardingSphere 分库分表 -->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+                <version>${shardingsphere.version}</version>
             </dependency>
 
             <!-- 测试 -->
@@ -572,7 +598,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <!-- Redisson 分布式锁与高级缓存 -->
@@ -582,14 +607,11 @@
             <artifactId>redisson-spring-boot-starter</artifactId>
         </dependency>
 
-        <!-- Flyway -->
+        <!-- Commons Codec -->
+        <!-- 理由: 提供编码解码工具，如 Base64、Hex、MD5 等 -->
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-database-postgresql</artifactId>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
         </dependency>
 
         <!-- ShardingSphere 分库分表 -->
@@ -610,7 +632,6 @@
         <dependency>
             <groupId>io.seata</groupId>
             <artifactId>seata-spring-boot-starter</artifactId>
-            <version>2.0.0</version>
         </dependency>
         -->
 
@@ -626,7 +647,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <optional>true</optional>
         </dependency>
 

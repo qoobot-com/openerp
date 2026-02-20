@@ -1,0 +1,90 @@
+# Electron 打包配置
+# P6-ELEC-T10: 应用打包与分发
+
+appId: com.qoobot.qooerp
+productName: QooERP
+copyright: Copyright © 2026 QooBot. All rights reserved.
+
+# 构建目录
+directories:
+  buildResources: build
+  output: release
+
+# 文件配置
+files:
+  - dist-electron/**/*
+  - dist/**/*
+  - package.json
+
+# 应用图标
+win:
+  icon: build/icon.ico
+  target:
+    - nsis
+    - portable
+
+mac:
+  icon: build/icon.icns
+  target:
+    - dmg
+    - zip
+  category: public.app-category.business
+
+linux:
+  icon: build/icon.png
+  target:
+    - AppImage
+    - deb
+    - rpm
+  category: Office
+  synopsis: 企业管理平台
+
+# NSIS 配置 (Windows)
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeader: build/installerHeader.bmp
+  installerSidebar: build/installerSidebar.bmp
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: QooERP
+
+# DMG 配置 (macOS)
+dmg:
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+  window:
+    width: 540
+    height: 380
+
+# AppImage 配置 (Linux)
+appImage:
+  license: LICENSE
+
+# 发布配置
+publish:
+  provider: github
+  owner: qoobot
+  repo: qooerp
+  vPrefixedTagName: true
+
+  # 自动更新
+  updaterCacheDirName: qooerp-updater
+
+# 版本
+electronVersion: 28.0.0
+electronDownload:
+  cache: ./electron-cache
+
+# 依赖
+asar: true
+asarUnpack:
+  - resources/**
+  - node_modules/**/*

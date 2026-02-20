@@ -1,0 +1,92 @@
+server:
+  port: 8086
+  servlet:
+    context-path: /workflow
+
+spring:
+  application:
+    name: qooerp-workflow-service
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/qooerp_workflow
+    username: qooerp
+    password: qooerp123
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      database: 0
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  type-aliases-package: com.qoobot.qooerp.workflow.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Flowable配置
+flowable:
+  database-schema-update: true
+  db-history-used: true
+  history-level: full
+  async-executor-activate: true
+  async-history-enabled: true
+  mail:
+    server:
+      host: smtp.example.com
+      port: 587
+      username: workflow@example.com
+      password: password
+
+# 工作流配置
+workflow:
+  # 流程图配置
+  diagram:
+    enabled: true
+    font-name: 宋体
+    font-size: 14
+
+  # 缓存配置
+  cache:
+    enabled: true
+    definition-cache-size: 100
+    process-cache-size: 500
+    task-cache-size: 1000
+
+  # 超时配置
+  timeout:
+    default-task-duration: 86400      # 默认任务超时时间(秒): 24小时
+    default-process-duration: 604800  # 默认流程超时时间(秒): 7天
+    check-interval: 300               # 超时检查间隔(秒): 5分钟
+
+  # 通知配置
+  notification:
+    enabled: true
+    task-notify: true      # 任务分配通知
+    approval-notify: true  # 审批结果通知
+    timeout-notify: true   # 超时提醒通知
+    complete-notify: true  # 流程完成通知
+
+  # 表单配置
+  form:
+    enabled: true
+    max-form-size: 10485760  # 10MB
+    allowed-formats: json,xml
+
+# 日志配置
+logging:
+  level:
+    com.qoobot.qooerp.workflow: DEBUG
+    com.qoobot.qooerp.workflow.mapper: DEBUG
+    org.flowable: INFO

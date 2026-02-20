@@ -1,0 +1,136 @@
+/**
+ * 暗色主题样式
+ */
+@use './variables.scss' as *;
+
+:root[data-theme='dark'] {
+  // 背景色
+  --td-bg-color-page: var(--td-dark-bg-color-page);
+  --td-bg-color-container: var(--td-dark-bg-color-container);
+  --td-bg-color-container-hover: var(--td-dark-bg-color-container-hover);
+  --td-bg-color-component: var(--td-dark-bg-color-component);
+
+  // 文本颜色
+  --td-font-gray-1: var(--td-dark-font-gray-1);
+  --td-font-gray-2: var(--td-dark-font-gray-2);
+  --td-font-gray-3: var(--td-dark-font-gray-3);
+  --td-font-gray-4: var(--td-dark-font-gray-4);
+
+  // 边框颜色
+  --td-border-level-1-color: var(--td-dark-border-level-1-color);
+  --td-border-level-2-color: var(--td-dark-border-level-2-color);
+
+  // 主题色（暗色模式下使用较亮的颜色）
+  --td-brand-color: var(--td-dark-brand-color);
+  --td-brand-color-1: var(--td-dark-brand-color-1);
+  --td-brand-color-2: var(--td-dark-brand-color-2);
+  --td-brand-color-3: var(--td-dark-brand-color-3);
+  --td-brand-color-4: var(--td-dark-brand-color-4);
+  --td-brand-color-5: var(--td-dark-brand-color-5);
+  --td-brand-color-6: var(--td-dark-brand-color-6);
+  --td-brand-color-7: var(--td-dark-brand-color-7);
+  --td-brand-color-8: var(--td-dark-brand-color-8);
+  --td-brand-color-9: var(--td-dark-brand-color-9);
+  --td-brand-color-10: var(--td-dark-brand-color-10);
+
+  // 阴影
+  --td-shadow-1: var(--td-dark-shadow-1);
+  --td-shadow-2: var(--td-dark-shadow-2);
+  --td-shadow-3: var(--td-dark-shadow-3);
+
+  // 布局特定样式
+  .main-layout {
+    background-color: var(--td-dark-bg-color-page);
+    color: var(--td-dark-font-gray-1);
+
+    .sidebar {
+      background-color: var(--td-dark-bg-color-container);
+      border-right: 1px solid var(--td-dark-border-level-1-color);
+
+      .menu-item {
+        &:hover {
+          background-color: var(--td-dark-bg-color-container-hover);
+        }
+
+        &.is-active {
+          background-color: var(--td-dark-brand-color-2);
+          color: var(--td-dark-brand-color-1);
+        }
+      }
+    }
+
+    .header {
+      background-color: var(--td-dark-bg-color-container);
+      border-bottom: 1px solid var(--td-dark-border-level-1-color);
+    }
+
+    .main {
+      background-color: var(--td-dark-bg-color-page);
+    }
+
+    .tabs-view {
+      background-color: var(--td-dark-bg-color-container);
+      border-bottom: 1px solid var(--td-dark-border-level-1-color);
+
+      .tab-item {
+        background-color: var(--td-dark-bg-color-page);
+        color: var(--td-dark-font-gray-2);
+        border: 1px solid var(--td-dark-border-level-1-color);
+
+        &:hover {
+          color: var(--td-dark-font-gray-1);
+        }
+
+        &.is-active {
+          background-color: var(--td-dark-brand-color-1);
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+// 表格暗色主题
+:root[data-theme='dark'] {
+  .t-table {
+    background-color: var(--td-dark-bg-color-container);
+    color: var(--td-dark-font-gray-1);
+
+    th {
+      background-color: var(--td-dark-bg-color-component);
+      color: var(--td-dark-font-gray-1);
+    }
+
+    tr:hover td {
+      background-color: var(--td-dark-bg-color-container-hover);
+    }
+  }
+}
+
+// 表单暗色主题
+:root[data-theme='dark'] {
+  .t-form {
+    .t-input,
+    .t-select,
+    .t-date-picker {
+      background-color: var(--td-dark-bg-color-component);
+      color: var(--td-dark-font-gray-1);
+    }
+  }
+}
+
+// 搜索卡片暗色主题
+:root[data-theme='dark'] {
+  .search-card {
+    background-color: var(--td-dark-bg-color-container);
+    border: 1px solid var(--td-dark-border-level-1-color);
+  }
+}
+
+// 404 页面暗色主题
+:root[data-theme='dark'] {
+  .error-page {
+    background-color: var(--td-dark-bg-color-page);
+    color: var(--td-dark-font-gray-1);
+  }
+}

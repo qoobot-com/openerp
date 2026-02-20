@@ -1,0 +1,142 @@
+package com.qoobot.qooerp.workflow.enums;
+
+/**
+ * 工作流错误码
+ */
+public enum WorkflowErrorCode {
+
+    PROCESS_DEFINITION_NOT_FOUND(40001, "流程定义不存在"),
+    PROCESS_DEFINITION_ALREADY_EXISTS(40002, "流程定义已存在"),
+    PROCESS_DEFINITION_IS_SUSPENDED(40003, "流程定义已挂起"),
+    PROCESS_DEFINITION_VERSION_INVALID(40004, "流程定义版本无效"),
+    PROCESS_DEPLOY_FAILED(40005, "流程部署失败"),
+    PROCESS_PUBLISH_FAILED(40006, "流程发布失败"),
+    PROCESS_SUSPEND_DEFINITION_FAILED(40007, "流程定义挂起失败"),
+    PROCESS_ACTIVATE_DEFINITION_FAILED(40008, "流程定义激活失败"),
+    PROCESS_DELETE_FAILED(40009, "流程删除失败"),
+    PROCESS_QUERY_FAILED(40010, "流程查询失败"),
+    PROCESS_COPY_FAILED(40011, "流程复制失败"),
+
+    PROCESS_INSTANCE_NOT_FOUND(40101, "流程实例不存在"),
+    PROCESS_INSTANCE_ALREADY_COMPLETED(40102, "流程实例已完成"),
+    PROCESS_INSTANCE_CANNOT_WITHDRAW(40103, "流程实例无法撤回"),
+    PROCESS_INSTANCE_CANNOT_TRANSFER(40104, "流程实例无法转办"),
+    PROCESS_START_FAILED(40105, "流程启动失败"),
+    PROCESS_CANCEL_FAILED(40106, "流程取消失败"),
+    PROCESS_SUSPEND_FAILED(40107, "流程挂起失败"),
+    PROCESS_RESUME_FAILED(40108, "流程恢复失败"),
+    PROCESS_INSTANCE_QUERY_FAILED(40109, "流程实例查询失败"),
+    PROCESS_COMPLETE_FAILED(40110, "流程完成失败"),
+    PROCESS_WITHDRAW_FAILED(40111, "流程撤回失败"),
+    PROCESS_TRANSFER_FAILED(40112, "流程转办失败"),
+    PROCESS_PROGRESS_QUERY_FAILED(40113, "流程进度查询失败"),
+    PROCESS_DIAGRAM_GET_FAILED(40114, "获取流程图失败"),
+    PROCESS_LOGS_QUERY_FAILED(40115, "流程日志查询失败"),
+
+    TASK_NOT_FOUND(40201, "任务不存在"),
+    TASK_ALREADY_COMPLETED(40202, "任务已完成"),
+    TASK_CANNOT_APPROVE(40203, "任务无法审批"),
+    TASK_CANNOT_DELEGATE(40204, "任务无法转派"),
+    TASK_CANNOT_WITHDRAW(40205, "任务无法撤回"),
+    TASK_QUERY_FAILED(40206, "任务查询失败"),
+    TASK_APPROVE_FAILED(40207, "任务审批失败"),
+    TASK_REJECT_FAILED(40208, "任务驳回失败"),
+    TASK_DELEGATE_FAILED(40209, "任务转派失败"),
+    TASK_ASSIGN_FAILED(40210, "任务委派失败"),
+    TASK_WITHDRAW_FAILED(40211, "任务撤回失败"),
+    TASK_ADD_SIGN_FAILED(40212, "任务加签失败"),
+    TASK_REMOVE_SIGN_FAILED(40213, "任务减签失败"),
+    TASK_CC_FAILED(40214, "任务抄送失败"),
+    TASK_FORM_GET_FAILED(40215, "获取任务表单失败"),
+    TASK_FORM_SAVE_FAILED(40216, "保存任务表单失败"),
+    TASK_HISTORY_QUERY_FAILED(40217, "查询任务历史失败"),
+    TASK_DUE_DATE_SET_FAILED(40218, "设置任务到期时间失败"),
+    TASK_TIMEOUT(40219, "任务超时"),
+
+    FORM_NOT_FOUND(40301, "表单不存在"),
+    FORM_ALREADY_EXISTS(40302, "表单已存在"),
+    FORM_VERSION_INVALID(40303, "表单版本无效"),
+    FORM_DATA_INVALID(40304, "表单数据无效"),
+    FORM_VALIDATION_FAILED(40305, "表单验证失败"),
+    FORM_CODE_EXISTS(40306, "表单编码已存在"),
+    FORM_CREATE_FAILED(40307, "创建表单失败"),
+    FORM_UPDATE_FAILED(40308, "更新表单失败"),
+    FORM_DELETE_FAILED(40309, "删除表单失败"),
+    FORM_PUBLISH_FAILED(40310, "发布表单失败"),
+    FORM_UNPUBLISH_FAILED(40311, "停用表单失败"),
+    FORM_COPY_FAILED(40312, "复制表单失败"),
+    FORM_QUERY_FAILED(40313, "查询表单失败"),
+    FORM_FIELD_NOT_FOUND(40314, "表单字段不存在"),
+    FORM_FIELD_CREATE_FAILED(40315, "创建表单字段失败"),
+    FORM_FIELD_UPDATE_FAILED(40316, "更新表单字段失败"),
+    FORM_FIELD_DELETE_FAILED(40317, "删除表单字段失败"),
+    FORM_FIELD_QUERY_FAILED(40318, "查询表单字段失败"),
+    FORM_DATA_NOT_FOUND(40319, "表单数据不存在"),
+    FORM_DATA_SAVE_FAILED(40320, "保存表单数据失败"),
+    FORM_DATA_UPDATE_FAILED(40321, "更新表单数据失败"),
+    FORM_DATA_DELETE_FAILED(40322, "删除表单数据失败"),
+    FORM_DATA_QUERY_FAILED(40323, "查询表单数据失败"),
+
+    CATEGORY_NOT_FOUND(40401, "分类不存在"),
+    CATEGORY_ALREADY_EXISTS(40402, "分类已存在"),
+
+    TEMPLATE_NOT_FOUND(40501, "模板不存在"),
+    TEMPLATE_ALREADY_EXISTS(40502, "模板已存在"),
+
+    NOTIFICATION_SEND_FAILED(40601, "通知发送失败"),
+    NOTIFICATION_NOT_FOUND(40602, "通知不存在"),
+    NOTIFICATION_QUERY_FAILED(40603, "通知查询失败"),
+    NOTIFICATION_DELETE_FAILED(40604, "通知删除失败"),
+    NOTIFICATION_MARK_READ_FAILED(40605, "标记通知已读失败"),
+    NOTIFICATION_CREATE_FAILED(40606, "通知创建失败"),
+
+    MONITOR_QUERY_FAILED(40701, "监控查询失败"),
+    PROCESS_STATISTICS_FAILED(40702, "流程统计分析失败"),
+    PROCESS_PERFORMANCE_ANALYSIS_FAILED(40703, "流程性能分析失败"),
+    TASK_TIMEOUT_QUERY_FAILED(40704, "任务超时查询失败"),
+    PROCESS_HOTSPOT_ANALYSIS_FAILED(40705, "流程热点分析失败"),
+
+    GATEWAY_QUERY_FAILED(40801, "网关查询失败"),
+    GATEWAY_HISTORY_QUERY_FAILED(40802, "网关历史查询失败"),
+    INVALID_GATEWAY_TYPE(40803, "无效的网关类型"),
+    GATEWAY_CONDITION_EVALUATION_FAILED(40804, "网关条件评估失败"),
+    PARALLEL_GATEWAY_STATUS_FAILED(40805, "并行网关状态查询失败"),
+
+    LISTENER_NOT_FOUND(40901, "监听器不存在"),
+    LISTENER_REGISTER_FAILED(40902, "监听器注册失败"),
+    LISTENER_EXECUTION_FAILED(40903, "监听器执行失败"),
+
+    VARIABLE_SET_FAILED(41001, "设置流程变量失败"),
+    VARIABLE_GET_FAILED(41002, "获取流程变量失败"),
+
+    SCRIPT_ENGINE_NOT_FOUND(41101, "脚本引擎不存在"),
+    SCRIPT_EXECUTION_FAILED(41102, "脚本执行失败"),
+    SCRIPT_VALIDATION_FAILED(41103, "脚本验证失败"),
+    SCRIPT_FORMAT_FAILED(41104, "脚本格式化失败"),
+
+    SUBPROCESS_START_FAILED(41201, "子流程启动失败"),
+    SUBPROCESS_CANCEL_FAILED(41202, "子流程取消失败"),
+    SUBPROCESS_SYNC_FAILED(41203, "子流程变量同步失败"),
+
+    TIMEOUT_HANDLE_FAILED(41301, "超时处理失败"),
+
+    FLOWABLE_ENGINE_ERROR(50001, "Flowable引擎错误"),
+    DATABASE_ERROR(50002, "数据库错误"),
+    CACHE_ERROR(50003, "缓存错误");
+
+    private final Integer code;
+    private final String message;
+
+    WorkflowErrorCode(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
